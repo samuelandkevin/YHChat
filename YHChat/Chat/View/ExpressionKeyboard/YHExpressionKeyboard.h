@@ -28,8 +28,9 @@
 
 @property (nonatomic, assign) int maxNumberOfRowsToShow;//最大显示行
 
+
 //初始化
-- (instancetype)initWithViewController:(UIViewController <YHExpressionKeyboardDelegate>*)viewController;
+- (instancetype)initWithViewController:(UIViewController <YHExpressionKeyboardDelegate>*)viewController aboveView:(UIView *)aboveView;
 
 //结束编辑
 - (void)endEditing;

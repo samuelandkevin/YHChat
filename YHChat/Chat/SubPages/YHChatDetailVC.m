@@ -136,8 +136,7 @@
     self.view.backgroundColor = RGBCOLOR(239, 236, 236);
     
     //tableview
-    self.tableView = [[YHRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
-                                                                          , SCREEN_HEIGHT-64-46) style:UITableViewStylePlain];
+    self.tableView = [[YHRefreshTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -148,7 +147,7 @@
 
     
     //表情键盘
-    YHExpressionKeyboard *keyboard = [[YHExpressionKeyboard alloc] initWithViewController:self];
+    YHExpressionKeyboard *keyboard = [[YHExpressionKeyboard alloc] initWithViewController:self aboveView:self.tableView];
     _keyboard = keyboard;
 
 }

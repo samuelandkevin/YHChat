@@ -13,7 +13,7 @@
 #import "YHExpressionInputView.h"
 #import "YHExpressionAddView.h"
 
-
+#define kNaviBarH       64   //导航栏高度
 #define kTopToolbarH    46   //顶部工具栏高度
 #define kToolbarBtnH    35   //顶部工具栏的按钮高度
 #define kBotContainerH  216  //底部表情高度
@@ -123,6 +123,7 @@
 //表情键盘被添加到的VC 和 父视图
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, weak) UIView  *superView;
+@property (nonatomic, weak) UIView  *aboveView;
 
 //TopToolBar
 @property (nonatomic, strong) UIView *topToolBar;
@@ -164,7 +165,7 @@
 }
 
 #pragma mark - Public
-- (instancetype)initWithViewController:(UIViewController <YHExpressionKeyboardDelegate>*)viewController{
+- (instancetype)initWithViewController:(UIViewController <YHExpressionKeyboardDelegate>*)viewController aboveView:(UIView *)aboveView{
     if (self = [super init]) {
         //保存VC和父视图
         self.viewController = viewController;
@@ -172,8 +173,22 @@
         self.superView = self.viewController.view;
         [self.superView addSubview:self];
         
-        //表情键盘在父视图的位置
+        //表情键盘上方的视图
         WeakSelf
+        if(aboveView){
+            _aboveView = aboveView;
+            if (![self.superView.subviews containsObject:_aboveView]) {
+                [self.superView addSubview:_aboveView];
+            }
+            [_aboveView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(weakSelf.topToolBar.mas_top);
+                make.left.right.equalTo(weakSelf.superView);
+                make.height.mas_equalTo(SCREEN_HEIGHT-kTopToolbarH-kNaviBarH);
+            }];
+        }
+        
+        
+        //表情键盘在父视图的位置
         [self mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.bottom.equalTo(weakSelf.superView).offset(kBotContainerH);
