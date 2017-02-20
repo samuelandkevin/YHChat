@@ -39,6 +39,7 @@
 - (void)setupUI{
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.contentView.backgroundColor = RGBCOLOR(239, 236, 236);
     
     _lbTime = [UILabel new];
     _lbTime.textColor = [UIColor whiteColor];

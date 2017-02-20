@@ -107,7 +107,7 @@
  
     
     //消息内容
-    CGFloat qlength = arc4random() % totalCount;
+    CGFloat qlength = arc4random() % totalCount+1;
     NSMutableString *qStr = [[NSMutableString alloc] init];
     for (NSUInteger i = 0; i < qlength; ++i) {
         [qStr appendString:@"消息内容很长，消息内容很长."];
@@ -133,6 +133,7 @@
     
     self.title = @"聊天详情";
     self.navigationController.navigationBar.translucent = NO;
+    self.view.backgroundColor = RGBCOLOR(239, 236, 236);
     
     //tableview
     self.tableView = [[YHRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
@@ -140,7 +141,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    self.tableView.backgroundColor = RGBCOLOR(244, 244, 244);
+    self.tableView.backgroundColor = RGBCOLOR(239, 236, 236);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[CellChatTextLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatTextLeft class])];
     [self.tableView registerClass:[CellChatTextRight class] forCellReuseIdentifier:NSStringFromClass([CellChatTextRight class])];
