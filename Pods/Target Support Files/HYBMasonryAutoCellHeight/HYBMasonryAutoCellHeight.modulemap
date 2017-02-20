@@ -1,0 +1,6 @@
+framework module HYBMasonryAutoCellHeight {
+  umbrella header "HYBMasonryAutoCellHeight-umbrella.h"
+
+  export *
+  module * { export * }
+}
