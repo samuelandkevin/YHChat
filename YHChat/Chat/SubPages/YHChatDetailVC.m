@@ -166,7 +166,7 @@
 
 
 #pragma mark - @protocol UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [_keyboard endEditing];
 }
 

@@ -50,10 +50,6 @@
     self.text = maStr;
 }
 
-//- (BOOL)subStringIsEmotion{
-//    
-//}
-
 
 - (void)deleteEmoticon{
     
@@ -165,7 +161,7 @@
 }
 
 #pragma mark - Public
-- (instancetype)initWithViewController:(UIViewController <YHExpressionKeyboardDelegate>*)viewController aboveView:(UIView *)aboveView{
+- (instancetype)initWithViewController:( UIViewController <YHExpressionKeyboardDelegate>*)viewController aboveView:(UIView *)aboveView{
     if (self = [super init]) {
         //保存VC和父视图
         self.viewController = viewController;
@@ -173,22 +169,24 @@
         self.superView = self.viewController.view;
         [self.superView addSubview:self];
         
-        //表情键盘上方的视图
+        //在viewController中,表情键盘上方的视图(aboveView)
         WeakSelf
         if(aboveView){
             _aboveView = aboveView;
             if (![self.superView.subviews containsObject:_aboveView]) {
                 [self.superView addSubview:_aboveView];
             }
+            
             [_aboveView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.equalTo(weakSelf.topToolBar.mas_top);
                 make.left.right.equalTo(weakSelf.superView);
                 make.height.mas_equalTo(SCREEN_HEIGHT-kTopToolbarH-kNaviBarH);
             }];
+            
         }
         
         
-        //表情键盘在父视图的位置
+        //在viewController中,表情键盘在父视图的位置
         [self mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.bottom.equalTo(weakSelf.superView).offset(kBotContainerH);
@@ -200,6 +198,7 @@
     return self;
 }
 
+//结束编辑
 - (void)endEditing{
 
     _toolbarButtonTap = NO;
@@ -418,12 +417,28 @@
 }
 
 
+- (void)_aboveViewScollToBottom{
+    if (_aboveView && [_aboveView isKindOfClass:[UIScrollView class]]) {
+        UIScrollView *scr = (UIScrollView *) _aboveView;
+        [self _scrollToBottom:scr];
+        
+    }
+}
+
+- (void)_scrollToBottom:(UIScrollView *)scrollView{
+    CGPoint off = scrollView.contentOffset;
+    off.y = scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.contentInset.bottom;
+    [scrollView setContentOffset:off animated:YES];
+}
+
+
 #pragma mark - UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     for (UIButton *b in _toolbarButtonArr) {
         b.selected = NO;
         [self _setupBtnImage:b];
     }
+    [self _aboveViewScollToBottom];
     return YES;
 }
 
@@ -582,9 +597,15 @@
     [self _setupBtnImage:button];
     
     
+    //隐藏按住说话按钮
     if (button.selected && button != _toolbarVioceButton) {
         
         [self _hiddenPressToSpeakButton];
+    }
+    
+    //aboveView滚到底部
+    if(button != _toolbarVioceButton){
+        [self _aboveViewScollToBottom];
     }
     
     

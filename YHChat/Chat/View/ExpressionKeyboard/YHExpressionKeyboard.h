@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#pragma mark - @protocol YHExpressionKeyboardDelegate
 @class YHExpressionKeyboard;
 @protocol YHExpressionKeyboardDelegate <NSObject>
 
@@ -23,16 +24,26 @@
 @end
 
 
-@interface YHExpressionKeyboard : UIView
+#pragma mark - YHExpressionKeyboard
 
+@interface YHExpressionKeyboard : UIView
 
 @property (nonatomic, assign) int maxNumberOfRowsToShow;//最大显示行
 
 
-//初始化
-- (instancetype)initWithViewController:(UIViewController <YHExpressionKeyboardDelegate>*)viewController aboveView:(UIView *)aboveView;
+/**
+ 初始化方式
 
-//结束编辑
+ @param viewController YHExpressionKeyboard所在的控制器
+ @param aboveView 在viewController的view中,位于YHExpressionKeyboard上方的视图,（用于设置aboveView的滚动）
+ @return YHExpressionKeyboard
+ */
+- (instancetype)initWithViewController:( UIViewController <YHExpressionKeyboardDelegate>*)viewController aboveView:( UIView *)aboveView;
+
+
+/**
+ 结束编辑
+ */
 - (void)endEditing;
 
 @end
