@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		03DB9DF6E1153619FD425E99 /* Pods_YHChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1294DEB7AE82B5279ABB24 /* Pods_YHChat.framework */; };
+		AC2967C61E5BE0A5000856F8 /* CellChatList.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C11E5BE0A5000856F8 /* CellChatList.m */; };
+		AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C31E5BE0A5000856F8 /* CellChatTextLeft.m */; };
+		AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */; };
+		AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967D01E5C4340000856F8 /* HHUtils.m */; };
+		AC2967D51E5C438B000856F8 /* NSDate+LYXCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967D41E5C438B000856F8 /* NSDate+LYXCategory.m */; };
 		AC4446BB1E568E5D00685571 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BA1E568E5D00685571 /* main.m */; };
 		AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BD1E568E5D00685571 /* AppDelegate.m */; };
 		AC4446C41E568E5D00685571 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC4446C21E568E5D00685571 /* Main.storyboard */; };
@@ -17,9 +22,6 @@
 		AC4446DC1E56992C00685571 /* YHChatDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446DB1E56992C00685571 /* YHChatDetailVC.m */; };
 		AC4446DE1E5699A200685571 /* ExpressionKeyboard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC4446DD1E5699A200685571 /* ExpressionKeyboard.bundle */; };
 		AC4446F21E569A5600685571 /* YHChatListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446F11E569A5600685571 /* YHChatListVC.m */; };
-		AC4446F61E569ECA00685571 /* CellChatTextLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446F51E569ECA00685571 /* CellChatTextLeft.m */; };
-		AC4446F91E569EE300685571 /* CellChatTextRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446F81E569EE300685571 /* CellChatTextRight.m */; };
-		AC61F83E1E5AE07800AF48B5 /* CellChatList.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F83D1E5AE07800AF48B5 /* CellChatList.m */; };
 		AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8421E5AEE7F00AF48B5 /* YHModel.m */; };
 		AC61F84C1E5AEE7F00AF48B5 /* YHExpressionAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8441E5AEE7F00AF48B5 /* YHExpressionAddView.m */; };
 		AC61F84D1E5AEE7F00AF48B5 /* YHExpressionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8461E5AEE7F00AF48B5 /* YHExpressionHelper.m */; };
@@ -37,6 +39,16 @@
 		2EB0B0CF0EC5B60F2CBE1C61 /* Pods-YHChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YHChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YHChat/Pods-YHChat.debug.xcconfig"; sourceTree = "<group>"; };
 		4EA88F2431203C5A9749AB4E /* Pods-YHChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YHChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-YHChat/Pods-YHChat.release.xcconfig"; sourceTree = "<group>"; };
 		9C1294DEB7AE82B5279ABB24 /* Pods_YHChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YHChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC2967C01E5BE0A5000856F8 /* CellChatList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatList.h; sourceTree = "<group>"; };
+		AC2967C11E5BE0A5000856F8 /* CellChatList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatList.m; sourceTree = "<group>"; };
+		AC2967C21E5BE0A5000856F8 /* CellChatTextLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatTextLeft.h; sourceTree = "<group>"; };
+		AC2967C31E5BE0A5000856F8 /* CellChatTextLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatTextLeft.m; sourceTree = "<group>"; };
+		AC2967C41E5BE0A5000856F8 /* CellChatTextRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatTextRight.h; sourceTree = "<group>"; };
+		AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatTextRight.m; sourceTree = "<group>"; };
+		AC2967CF1E5C4340000856F8 /* HHUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHUtils.h; sourceTree = "<group>"; };
+		AC2967D01E5C4340000856F8 /* HHUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHUtils.m; sourceTree = "<group>"; };
+		AC2967D31E5C438B000856F8 /* NSDate+LYXCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LYXCategory.h"; sourceTree = "<group>"; };
+		AC2967D41E5C438B000856F8 /* NSDate+LYXCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+LYXCategory.m"; sourceTree = "<group>"; };
 		AC4446B61E568E5D00685571 /* YHChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YHChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4446BA1E568E5D00685571 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AC4446BC1E568E5D00685571 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,12 +65,6 @@
 		AC4446F01E569A5600685571 /* YHChatListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatListVC.h; sourceTree = "<group>"; };
 		AC4446F11E569A5600685571 /* YHChatListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatListVC.m; sourceTree = "<group>"; };
 		AC4446F31E569B3900685571 /* YHChat-PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YHChat-PrefixHeader.pch"; sourceTree = "<group>"; };
-		AC4446F41E569ECA00685571 /* CellChatTextLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatTextLeft.h; sourceTree = "<group>"; };
-		AC4446F51E569ECA00685571 /* CellChatTextLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatTextLeft.m; sourceTree = "<group>"; };
-		AC4446F71E569EE300685571 /* CellChatTextRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatTextRight.h; sourceTree = "<group>"; };
-		AC4446F81E569EE300685571 /* CellChatTextRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatTextRight.m; sourceTree = "<group>"; };
-		AC61F83C1E5AE07800AF48B5 /* CellChatList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatList.h; sourceTree = "<group>"; };
-		AC61F83D1E5AE07800AF48B5 /* CellChatList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatList.m; sourceTree = "<group>"; };
 		AC61F8411E5AEE7F00AF48B5 /* YHModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHModel.h; sourceTree = "<group>"; };
 		AC61F8421E5AEE7F00AF48B5 /* YHModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHModel.m; sourceTree = "<group>"; };
 		AC61F8431E5AEE7F00AF48B5 /* YHExpressionAddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHExpressionAddView.h; sourceTree = "<group>"; };
@@ -113,6 +119,37 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AC2967BF1E5BE0A5000856F8 /* ChatCell */ = {
+			isa = PBXGroup;
+			children = (
+				AC2967C01E5BE0A5000856F8 /* CellChatList.h */,
+				AC2967C11E5BE0A5000856F8 /* CellChatList.m */,
+				AC2967C21E5BE0A5000856F8 /* CellChatTextLeft.h */,
+				AC2967C31E5BE0A5000856F8 /* CellChatTextLeft.m */,
+				AC2967C41E5BE0A5000856F8 /* CellChatTextRight.h */,
+				AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */,
+			);
+			path = ChatCell;
+			sourceTree = "<group>";
+		};
+		AC2967CB1E5C4273000856F8 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AC2967CF1E5C4340000856F8 /* HHUtils.h */,
+				AC2967D01E5C4340000856F8 /* HHUtils.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		AC2967D21E5C438B000856F8 /* Catagory */ = {
+			isa = PBXGroup;
+			children = (
+				AC2967D31E5C438B000856F8 /* NSDate+LYXCategory.h */,
+				AC2967D41E5C438B000856F8 /* NSDate+LYXCategory.m */,
+			);
+			path = Catagory;
+			sourceTree = "<group>";
+		};
 		AC4446AD1E568E5D00685571 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +171,7 @@
 		AC4446B81E568E5D00685571 /* YHChat */ = {
 			isa = PBXGroup;
 			children = (
+				AC2967CB1E5C4273000856F8 /* Tools */,
 				AC4446D41E56977B00685571 /* Common */,
 				AC4446D01E56970E00685571 /* Chat */,
 				AC4446BC1E568E5D00685571 /* AppDelegate.h */,
@@ -198,13 +236,8 @@
 		AC4446D31E56970E00685571 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC2967BF1E5BE0A5000856F8 /* ChatCell */,
 				AC61F83F1E5AEE7F00AF48B5 /* ExpressionKeyboard */,
-				AC4446F41E569ECA00685571 /* CellChatTextLeft.h */,
-				AC4446F51E569ECA00685571 /* CellChatTextLeft.m */,
-				AC4446F71E569EE300685571 /* CellChatTextRight.h */,
-				AC4446F81E569EE300685571 /* CellChatTextRight.m */,
-				AC61F83C1E5AE07800AF48B5 /* CellChatList.h */,
-				AC61F83D1E5AE07800AF48B5 /* CellChatList.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -212,6 +245,7 @@
 		AC4446D41E56977B00685571 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AC2967D21E5C438B000856F8 /* Catagory */,
 				AC4446D51E56977B00685571 /* View */,
 			);
 			path = Common;
@@ -385,20 +419,22 @@
 				AC61F8521E5AEF1F00AF48B5 /* YHChatModel.m in Sources */,
 				AC61F84D1E5AEE7F00AF48B5 /* YHExpressionHelper.m in Sources */,
 				AC61F84C1E5AEE7F00AF48B5 /* YHExpressionAddView.m in Sources */,
-				AC61F83E1E5AE07800AF48B5 /* CellChatList.m in Sources */,
+				AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */,
 				BCF3E9A41E59E34C00FA30A2 /* YHUserInfo.m in Sources */,
-				AC4446F91E569EE300685571 /* CellChatTextRight.m in Sources */,
 				AC4446DC1E56992C00685571 /* YHChatDetailVC.m in Sources */,
+				AC2967C61E5BE0A5000856F8 /* CellChatList.m in Sources */,
 				BCF3E9AB1E59E37800FA30A2 /* YHWorkExperienceModel.m in Sources */,
 				AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */,
 				AC4446D81E56978900685571 /* YHRefreshTableView.m in Sources */,
+				AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */,
 				AC4446BB1E568E5D00685571 /* main.m in Sources */,
 				BCF3E9A51E59E34C00FA30A2 /* YHUserSetting.m in Sources */,
 				AC4446F21E569A5600685571 /* YHChatListVC.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
-				AC4446F61E569ECA00685571 /* CellChatTextLeft.m in Sources */,
 				AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */,
+				AC2967D51E5C438B000856F8 /* NSDate+LYXCategory.m in Sources */,
 				AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */,
+				AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */,
 				BCF3E9AA1E59E37800FA30A2 /* YHEducationExperienceModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@
 
 @optional
 - (void)tapRightAvatar:(YHUserInfo *)userInfo;
-
+- (void)tapSendMsgFailImg;//点击发送失败图标
 @end
 
 @class YHChatModel;

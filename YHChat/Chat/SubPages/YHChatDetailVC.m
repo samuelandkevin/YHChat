@@ -14,7 +14,7 @@
 #import "YHChatModel.h"
 #import "YHExpressionKeyboard.h"
 #import "YHUserInfo.h"
-
+#import "HHUtils.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate>{
     
@@ -162,6 +162,15 @@
 #pragma mark - @protocol CellChatRightDelegate
 - (void)tapRightAvatar:(YHUserInfo *)userInfo{
     NSLog(@"点击右边头像");
+}
+
+- (void)tapSendMsgFailImg{
+    DDLog(@"重发改消息?");
+    [HHUtils showAlertWithTitle:@"重发改消息?" message:nil okTitle:@"取消" cancelTitle:@"重发" inViewController:self dismiss:^(BOOL resultYes) {
+        if (!resultYes) {
+            DDLog(@"点击重发");
+        }
+    }];
 }
 
 

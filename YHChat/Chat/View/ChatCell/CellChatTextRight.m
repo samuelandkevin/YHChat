@@ -18,7 +18,8 @@
 @property (nonatomic,strong) UIImageView *imgvAvatar;
 @property (nonatomic,strong) UIImageView *imgvBubble;
 @property (nonatomic,strong) UILabel *lbContent;
-
+@property (nonatomic,strong) UIActivityIndicatorView *activityV;
+@property (nonatomic,strong) UIImageView *imgvSendMsgFail;
 @end
 
 
@@ -77,6 +78,16 @@
     _lbContent.font = [UIFont systemFontOfSize:14.0];
     [self.contentView addSubview:_lbContent];
     
+    
+    _activityV = [UIActivityIndicatorView new];
+    [self.contentView addSubview:_activityV];
+    
+    _imgvSendMsgFail = [UIImageView new];
+    _imgvSendMsgFail.userInteractionEnabled = YES;
+    [_imgvSendMsgFail addGestureRecognizer:[[UIGestureRecognizer alloc] initWithTarget:self action:@selector(onImgSendMsgFailGesture:)]];
+    _imgvSendMsgFail.image = [UIImage imageNamed:@"button_retry_comment"];
+    [self.contentView addSubview:_imgvSendMsgFail];
+    
     [self layoutUI];
 }
 
@@ -108,6 +119,12 @@
         make.width.mas_lessThanOrEqualTo(SCREEN_WIDTH - 133);
     }];
     
+    [_imgvSendMsgFail mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.imgvBubble.mas_centerY);
+        make.right.equalTo(weakSelf.imgvBubble.mas_left).offset(-5);
+        make.width.height.mas_equalTo(20);
+    }];
+    
     self.hyb_lastViewInCell = _imgvBubble;
     self.hyb_bottomOffsetToCell = 5;
 }
@@ -117,6 +134,14 @@
     if (aRec.state == UIGestureRecognizerStateEnded) {
         if (_delegate && [_delegate respondsToSelector:@selector(tapRightAvatar:)]) {
             [_delegate tapRightAvatar:nil];
+        }
+    }
+}
+
+- (void)onImgSendMsgFailGesture:(UIGestureRecognizer *)aRec{
+    if (aRec.state == UIGestureRecognizerStateEnded) {
+        if(_delegate && [_delegate respondsToSelector:@selector(tapSendMsgFailImg)]){
+            [_delegate tapSendMsgFailImg];
         }
     }
 }
