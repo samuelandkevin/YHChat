@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "YHChatServiceDefs.h"
 
 #pragma mark - 聊天记录Model
 @interface YHChatModel : NSObject
@@ -27,8 +28,12 @@
 @property (nonatomic,copy) NSString *speakerId;    //发布者Id
 @property (nonatomic,assign) BOOL isRead;          //是否已读
 @property (nonatomic,assign) int timestamp;        //时间戳
-@property (nonatomic,assign) int msgType;          //消息类型（语音、文字、图片）
+@property (nonatomic,assign) int msgType;          //消息类型（语音、文字、图片）  // 0是文本 1是图片 2是语音 3是文件
 @property (nonatomic,assign) int direction;
+
+/*****自定义,以后可能并入服务器****/
+@property (nonatomic,assign) YHMessageDeliveryState deliveryState;//消息发送状态
+
 
 /******以下非服务器返回字段******/
 @property (nonatomic,assign) CGSize imageSize;

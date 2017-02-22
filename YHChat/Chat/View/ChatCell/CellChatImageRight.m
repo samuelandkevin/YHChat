@@ -1,31 +1,31 @@
 //
-//  CellChatRight.m
+//  CellChatImageRight.m
 //  YHChat
 //
-//  Created by YHIOS002 on 17/2/17.
+//  Created by YHIOS002 on 17/2/22.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
-#import "CellChatTextRight.h"
+#import "CellChatImageRight.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry/Masonry.h>
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
 
-@interface CellChatTextRight()
+@interface CellChatImageRight()
 
 @property (nonatomic,strong) UILabel *lbTime;
 @property (nonatomic,strong) UIImageView *imgvAvatar;
 @property (nonatomic,strong) UIImageView *imgvBubble;
-@property (nonatomic,strong) UILabel *lbContent;
+@property (nonatomic,strong) UIImageView *imgvContent;
 @property (nonatomic,strong) UIActivityIndicatorView *activityV;
 @property (nonatomic,strong) UIImageView *imgvSendMsgFail;
-@end
 
+@end
 
 #define AvatarWidth 44 //头像宽/高
 
-@implementation CellChatTextRight
+@implementation CellChatImageRight
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -68,15 +68,9 @@
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     
-    _lbContent = [UILabel new];
-    _lbContent.numberOfLines = 0;
-    
-    //-5-AvatarWidth-10-15-5-10-AvatarWidth
-    _lbContent.preferredMaxLayoutWidth = SCREEN_WIDTH - 133;
-    _lbContent.textColor = [UIColor blackColor];
-    _lbContent.textAlignment = NSTextAlignmentLeft;
-    _lbContent.font = [UIFont systemFontOfSize:14.0];
-    [self.contentView addSubview:_lbContent];
+    _imgvContent = [UIImageView new];
+    _imgvContent.image = [UIImage imageNamed:@"chat_img_defaultPhoto"];
+    [self.contentView addSubview:_imgvContent];
     
     
     _activityV = [UIActivityIndicatorView new];
@@ -108,17 +102,15 @@
     }];
     
     [_imgvBubble mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.lbContent.mas_left).offset(-5);
+        make.left.equalTo(weakSelf.imgvContent.mas_left).offset(-5);
         make.top.equalTo(weakSelf.imgvAvatar.mas_top);
         make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-10);
     }];
     
-
-    [_lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.imgvBubble.mas_top).offset(5);
-        make.right.equalTo(weakSelf.imgvBubble.mas_right).offset(-15);
-        make.bottom.equalTo(weakSelf.imgvBubble.mas_bottom).offset(-5);
-        make.width.mas_lessThanOrEqualTo(SCREEN_WIDTH - 133);
+    
+    [_imgvContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.imgvAvatar.mas_top).offset(5);
+        make.width.height.mas_equalTo(113);
     }];
     
     [_activityV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -139,25 +131,25 @@
 
 #pragma mark - Gesture
 - (void)onAvatarGesture:(UIGestureRecognizer *)aRec{
-    if (aRec.state == UIGestureRecognizerStateEnded) {
-        if (_delegate && [_delegate respondsToSelector:@selector(tapRightAvatar:)]) {
-            [_delegate tapRightAvatar:nil];
-        }
-    }
+//    if (aRec.state == UIGestureRecognizerStateEnded) {
+//        if (_delegate && [_delegate respondsToSelector:@selector(tapRightAvatar:)]) {
+//            [_delegate tapRightAvatar:nil];
+//        }
+//    }
 }
 
 - (void)onImgSendMsgFailGesture:(UIGestureRecognizer *)aRec{
-    if (aRec.state == UIGestureRecognizerStateEnded) {
-        if(_delegate && [_delegate respondsToSelector:@selector(tapSendMsgFailImg)]){
-            [_delegate tapSendMsgFailImg];
-        }
-    }
+//    if (aRec.state == UIGestureRecognizerStateEnded) {
+//        if(_delegate && [_delegate respondsToSelector:@selector(tapSendMsgFailImg)]){
+//            [_delegate tapSendMsgFailImg];
+//        }
+//    }
 }
 
 #pragma mark - Public
 - (void)setModel:(YHChatModel *)model{
     _model = model;
-    _lbContent.text = _model.msgContent;
+
     _lbTime.text    = _model.createTime;
     [_imgvAvatar sd_setImageWithURL:_model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
 }
@@ -166,8 +158,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
+
 
 @end

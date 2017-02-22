@@ -24,6 +24,50 @@
     self.navigationController.navigationBar.translucent = NO;
     [self initUI];
     
+
+    
+}
+
+- (UIBezierPath *)pathWithSize:(CGSize)imageSize{
+ 
+    CGFloat arrowWidth = 6;
+    CGFloat marginTop = 13;
+    CGFloat arrowHeight = 10;
+    CGFloat imageW = imageSize.width;
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, imageSize.width - arrowWidth, imageSize.height) cornerRadius:6];
+    [path moveToPoint:CGPointMake(imageW - arrowWidth, 0)];
+    [path addLineToPoint:CGPointMake(imageW - arrowWidth, marginTop)];
+    [path addLineToPoint:CGPointMake(imageW, marginTop + 0.5 * arrowHeight)];
+    [path addLineToPoint:CGPointMake(imageW - arrowWidth, marginTop + arrowHeight)];
+    [path closePath];
+    return path;
+}
+
+- (UIImage *)simpleImage:(UIImage *)oriImage{
+
+    CGSize  imageSize = [self handleImage:oriImage.size];//处理后的图片大小
+    UIGraphicsBeginImageContextWithOptions(imageSize, YES, 0);
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    UIBezierPath *bPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, imageSize.width, imageSize.height) cornerRadius:6];
+    CGContextAddPath(contextRef, bPath.CGPath);
+    CGContextClip(contextRef);
+    [oriImage drawInRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+    UIImage *clipedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return clipedImage;
+}
+
+- (CGSize)handleImage:(CGSize)retSize {
+    CGFloat width = 0;
+    CGFloat height = 0;
+    if (retSize.width > retSize.height) {
+        width = SCREEN_WIDTH;
+        height = retSize.height / retSize.width * width;
+    } else {
+        height = SCREEN_HEIGHT;
+        width = retSize.width / retSize.height * height;
+    }
+    return CGSizeMake(width, height);
 }
 
 - (void)initUI{

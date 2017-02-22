@@ -28,6 +28,9 @@
 		AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8481E5AEE7F00AF48B5 /* YHExpressionInputView.m */; };
 		AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F84A1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m */; };
 		AC61F8521E5AEF1F00AF48B5 /* YHChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8511E5AEF1F00AF48B5 /* YHChatModel.m */; };
+		ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF8047C1E5D264800B27336 /* YHChatHelper.m */; };
+		ACF804841E5D3C9700B27336 /* CellChatImageLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804831E5D3C9700B27336 /* CellChatImageLeft.m */; };
+		ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804861E5D3CC500B27336 /* CellChatImageRight.m */; };
 		BCF3E9A41E59E34C00FA30A2 /* YHUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF3E9A11E59E34C00FA30A2 /* YHUserInfo.m */; };
 		BCF3E9A51E59E34C00FA30A2 /* YHUserSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF3E9A31E59E34C00FA30A2 /* YHUserSetting.m */; };
 		BCF3E9AA1E59E37800FA30A2 /* YHEducationExperienceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF3E9A71E59E37800FA30A2 /* YHEducationExperienceModel.m */; };
@@ -77,6 +80,14 @@
 		AC61F84A1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHExpressionKeyboard.m; sourceTree = "<group>"; };
 		AC61F8501E5AEF1F00AF48B5 /* YHChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatModel.h; sourceTree = "<group>"; };
 		AC61F8511E5AEF1F00AF48B5 /* YHChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatModel.m; sourceTree = "<group>"; };
+		ACF804791E5D186200B27336 /* YHChatServiceDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatServiceDefs.h; sourceTree = "<group>"; };
+		ACF8047B1E5D264800B27336 /* YHChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatHelper.h; sourceTree = "<group>"; };
+		ACF8047C1E5D264800B27336 /* YHChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatHelper.m; sourceTree = "<group>"; };
+		ACF8047E1E5D2D5F00B27336 /* YHChatHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatHeader.h; sourceTree = "<group>"; };
+		ACF804821E5D3C9700B27336 /* CellChatImageLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatImageLeft.h; sourceTree = "<group>"; };
+		ACF804831E5D3C9700B27336 /* CellChatImageLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatImageLeft.m; sourceTree = "<group>"; };
+		ACF804851E5D3CC500B27336 /* CellChatImageRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatImageRight.h; sourceTree = "<group>"; };
+		ACF804861E5D3CC500B27336 /* CellChatImageRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatImageRight.m; sourceTree = "<group>"; };
 		BCF3E9A01E59E34C00FA30A2 /* YHUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHUserInfo.h; sourceTree = "<group>"; };
 		BCF3E9A11E59E34C00FA30A2 /* YHUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHUserInfo.m; sourceTree = "<group>"; };
 		BCF3E9A21E59E34C00FA30A2 /* YHUserSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHUserSetting.h; sourceTree = "<group>"; };
@@ -128,6 +139,10 @@
 				AC2967C31E5BE0A5000856F8 /* CellChatTextLeft.m */,
 				AC2967C41E5BE0A5000856F8 /* CellChatTextRight.h */,
 				AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */,
+				ACF804821E5D3C9700B27336 /* CellChatImageLeft.h */,
+				ACF804831E5D3C9700B27336 /* CellChatImageLeft.m */,
+				ACF804851E5D3CC500B27336 /* CellChatImageRight.h */,
+				ACF804861E5D3CC500B27336 /* CellChatImageRight.m */,
 			);
 			path = ChatCell;
 			sourceTree = "<group>";
@@ -198,6 +213,8 @@
 		AC4446D01E56970E00685571 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				ACF8047A1E5D263600B27336 /* Tools */,
+				ACF804781E5D183400B27336 /* Config */,
 				AC4446D11E56970E00685571 /* SubPages */,
 				AC4446D21E56970E00685571 /* Model */,
 				AC4446D31E56970E00685571 /* View */,
@@ -291,6 +308,24 @@
 				AC61F8421E5AEE7F00AF48B5 /* YHModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		ACF804781E5D183400B27336 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				ACF804791E5D186200B27336 /* YHChatServiceDefs.h */,
+				ACF8047E1E5D2D5F00B27336 /* YHChatHeader.h */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		ACF8047A1E5D263600B27336 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				ACF8047B1E5D264800B27336 /* YHChatHelper.h */,
+				ACF8047C1E5D264800B27336 /* YHChatHelper.m */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,6 +460,7 @@
 				AC2967C61E5BE0A5000856F8 /* CellChatList.m in Sources */,
 				BCF3E9AB1E59E37800FA30A2 /* YHWorkExperienceModel.m in Sources */,
 				AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */,
+				ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */,
 				AC4446D81E56978900685571 /* YHRefreshTableView.m in Sources */,
 				AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */,
 				AC4446BB1E568E5D00685571 /* main.m in Sources */,
@@ -434,7 +470,9 @@
 				AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */,
 				AC2967D51E5C438B000856F8 /* NSDate+LYXCategory.m in Sources */,
 				AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */,
+				ACF804841E5D3C9700B27336 /* CellChatImageLeft.m in Sources */,
 				AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */,
+				ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */,
 				BCF3E9AA1E59E37800FA30A2 /* YHEducationExperienceModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

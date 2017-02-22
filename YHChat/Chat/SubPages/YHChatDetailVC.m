@@ -8,13 +8,13 @@
 
 #import "YHChatDetailVC.h"
 #import "YHRefreshTableView.h"
-#import "CellChatTextLeft.h"
-#import "CellChatTextRight.h"
+#import "YHChatHeader.h"
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
 #import "YHChatModel.h"
 #import "YHExpressionKeyboard.h"
 #import "YHUserInfo.h"
 #import "HHUtils.h"
+#import "YHChatHeader.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate>{
     
@@ -35,11 +35,7 @@
     
     
     //模拟数据源
-    for (int i=0; i<10; i++) {
-        YHChatModel *model = [YHChatModel new];
-        [self randomModel:model totalCount:2];
-        [self.dataArray addObject:model];
-    }
+    [self.dataArray addObjectsFromArray:[YHChatHelper randomGenerateChatModel:10]];
 
     if (self.dataArray.count) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -47,77 +43,6 @@
         });
 
     }
-    
-}
-
-
-#pragma mark - 模拟产生数据源
-- (void)randomModel:(YHChatModel *)model totalCount:(int)totalCount{
-    
-    [self creatChatModel:model totalCount:totalCount];
-    
-}
-
-- (void)creatChatModel:(YHChatModel *)model totalCount:(int)totalCount{
-   
-    //用户ID
-    NSArray *uidArr = @[@"1",@"2",@"3",@"4"];
-    int nUidLength  = arc4random() % uidArr.count;
-    model.speakerId = uidArr[nUidLength];
-    if ([model.speakerId isEqualToString:MYUID]) {
-        model.direction = 0;
-    }else{
-        model.direction = 1;
-    }
-
-    //发言者头像
-    NSArray *avtarArray = @[
-                            @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
-                            @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
-                            @"https://testapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
-                            @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
-                            @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
-    int avtarIndex = arc4random() % avtarArray.count;
-    if (avtarIndex < avtarArray.count) {
-        
-        if ([model.speakerId isEqualToString:MYUID]) {
-            model.speakerAvatar = [NSURL URLWithString:@"http://testapp.gtax.cn/images/2016/11/05/812eb442b6a645a99be476d139174d3c.png!m90x90.png"];
-        }else{
-            model.speakerAvatar = [NSURL URLWithString:avtarArray[avtarIndex]];
-        }
-
-    }
-    
-    //聊天记录ID
-    CGFloat myIdLength = arc4random() % totalCount;
-    int result = (int)myIdLength % 2;
-    model.chatId = [NSString stringWithFormat:@"%d",result];;
-    
-    //名字
-    CGFloat nLength = arc4random() % 3 + 1;
-    NSMutableString *nStr = [NSMutableString new];
-    for (int i = 0; i < nLength; i++) {
-        [nStr appendString: @"测试名字"];
-    }
-    if ([model.speakerId isEqualToString:MYUID]) {
-        model.speakerName = @"我";
-    }else{
-         model.audienceName = nStr;
-    }
- 
-    
-    //消息内容
-    CGFloat qlength = arc4random() % totalCount+1;
-    NSMutableString *qStr = [[NSMutableString alloc] init];
-    for (NSUInteger i = 0; i < qlength; ++i) {
-        [qStr appendString:@"消息内容很长，消息内容很长."];
-    }
-    model.msgContent = qStr;
-    
-    
-    //发布时间
-    model.createTime = @"2013-04-17";
-    
     
 }
 
@@ -142,14 +67,21 @@
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = RGBCOLOR(239, 236, 236);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableView registerClass:[CellChatTextLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatTextLeft class])];
-    [self.tableView registerClass:[CellChatTextRight class] forCellReuseIdentifier:NSStringFromClass([CellChatTextRight class])];
+   
+    [self _registerCellClass];
 
     
     //表情键盘
     YHExpressionKeyboard *keyboard = [[YHExpressionKeyboard alloc] initWithViewController:self aboveView:self.tableView];
     _keyboard = keyboard;
 
+}
+
+- (void)_registerCellClass{
+    [self.tableView registerClass:[CellChatTextLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatTextLeft class])];
+    [self.tableView registerClass:[CellChatTextRight class] forCellReuseIdentifier:NSStringFromClass([CellChatTextRight class])];
+    [self.tableView registerClass:[CellChatImageLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatImageLeft class])];
+    [self.tableView registerClass:[CellChatImageRight class] forCellReuseIdentifier:NSStringFromClass([CellChatImageRight class])];
 }
 
 
@@ -165,9 +97,9 @@
 }
 
 - (void)tapSendMsgFailImg{
-    DDLog(@"重发改消息?");
-    [HHUtils showAlertWithTitle:@"重发改消息?" message:nil okTitle:@"取消" cancelTitle:@"重发" inViewController:self dismiss:^(BOOL resultYes) {
-        if (!resultYes) {
+    DDLog(@"重发该消息?");
+    [HHUtils showAlertWithTitle:@"重发该消息?" message:nil okTitle:@"重发" cancelTitle:@"取消" inViewController:self dismiss:^(BOOL resultYes) {
+        if (resultYes) {
             DDLog(@"点击重发");
         }
     }];
@@ -191,18 +123,34 @@
     
     if (indexPath.row < self.dataArray.count) {
         YHChatModel *model = self.dataArray[indexPath.row];
-        
-        if (model.direction == 0) {
-            CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
-            cell.delegate = self;
-            cell.model = model;
-            return cell;
+        if (model.msgType == YHMessageType_Image){
+            if (model.direction == 0) {
+                
+                CellChatImageRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageRight class])];
+                cell.model = model;
+                return cell;
+                
+            }else{
+                
+                CellChatImageLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageLeft class])];
+                cell.model = model;
+                return cell;
+            }
+            
         }else{
-            CellChatTextLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextLeft class])];
-            cell.delegate = self;
-            cell.model = model;
-            return cell;
+            if (model.direction == 0) {
+                CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
+                cell.delegate = self;
+                cell.model = model;
+                return cell;
+            }else{
+                CellChatTextLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextLeft class])];
+                cell.delegate = self;
+                cell.model = model;
+                return cell;
+            }
         }
+       
         
     }
     return [[UITableViewCell alloc] init];
@@ -214,16 +162,34 @@
 {
     if (indexPath.row < self.dataArray.count) {
         YHChatModel *model = self.dataArray[indexPath.row];
-        if (model.direction == 0) {
-            return [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                CellChatTextRight *cell = (CellChatTextRight *)sourceCell;
-                cell.model = model;
-            }];
+        if (model.msgType == YHMessageType_Image) {
+            if (model.direction == 0) {
+                
+                return [CellChatImageRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatImageRight *cell = (CellChatImageRight *)sourceCell;
+                    cell.model = model;
+                }];
+                
+            }else{
+                
+                return [CellChatImageLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatImageLeft *cell = (CellChatImageLeft *)sourceCell;
+                    cell.model = model;
+                }];
+            }
+            
         }else{
-            return [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                CellChatTextLeft *cell = (CellChatTextLeft *)sourceCell;
-                cell.model = model;
-            }];
+            if (model.direction == 0) {
+                return [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatTextRight *cell = (CellChatTextRight *)sourceCell;
+                    cell.model = model;
+                }];
+            }else{
+                return [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatTextLeft *cell = (CellChatTextLeft *)sourceCell;
+                    cell.model = model;
+                }];
+            }
         }
         
     }
@@ -242,10 +208,7 @@
 - (void)sendBtnDidTap:(NSString *)text{
     
     if (text.length) {
-        YHChatModel *model = [YHChatModel new];
-        model.speakerId = MYUID;
-        model.speakerAvatar = [NSURL URLWithString:@"http://testapp.gtax.cn/images/2016/11/05/812eb442b6a645a99be476d139174d3c.png!m90x90.png"];
-        model.msgContent = text;
+        YHChatModel *model = [YHChatHelper creatMessage:text msgType:YHMessageType_Text toID:nil];
         [self.dataArray addObject:model];
         
         [self.tableView reloadData];
