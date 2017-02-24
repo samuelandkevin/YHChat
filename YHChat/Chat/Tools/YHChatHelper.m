@@ -78,13 +78,37 @@
     int nMsgTypeLength  = arc4random() % msgTypeArr.count;
     model.msgType = nMsgTypeLength;
 
-    //消息内容
+    //消息内容为文本
     CGFloat qlength = arc4random() % totalCount+1;
     NSMutableString *qStr = [[NSMutableString alloc] init];
     for (NSUInteger i = 0; i < qlength; ++i) {
         [qStr appendString:@"消息内容很长，消息内容很长."];
     }
     model.msgContent = qStr;
+    
+    //消息内容为图片
+    NSArray *imgMsgArr = @[@"img[https://testapp.gtax.cn/images/2016/08/25/2241c4b32b8445da87532d6044888f3d.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/0abd8670e96e4357961fab47ba3a1652.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/5cd8aa1f1b1f4b2db25c51410f473e60.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/5e8b978854ef4a028d284f6ddc7512e0.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/03c58da45900428796fafcb3d77b6fad.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/dbee521788da494683ef336432028d48.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/4cd95742b6744114ac8fa41a72f83257.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/4d49888355a941cab921c9f1ad118721.jpg!t300x300.jpg]",
+                           
+                           @"img[https://testapp.gtax.cn/images/2016/08/25/ea6a22e8b4794b9ba63fd6ee587be4d1.jpg!t300x300.jpg]"];
+    int imglength = arc4random() % imgMsgArr.count;
+    if (model.msgType == 1) {
+        model.msgContent = imgMsgArr[imglength];
+    }
+    
     
     
     //发布时间

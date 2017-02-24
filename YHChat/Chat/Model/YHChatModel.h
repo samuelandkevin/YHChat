@@ -28,7 +28,7 @@
 @property (nonatomic,copy) NSString *speakerId;    //发布者Id
 @property (nonatomic,assign) BOOL isRead;          //是否已读
 @property (nonatomic,assign) int timestamp;        //时间戳
-@property (nonatomic,assign) int msgType;          //消息类型（语音、文字、图片）  // 0是文本 1是图片 2是语音 3是文件
+@property (nonatomic,assign) int msgType;          //消息类型 // 0是文本 1是图片 2是语音 3是文件
 @property (nonatomic,assign) int direction;
 
 /*****自定义,以后可能并入服务器****/

@@ -13,6 +13,7 @@
 		AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */; };
 		AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967D01E5C4340000856F8 /* HHUtils.m */; };
 		AC2967D51E5C438B000856F8 /* NSDate+LYXCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967D41E5C438B000856F8 /* NSDate+LYXCategory.m */; };
+		AC2FBFF31E5FDD28002DDCEF /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2FBFF21E5FDD28002DDCEF /* UIImage+Extension.m */; };
 		AC4446BB1E568E5D00685571 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BA1E568E5D00685571 /* main.m */; };
 		AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BD1E568E5D00685571 /* AppDelegate.m */; };
 		AC4446C41E568E5D00685571 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC4446C21E568E5D00685571 /* Main.storyboard */; };
@@ -52,6 +53,8 @@
 		AC2967D01E5C4340000856F8 /* HHUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHUtils.m; sourceTree = "<group>"; };
 		AC2967D31E5C438B000856F8 /* NSDate+LYXCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LYXCategory.h"; sourceTree = "<group>"; };
 		AC2967D41E5C438B000856F8 /* NSDate+LYXCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+LYXCategory.m"; sourceTree = "<group>"; };
+		AC2FBFF11E5FDD28002DDCEF /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		AC2FBFF21E5FDD28002DDCEF /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		AC4446B61E568E5D00685571 /* YHChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YHChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4446BA1E568E5D00685571 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AC4446BC1E568E5D00685571 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 			children = (
 				AC2967D31E5C438B000856F8 /* NSDate+LYXCategory.h */,
 				AC2967D41E5C438B000856F8 /* NSDate+LYXCategory.m */,
+				AC2FBFF11E5FDD28002DDCEF /* UIImage+Extension.h */,
+				AC2FBFF21E5FDD28002DDCEF /* UIImage+Extension.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				AC4446BB1E568E5D00685571 /* main.m in Sources */,
 				BCF3E9A51E59E34C00FA30A2 /* YHUserSetting.m in Sources */,
 				AC4446F21E569A5600685571 /* YHChatListVC.m in Sources */,
+				AC2FBFF31E5FDD28002DDCEF /* UIImage+Extension.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
 				AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */,
 				AC2967D51E5C438B000856F8 /* NSDate+LYXCategory.m in Sources */,

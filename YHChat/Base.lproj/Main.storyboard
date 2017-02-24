@@ -14,7 +14,7 @@
             <objects>
                 <navigationController id="HEX-al-F8w" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="发现" id="Dki-MT-KqZ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fBn-gr-f3l">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fBn-gr-f3l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.61568627450000002" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -35,6 +35,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在开发中，敬请关注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aqa-AE-MIV">
+                            <rect key="frame" x="0.0" y="72" width="375" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AxX-9f-ZcE">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -61,7 +68,7 @@
             <objects>
                 <navigationController id="O2Q-mf-JWC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="通讯录" id="2UV-oG-rCb"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="H9C-ie-h0E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="H9C-ie-h0E">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.61568627450000002" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -85,7 +92,19 @@
                     <view key="view" contentMode="scaleToFill" id="7UN-VM-Qt4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在开发中，敬请关注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgB-Ie-Ksh">
+                                <rect key="frame" x="0.0" y="64" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JgB-Ie-Ksh" firstAttribute="top" secondItem="1oq-Tv-aw6" secondAttribute="bottom" id="FEN-fs-0qe"/>
+                            <constraint firstItem="JgB-Ie-Ksh" firstAttribute="leading" secondItem="7UN-VM-Qt4" secondAttribute="leading" id="NIr-K5-lCb"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="oJi-yR-Mij"/>
                     <navigationItem key="navigationItem" title="发现" id="XT2-ri-bjJ"/>
@@ -102,9 +121,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在开发中，敬请关注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="czM-CY-cGg">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="D4m-S3-KkS">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="49" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D4m-S3-KkS" id="FHJ-KF-Slk">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -128,7 +154,7 @@
             <objects>
                 <navigationController id="tLe-AR-XjC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我" id="1lQ-D8-cil"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fVM-ne-MXb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fVM-ne-MXb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.61568627450000002" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -146,7 +172,7 @@
             <objects>
                 <navigationController id="Qrf-V1-dtV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="聊天" id="KVo-iu-1zj"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="haD-h9-hRZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="haD-h9-hRZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.10980392160000001" green="0.61568627450000002" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -182,7 +208,6 @@
         <!--聊天-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="YHChatListVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -196,6 +221,7 @@
                     <tabBarItem key="tabBarItem" title="Item" badgeValue="1" id="LIE-sx-yQX"/>
                     <navigationItem key="navigationItem" title="聊天" id="35G-x6-9dq"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="162" y="-1093"/>
         </scene>
