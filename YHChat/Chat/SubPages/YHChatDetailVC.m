@@ -112,7 +112,9 @@
 #pragma mark - @protocol UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [_keyboard endEditing];
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 }
+
 
 #pragma mark - @protocol UITableViewDataSource
 

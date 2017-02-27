@@ -11,11 +11,12 @@
 #import <Masonry/Masonry.h>
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
+#import "YHLinkLabel.h"
 
 @interface CellChatTextRight()
 
 @property (nonatomic,strong) UIImageView *imgvBubble;
-@property (nonatomic,strong) UILabel *lbContent;
+@property (nonatomic,strong) YHLinkLabel *lbContent;
 
 @end
 
@@ -43,7 +44,7 @@
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     
-    _lbContent = [UILabel new];
+    _lbContent = [YHLinkLabel new];
     _lbContent.numberOfLines = 0;
     
     //-5-AvatarWidth-10-15-5-10-AvatarWidth
