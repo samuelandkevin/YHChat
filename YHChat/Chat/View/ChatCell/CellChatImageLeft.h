@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CellChatBase.h"
 
-@class YHChatModel;
-@interface CellChatImageLeft : UITableViewCell
-@property (nonatomic,strong) YHChatModel *model;
+@interface CellChatImageLeft : CellChatBase
+
 @end

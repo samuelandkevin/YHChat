@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CellChatBase.h"
 
 @class YHUserInfo;
 @class CellChatTextLeft;
@@ -18,8 +19,8 @@
 @end
 
 @class YHChatModel;
-@interface CellChatTextLeft : UITableViewCell
+@interface CellChatTextLeft : CellChatBase
 
-@property (nonatomic,strong) YHChatModel *model;
+//@property (nonatomic,strong) YHChatModel *model;
 @property (nonatomic,weak)id<CellChatTextLeftDelegate>delegate;
 @end

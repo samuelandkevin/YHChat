@@ -36,7 +36,7 @@
     
     
     //模拟数据源
-    [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:10]];
+    [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:40]];
 
     if (self.dataArray.count) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -83,6 +83,8 @@
     [self.tableView registerClass:[CellChatTextRight class] forCellReuseIdentifier:NSStringFromClass([CellChatTextRight class])];
     [self.tableView registerClass:[CellChatImageLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatImageLeft class])];
     [self.tableView registerClass:[CellChatImageRight class] forCellReuseIdentifier:NSStringFromClass([CellChatImageRight class])];
+    [self.tableView registerClass:[CellChatVoiceLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
+     [self.tableView registerClass:[CellChatVoiceRight class] forCellReuseIdentifier:NSStringFromClass([CellChatVoiceRight class])];
 }
 
 
@@ -128,13 +130,25 @@
             if (model.direction == 0) {
                 
                 CellChatImageRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageRight class])];
-                cell.model = model;
+                [cell setupModel:model];
                 return cell;
                 
             }else{
                 
                 CellChatImageLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageLeft class])];
-                cell.model = model;
+                [cell setupModel:model];
+                return cell;
+            }
+            
+        }else if (model.msgType == YHMessageType_Voice){
+        
+            if (model.direction == 0) {
+                CellChatVoiceRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceRight class])];
+                [cell setupModel:model];
+                return cell;
+            }else{
+                CellChatVoiceLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
+                [cell setupModel:model];
                 return cell;
             }
             
@@ -142,12 +156,12 @@
             if (model.direction == 0) {
                 CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
                 cell.delegate = self;
-                cell.model = model;
+                [cell setupModel:model];
                 return cell;
             }else{
                 CellChatTextLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextLeft class])];
                 cell.delegate = self;
-                cell.model = model;
+                [cell setupModel:model];
                 return cell;
             }
         }
@@ -168,27 +182,39 @@
                 
                 return [CellChatImageRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatImageRight *cell = (CellChatImageRight *)sourceCell;
-                    cell.model = model;
+                    [cell setupModel:model];
                 }];
                 
             }else{
                 
                 return [CellChatImageLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatImageLeft *cell = (CellChatImageLeft *)sourceCell;
-                    cell.model = model;
+                    [cell setupModel:model];
                 }];
             }
             
+        }else if (model.msgType == YHMessageType_Voice){
+            if (model.direction == 0) {
+               return [CellChatVoiceRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                       CellChatVoiceRight *cell = (CellChatVoiceRight *)sourceCell;
+                       [cell setupModel:model];
+                }];
+            }else{
+                return [CellChatVoiceLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatVoiceLeft *cell = (CellChatVoiceLeft *)sourceCell;
+                    [cell setupModel:model];
+                }];
+            }
         }else{
             if (model.direction == 0) {
                 return [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatTextRight *cell = (CellChatTextRight *)sourceCell;
-                    cell.model = model;
+                    [cell setupModel:model];
                 }];
             }else{
                 return [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatTextLeft *cell = (CellChatTextLeft *)sourceCell;
-                    cell.model = model;
+                    [cell setupModel:model];
                 }];
             }
         }

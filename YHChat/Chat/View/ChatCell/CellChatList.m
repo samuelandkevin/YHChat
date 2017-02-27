@@ -23,7 +23,6 @@
 @property (nonatomic,strong) YHGroupIconView *imgvGroupIcon;
 @end
 
-#define AvatarWidth 44 //头像宽/高
 
 @implementation CellChatList
 
@@ -46,7 +45,7 @@
     _imgvAvatar = [UIImageView new];
     _imgvAvatar.userInteractionEnabled = YES;
     [_imgvAvatar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAvatarGesture:)]];
-    _imgvAvatar.layer.cornerRadius = AvatarWidth/2.0;
+    _imgvAvatar.layer.cornerRadius = 44.0/2.0;
     _imgvAvatar.layer.masksToBounds = YES;
     _imgvAvatar.image = [UIImage imageNamed:@"common_avatar_80px"];
     [self.contentView addSubview:_imgvAvatar];
@@ -100,13 +99,13 @@
     
     
     [_imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(AvatarWidth);
+        make.width.height.mas_equalTo(44);
         make.top.equalTo(weakSelf.contentView).offset(10);
         make.left.equalTo(weakSelf.contentView).offset(5);
     }];
     
     [_imgvGroupIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(AvatarWidth);
+        make.width.height.mas_equalTo(44);
         make.top.equalTo(weakSelf.contentView).offset(10);
         make.left.equalTo(weakSelf.contentView).offset(5);
     }];

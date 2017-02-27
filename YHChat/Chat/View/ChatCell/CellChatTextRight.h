@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CellChatBase.h"
 
 @class YHUserInfo;
 @class CellChatTextRight;
@@ -18,10 +18,7 @@
 - (void)tapSendMsgFailImg;//点击发送失败图标
 @end
 
-@class YHChatModel;
+@interface CellChatTextRight : CellChatBase
 
-@interface CellChatTextRight : UITableViewCell
-
-@property (nonatomic,strong) YHChatModel *model;
 @property (nonatomic,weak)id<CellChatTextRightDelegate>delegate;
 @end

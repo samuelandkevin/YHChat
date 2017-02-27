@@ -125,6 +125,24 @@
         model.msgContent = imgMsgArr[imglength];
     }
     
+    //消息内容为语音
+    NSArray *voiceArr = @[@"voice[http://apps.gtax.cn/images/2017/02/22/43fe8c21b5d348d68537a144da0076ba.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/02/16/0aea139b11674c739cb5840af4845fb8.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/24/50f06e140ea644b6ac686fec86681f38.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/19/31f644d8be994eb4940c345f07e2b1a6.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/19/c92197826b524c47b86a2ea0d2d73ac4.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/19/38a3631d54f44d8aa0b3060daf42b8d5.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/19/13bc2f1ab0fa46daa4789b336a0dbf0a.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/19/e0649e20c33f4e4dbf6e7e8f5bc051ee.wav]"];
+    int voicelength = arc4random() % voiceArr.count;
+    if (model.msgType == 2) {
+        model.msgContent = voiceArr[voicelength];
+    }
+    
+    
+    
+    
+    
     
     
     //发布时间

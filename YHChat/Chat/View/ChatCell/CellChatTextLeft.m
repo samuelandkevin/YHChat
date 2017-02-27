@@ -11,16 +11,14 @@
 #import <Masonry/Masonry.h>
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
+
 @interface CellChatTextLeft()
 
-@property (nonatomic,strong) UILabel *lbTime;
-@property (nonatomic,strong) UIImageView *imgvAvatar;
 @property (nonatomic,strong) UIImageView *imgvBubble;
 @property (nonatomic,strong) UILabel *lbContent;
 
 @end
 
-#define AvatarWidth 44 //头像宽/高
 
 @implementation CellChatTextLeft
 
@@ -37,29 +35,9 @@
 }
 
 - (void)setupUI{
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.contentView.backgroundColor = RGBCOLOR(239, 236, 236);
-    
-    _lbTime = [UILabel new];
-    _lbTime.textColor = [UIColor whiteColor];
-    _lbTime.layer.cornerRadius  = 3;
-    _lbTime.layer.masksToBounds = YES;
-    _lbTime.backgroundColor = [UIColor grayColor];
-    _lbTime.textAlignment = NSTextAlignmentCenter;
-    _lbTime.font = [UIFont systemFontOfSize:12.0];
-    [self.contentView addSubview:_lbTime];
-    
-    _imgvAvatar = [UIImageView new];
-    _imgvAvatar.userInteractionEnabled = YES;
-    [_imgvAvatar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAvatarGesture:)]];
-    _imgvAvatar.layer.cornerRadius = AvatarWidth/2.0;
-    _imgvAvatar.layer.masksToBounds = YES;
-    _imgvAvatar.image = [UIImage imageNamed:@"common_avatar_80px"];
-    [self.contentView addSubview:_imgvAvatar];
-    
+
     _imgvBubble = [UIImageView new];
-    UIImage *imgBubble = [UIImage imageNamed:@"liaotianbeijing1"];
+    UIImage *imgBubble = [UIImage imageNamed:@"chat_bubbleLeft"];
     imgBubble = [imgBubble resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 15) resizingMode:UIImageResizingModeStretch];
 
     _imgvBubble.image = imgBubble;
@@ -81,13 +59,13 @@
 - (void)layoutUI{
     __weak typeof(self) weakSelf = self;
     
-    [_lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.contentView);
         make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
     }];
     
-    [_imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(AvatarWidth);
+    [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(kAvatarWidth);
         make.top.equalTo(weakSelf.lbTime.mas_bottom).offset(5);
         make.left.equalTo(weakSelf.contentView).offset(5);
     }];
@@ -109,8 +87,10 @@
     self.hyb_bottomOffsetToCell = 10;
 }
 
-#pragma mark - Gesture
+#pragma mark - Super
+
 - (void)onAvatarGesture:(UIGestureRecognizer *)aRec{
+    [super onAvatarGesture:aRec];
     if (aRec.state == UIGestureRecognizerStateEnded) {
         if (_delegate && [_delegate respondsToSelector:@selector(tapLeftAvatar:)]) {
             [_delegate tapLeftAvatar:nil];
@@ -118,12 +98,16 @@
     }
 }
 
-#pragma mark - Public
-- (void)setModel:(YHChatModel *)model{
-    _model = model;
-    _lbContent.text = _model.msgContent;
-    _lbTime.text    = _model.createTime;
-    [_imgvAvatar sd_setImageWithURL:_model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
+- (void)setupModel:(YHChatModel *)model{
+    [super setupModel:model];
+    _lbContent.text = self.model.msgContent;
+    self.lbTime.text    = self.model.createTime;
+    [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
+}
+
+#pragma mark - Life
+- (void)dealloc{
+    //DDLog(@"%s dealloc",__func__);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

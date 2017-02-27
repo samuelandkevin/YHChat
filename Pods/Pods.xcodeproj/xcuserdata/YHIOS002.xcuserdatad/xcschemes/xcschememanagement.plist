@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>HYBMasonryAutoCellHeight.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,22 +47,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4950160B6B2BF4DFB3C4713933B2F2BB</key>
+		<key>219943C1108C4E1D97624825B87186EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E468C1A578F3CC04368BD546C42F7C0</key>
+		<key>9071F38C87F9D878CD04A47FD4E51AA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8FD7F700B75F07D176528E07AC56BF21</key>
+		<key>9A103E9B8818D7808854EB32FAED8FCD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>AF45B4FEF4AF0B4974C348484DC88B67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

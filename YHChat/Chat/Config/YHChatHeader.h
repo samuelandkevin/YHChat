@@ -15,5 +15,7 @@
 #import "CellChatTextRight.h"
 #import "CellChatImageLeft.h"
 #import "CellChatImageRight.h"
+#import "CellChatVoiceLeft.h"
+#import "CellChatVoiceRight.h"
 
 #endif /* YHChatHeader_h */

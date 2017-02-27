@@ -6,5 +6,6 @@ target 'YHChat' do
     pod 'HYBMasonryAutoCellHeight'
     pod 'YYKit'
     pod 'SDWebImage'
+    pod 'AFNetworking'
 end
 
