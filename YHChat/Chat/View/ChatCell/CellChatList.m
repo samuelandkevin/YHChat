@@ -1,14 +1,16 @@
 //
 //  CellChatList.m
-//  YHChat
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by YHIOS002 on 17/2/20.
+//  Created by samuelandkevin on 17/2/20.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
 #import "CellChatList.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry/Masonry.h>
+#import "YHChatListModel.h"
+#import "YHGroupIconView.h"
 
 @interface CellChatList()
 
@@ -18,7 +20,7 @@
 @property (nonatomic,strong) UILabel *lbContent;
 @property (nonatomic,strong) UILabel *lbNewMsg;
 @property (nonatomic,strong) UIView  *viewBotLine;
-
+@property (nonatomic,strong) YHGroupIconView *imgvGroupIcon;
 @end
 
 #define AvatarWidth 44 //头像宽/高
@@ -49,6 +51,13 @@
     _imgvAvatar.image = [UIImage imageNamed:@"common_avatar_80px"];
     [self.contentView addSubview:_imgvAvatar];
     
+    _imgvGroupIcon = [YHGroupIconView new];
+    _imgvGroupIcon.layer.cornerRadius = 2;
+    _imgvGroupIcon.layer.masksToBounds = YES;
+    _imgvGroupIcon.backgroundColor = RGBCOLOR(221, 222, 224);
+    [self.contentView addSubview:_imgvGroupIcon];
+    
+    
     _lbNewMsg = [UILabel new];
     _lbNewMsg.backgroundColor = [UIColor redColor];
     _lbNewMsg.textAlignment = NSTextAlignmentCenter;
@@ -56,7 +65,7 @@
     [self.contentView addSubview:_lbNewMsg];
     
     _lbTime = [UILabel new];
-    _lbTime.textColor = RGBCOLOR(222, 222, 222);
+    _lbTime.textColor = [UIColor grayColor];
     _lbTime.textAlignment = NSTextAlignmentRight;
     _lbTime.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:_lbTime];
@@ -92,7 +101,13 @@
     
     [_imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(AvatarWidth);
-        make.top.equalTo(weakSelf.contentView).offset(5);
+        make.top.equalTo(weakSelf.contentView).offset(10);
+        make.left.equalTo(weakSelf.contentView).offset(5);
+    }];
+    
+    [_imgvGroupIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(AvatarWidth);
+        make.top.equalTo(weakSelf.contentView).offset(10);
         make.left.equalTo(weakSelf.contentView).offset(5);
     }];
     
@@ -107,13 +122,13 @@
     
     [_lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.contentView).offset(-5);
-        make.top.equalTo(weakSelf.lbName.mas_bottom);
+        make.top.equalTo(weakSelf.lbName.mas_top);
     }];
     
     
     [_lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.imgvAvatar.mas_left).offset(10);
-        make.top.equalTo(weakSelf.lbName.mas_bottom).offset(3);
+        make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
+        make.top.equalTo(weakSelf.lbName.mas_bottom).offset(5);
         make.right.equalTo(weakSelf.contentView.mas_right).offset(-15);
     }];
     
@@ -129,6 +144,25 @@
     if (aRec.state == UIGestureRecognizerStateEnded) {
       
     }
+}
+
+#pragma mark - Setter
+- (void)setModel:(YHChatListModel *)model{
+    _model = model;
+    _lbName.text = _model.sessionUserName;
+    
+    _lbContent.text = _model.lastContent;
+    _lbTime.text    = _model.lastCreatTime;
+    if (_model.isGroupChat) {
+        _imgvGroupIcon.picUrlArray = _model.sessionUserHead;
+        _imgvGroupIcon.hidden = NO;
+        _imgvAvatar.hidden = YES;
+    }else{
+        _imgvAvatar.hidden = NO;
+        _imgvGroupIcon.hidden = YES;
+    }
+    
+    
 }
 
 

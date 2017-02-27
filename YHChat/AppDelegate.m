@@ -1,12 +1,14 @@
 //
 //  AppDelegate.m
-//  YHChat
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by YHIOS002 on 17/2/17.
+//  Created by samuelandkevin on 17/2/17.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "YHChatListVC.h"
+#import "YHNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    YHChatListVC *vc = [[YHChatListVC alloc] init];
+    YHNavigationController *nav = [[YHNavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

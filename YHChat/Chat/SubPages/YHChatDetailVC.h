@@ -1,8 +1,8 @@
 //
 //  YHChatDetailVC.h
-//  YHChat
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by YHIOS002 on 17/2/17.
+//  Created by samuelandkevin on 17/2/17.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 

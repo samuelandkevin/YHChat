@@ -1,8 +1,8 @@
 //
 //  YHChatDetailVC.m
-//  YHChat
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by YHIOS002 on 17/2/17.
+//  Created by samuelandkevin on 17/2/17.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 #import "YHUserInfo.h"
 #import "HHUtils.h"
 #import "YHChatHeader.h"
+#import "TestData.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate>{
     
@@ -35,7 +36,7 @@
     
     
     //模拟数据源
-    [self.dataArray addObjectsFromArray:[YHChatHelper randomGenerateChatModel:10]];
+    [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:10]];
 
     if (self.dataArray.count) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

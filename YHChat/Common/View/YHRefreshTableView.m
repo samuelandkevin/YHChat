@@ -1,8 +1,8 @@
 //
 //  YHSuperTableView.m
-//  PikeWay
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by YHIOS002 on 16/5/31.
+//  Created by samuelandkevin on 16/5/31.
 //  Copyright © 2016年 YHSoft. All rights reserved.
 //
 

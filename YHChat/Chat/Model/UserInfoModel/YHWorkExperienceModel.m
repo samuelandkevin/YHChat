@@ -1,17 +1,18 @@
 //
-//  YHEducationExperienceModel.m
-//  PikeWay
+//  YHWorkExperienceModel.m
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
 //  Created by YHIOS003 on 16/5/17.
 //  Copyright © 2016年 YHSoft. All rights reserved.
 //
 
-#import "YHEducationExperienceModel.h"
+#import "YHWorkExperienceModel.h"
 #import <objc/runtime.h>
-//#import "YHSerializeKit.h"
+
 //#import "NSObject+YHDBRuntime.h"
 
-@implementation YHEducationExperienceModel
+
+@implementation YHWorkExperienceModel
 
 
 //YHSERIALIZE_CODER_DECODER();
@@ -20,11 +21,9 @@
 
 //YHSERIALIZE_DESCRIPTION();
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
 }
-
-
 
 - (id)copy
 {
@@ -48,14 +47,13 @@
     return [self mutableCopy];
 }
 
-
-//#pragma mark - YHFMDB
 //+ (NSString *)yh_primaryKey{
-//    return @"eduExpId";
+//    return @"workExpId";
 //}
 //
 //+ (NSDictionary *)yh_replacedKeyFromPropertyName{
-//    return @{@"eduExpId":YHDB_PrimaryKey};
+//    return @{@"workExpId":YHDB_PrimaryKey};
 //}
+
 
 @end

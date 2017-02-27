@@ -1,6 +1,6 @@
 //
 //  YHUserInfo.h
-//  PikeWay
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
 //  Created by kun on 16/4/25.
 //  Copyright © 2016年 YHSoft. All rights reserved.

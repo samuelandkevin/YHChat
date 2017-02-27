@@ -1,8 +1,8 @@
 //
 //  YHChatListVC.m
-//  YHChat
+//  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by YHIOS002 on 17/2/17.
+//  Created by samuelandkevin on 17/2/17.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
@@ -11,10 +11,11 @@
 #import "YHChatDetailVC.h"
 #import "CellChatList.h"
 #import "UIImage+Extension.h"
+#import "TestData.h"
 
 @interface YHChatListVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) YHRefreshTableView *tableView;
-
+@property (nonatomic,strong) NSMutableArray *dataArray;
 @end
 
 @implementation YHChatListVC
@@ -22,16 +23,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"首页";
     self.navigationController.navigationBar.translucent = NO;
     [self initUI];
 
+    //模拟数据源
+    [self.dataArray addObjectsFromArray:[TestData randomGenerateChatListModel:10]];
+    if (self.dataArray.count) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    }
+
+}
+
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray new];
+    }
+    return _dataArray;
 }
 
 
 - (void)initUI{
     //tableview
     self.tableView = [[YHRefreshTableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH
-                                                                          , SCREEN_HEIGHT-64-44) style:UITableViewStylePlain];
+                                                                          , SCREEN_HEIGHT-64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -44,12 +62,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CellChatList *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatList class])];
+    if (indexPath.row < self.dataArray.count) {
+        cell.model = self.dataArray[indexPath.row];
+    }
     return cell;
 }
 
@@ -58,7 +79,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    return 54.0f;
+    return 60.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
