@@ -12,8 +12,9 @@
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
 #import "UIImage+Extension.h"
+#import "SDPhotoBrowser.h"
 
-@interface CellChatImageRight()
+@interface CellChatImageRight()<SDPhotoBrowserDelegate>
 
 @property (nonatomic,strong) UIImageView *imgvContent;
 @end
@@ -36,6 +37,8 @@
     
     _imgvContent = [UIImageView new];
     UIImage *oriImg = [UIImage imageNamed:@"chat_img_defaultPhoto"];
+    _imgvContent.userInteractionEnabled = YES;
+    [_imgvContent addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureOnContent:)]];
     _imgvContent.image = [UIImage imageArrowWithSize:oriImg.size image:oriImg isSender:YES];
     [self.contentView addSubview:_imgvContent];
     
@@ -105,9 +108,7 @@
     
     //消息图片下载
     if (self.model.msgContent && self.model.msgType == 1) {
-        NSString *picUrlStr = [self.model.msgContent stringByReplacingOccurrencesOfString:@"img[" withString:@""];
-        picUrlStr = [picUrlStr stringByReplacingOccurrencesOfString:@"]" withString:@""];
-        NSURL *url = [NSURL URLWithString:picUrlStr];
+        NSURL *url = [self getImageUrl];
         [_imgvContent sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"chat_img_defaultPhoto"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
             [self updateImageCellHeightWith:image maxSize:CGSizeMake(200, 200)];
@@ -127,6 +128,41 @@
         make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-10);
         make.size.mas_equalTo(image.size);
     }];
+}
+
+#pragma mark - Private
+//获取消息内容图片
+- (NSURL *)getImageUrl{
+    NSString *picUrlStr = [self.model.msgContent stringByReplacingOccurrencesOfString:@"img[" withString:@""];
+    picUrlStr = [picUrlStr stringByReplacingOccurrencesOfString:@"]" withString:@""];
+    NSURL *url = [NSURL URLWithString:picUrlStr];
+    return url;
+}
+
+#pragma mark - Gesture
+- (void)gestureOnContent:(UIGestureRecognizer *)aGes{
+    if (aGes.state == UIGestureRecognizerStateEnded) {
+        
+        SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+        browser.currentImageView = _imgvContent;
+        browser.sourceImagesContainerView = self.contentView;
+        browser.imageCount = 1;
+        browser.delegate = self;
+        [browser show];
+    }
+}
+
+#pragma mark - @protocol SDPhotoBrowserDelegate
+
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    
+    return [self getImageUrl];
+}
+
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    return _imgvContent.image;
 }
 
 #pragma mark - Life

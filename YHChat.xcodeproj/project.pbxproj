@@ -44,6 +44,10 @@
 		AC61F84D1E5AEE7F00AF48B5 /* YHExpressionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8461E5AEE7F00AF48B5 /* YHExpressionHelper.m */; };
 		AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8481E5AEE7F00AF48B5 /* YHExpressionInputView.m */; };
 		AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F84A1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m */; };
+		AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */; };
+		AC6315121E6D7CA40030BD40 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC63150C1E6D7CA40030BD40 /* SDBrowserImageView.m */; };
+		AC6315131E6D7CA40030BD40 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AC63150E1E6D7CA40030BD40 /* SDPhotoBrowser.m */; };
+		AC6315141E6D7CA40030BD40 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6315111E6D7CA40030BD40 /* SDWaitingView.m */; };
 		ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF8047C1E5D264800B27336 /* YHChatHelper.m */; };
 		ACF804841E5D3C9700B27336 /* CellChatImageLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804831E5D3C9700B27336 /* CellChatImageLeft.m */; };
 		ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804861E5D3CC500B27336 /* CellChatImageRight.m */; };
@@ -126,6 +130,15 @@
 		AC61F8481E5AEE7F00AF48B5 /* YHExpressionInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHExpressionInputView.m; sourceTree = "<group>"; };
 		AC61F8491E5AEE7F00AF48B5 /* YHExpressionKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHExpressionKeyboard.h; sourceTree = "<group>"; };
 		AC61F84A1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHExpressionKeyboard.m; sourceTree = "<group>"; };
+		AC6314FC1E6D7A8E0030BD40 /* YHActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHActionSheet.h; sourceTree = "<group>"; };
+		AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHActionSheet.m; sourceTree = "<group>"; };
+		AC63150B1E6D7CA40030BD40 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
+		AC63150C1E6D7CA40030BD40 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
+		AC63150D1E6D7CA40030BD40 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
+		AC63150E1E6D7CA40030BD40 /* SDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowser.m; sourceTree = "<group>"; };
+		AC63150F1E6D7CA40030BD40 /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		AC6315101E6D7CA40030BD40 /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
+		AC6315111E6D7CA40030BD40 /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		ACF804791E5D186200B27336 /* YHChatServiceDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatServiceDefs.h; sourceTree = "<group>"; };
 		ACF8047B1E5D264800B27336 /* YHChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatHelper.h; sourceTree = "<group>"; };
 		ACF8047C1E5D264800B27336 /* YHChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatHelper.m; sourceTree = "<group>"; };
@@ -197,6 +210,9 @@
 		AC002DD11E641AAF00EE2851 /* UICustoms */ = {
 			isa = PBXGroup;
 			children = (
+				AC63150A1E6D7CA40030BD40 /* SDPhotoBrowser */,
+				AC6314FC1E6D7A8E0030BD40 /* YHActionSheet.h */,
+				AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */,
 				AC002DD21E641AAF00EE2851 /* YHLinkLabel.h */,
 				AC002DD31E641AAF00EE2851 /* YHLinkLabel.m */,
 				AC002DD51E641ADB00EE2851 /* YHRefreshTableView.h */,
@@ -394,6 +410,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AC63150A1E6D7CA40030BD40 /* SDPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				AC63150B1E6D7CA40030BD40 /* SDBrowserImageView.h */,
+				AC63150C1E6D7CA40030BD40 /* SDBrowserImageView.m */,
+				AC63150D1E6D7CA40030BD40 /* SDPhotoBrowser.h */,
+				AC63150E1E6D7CA40030BD40 /* SDPhotoBrowser.m */,
+				AC63150F1E6D7CA40030BD40 /* SDPhotoBrowserConfig.h */,
+				AC6315101E6D7CA40030BD40 /* SDWaitingView.h */,
+				AC6315111E6D7CA40030BD40 /* SDWaitingView.m */,
+			);
+			path = SDPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		ACF804781E5D183400B27336 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,12 +583,14 @@
 				AC002DB61E63BBF100EE2851 /* YHEducationExperienceModel.m in Sources */,
 				AC002DB51E63BBF100EE2851 /* YHChatModel.m in Sources */,
 				AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */,
+				AC6315141E6D7CA40030BD40 /* SDWaitingView.m in Sources */,
 				AC4446BB1E568E5D00685571 /* main.m in Sources */,
 				AC4446F21E569A5600685571 /* YHChatListVC.m in Sources */,
 				AC002DDE1E641B1700EE2851 /* NetManager.m in Sources */,
 				AC002DB41E63BBF100EE2851 /* YHChatListModel.m in Sources */,
 				AC2FBFF31E5FDD28002DDCEF /* UIImage+Extension.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
+				AC6315131E6D7CA40030BD40 /* SDPhotoBrowser.m in Sources */,
 				AC002DBC1E63BD6F00EE2851 /* TestData.m in Sources */,
 				AC002DD41E641AAF00EE2851 /* YHLinkLabel.m in Sources */,
 				AC002DC21E63D82C00EE2851 /* CellChatVoiceLeft.m in Sources */,
@@ -568,8 +600,10 @@
 				AC002DD71E641ADB00EE2851 /* YHRefreshTableView.m in Sources */,
 				AC002DA21E63AE5600EE2851 /* YHGroupIconView.m in Sources */,
 				AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */,
+				AC6315121E6D7CA40030BD40 /* SDBrowserImageView.m in Sources */,
 				AC002DBF1E63CEB700EE2851 /* YHNavigationController.m in Sources */,
 				ACF804841E5D3C9700B27336 /* CellChatImageLeft.m in Sources */,
+				AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */,
 				AC002DC81E64016E00EE2851 /* CellChatBase.m in Sources */,
 				AC4725BC1E67B8C900C34684 /* YHAudioPlayer.m in Sources */,
 				AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */,
