@@ -16,8 +16,9 @@
 #import "HHUtils.h"
 #import "YHChatHeader.h"
 #import "TestData.h"
+#import "YHAudioPlayer.h"
 
-@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate>{
+@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate>{
     
 }
 @property (nonatomic,strong) YHRefreshTableView *tableView;
@@ -108,6 +109,17 @@
     }];
 }
 
+#pragma mark - @protocol CellChatVoiceLeft
+- (void)playInLeftCellWithVoicePath:(NSString *)voicePath{
+    DDLog(@"播放:%@",voicePath);
+    [[YHAudioPlayer shareInstanced] playWithUrlString:voicePath];
+}
+
+#pragma mark - @protocol CellChatVoiceRight
+- (void)playInRightCellWithVoicePath:(NSString *)voicePath{
+    DDLog(@"播放:%@",voicePath);
+    [[YHAudioPlayer shareInstanced] playWithUrlString:voicePath];
+}
 
 #pragma mark - @protocol UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -146,10 +158,12 @@
         
             if (model.direction == 0) {
                 CellChatVoiceRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceRight class])];
+                cell.delegate = self;
                 [cell setupModel:model];
                 return cell;
             }else{
                 CellChatVoiceLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
+                cell.delegate = self;
                 [cell setupModel:model];
                 return cell;
             }

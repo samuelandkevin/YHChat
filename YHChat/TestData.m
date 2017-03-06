@@ -126,14 +126,14 @@
     }
     
     //消息内容为语音
-    NSArray *voiceArr = @[@"voice[http://apps.gtax.cn/images/2017/02/22/43fe8c21b5d348d68537a144da0076ba.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/02/16/0aea139b11674c739cb5840af4845fb8.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/01/24/50f06e140ea644b6ac686fec86681f38.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/01/19/31f644d8be994eb4940c345f07e2b1a6.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/01/19/c92197826b524c47b86a2ea0d2d73ac4.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/01/19/38a3631d54f44d8aa0b3060daf42b8d5.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/01/19/13bc2f1ab0fa46daa4789b336a0dbf0a.wav]",
-                          @"voice[http://apps.gtax.cn/images/2017/01/19/e0649e20c33f4e4dbf6e7e8f5bc051ee.wav]"];
+    
+    NSArray *voiceArr = @[@"voice[http://apps.gtax.cn/images/2017/01/13/11f9ba99dd3541f38028f841f0b74b64.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/13/11a261d334f64c6888da1c2f2ae73865.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/13/a893203baacb4c8ebb16bab9c353a4fb.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/12/5fea39651c4942d6b679738a855d9233.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/12/254084401ed74051aa15dad4a40d4f7b.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/12/9d70932816824b5b890c0817d0b992a9.wav]",
+                          @"voice[http://apps.gtax.cn/images/2017/01/24/50f06e140ea644b6ac686fec86681f38.wav]"];
     int voicelength = arc4random() % voiceArr.count;
     if (model.msgType == 2) {
         model.msgContent = voiceArr[voicelength];

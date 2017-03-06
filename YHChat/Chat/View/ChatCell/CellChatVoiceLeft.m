@@ -41,6 +41,8 @@
     imgBubble = [imgBubble resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 15) resizingMode:UIImageResizingModeStretch];
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
+    _imgvBubble.userInteractionEnabled = YES;
+    [_imgvBubble addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGestureBubble:)]];
     
     _imgvVoiceIcon = [UIImageView new];
     _imgvVoiceIcon.image = [UIImage imageNamed:@"left-3"];
@@ -103,6 +105,19 @@
     //        }
     //    }
 }
+
+#pragma mark - Gesture
+- (void)onGestureBubble:(UIGestureRecognizer *)aRec{
+    if (aRec.state == UIGestureRecognizerStateEnded){
+        if (_delegate && [_delegate respondsToSelector:@selector(playInLeftCellWithVoicePath:)]) {
+            NSString *voicePath = self.model.msgContent;
+            voicePath = [voicePath stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
+            voicePath = [voicePath stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            [_delegate playInLeftCellWithVoicePath:voicePath];
+        }
+    }
+}
+
 
 - (void)setupModel:(YHChatModel *)model{
     [super setupModel:model];

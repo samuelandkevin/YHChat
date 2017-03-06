@@ -9,6 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "CellChatBase.h"
 
-@interface CellChatVoiceRight : CellChatBase
 
+@class CellChatVoiceRight;
+@protocol CellChatVoiceRightDelegate <NSObject>
+
+- (void)playInRightCellWithVoicePath:(NSString *)voicePath;
+
+@end
+
+@interface CellChatVoiceRight : CellChatBase
+@property (nonatomic,weak)id<CellChatVoiceRightDelegate>delegate;
+
+- (void)voiceImageBeginAnimation;
+- (void)voiceImageStopAnimation;
 @end

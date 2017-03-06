@@ -38,9 +38,11 @@
     _imgvBubble = [UIImageView new];
     UIImage *imgBubble = [UIImage imageNamed:@"chat_bubbleRight"];
     imgBubble = [imgBubble resizableImageWithCapInsets:UIEdgeInsetsMake(30, 15, 30, 30) resizingMode:UIImageResizingModeStretch];
-    
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
+    _imgvBubble.userInteractionEnabled = YES;
+    [_imgvBubble addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGestureBubble:)]];
+    
     
     _imgvVoiceIcon = [UIImageView new];
     _imgvVoiceIcon.image = [UIImage imageNamed:@"right-3"];
@@ -106,6 +108,15 @@
 }
 
 
+#pragma mark - Public
+- (void)voiceImageBeginAnimation{
+    [_imgvVoiceIcon startAnimating];
+
+}
+- (void)voiceImageStopAnimation{
+    [_imgvVoiceIcon stopAnimating];
+}
+
 #pragma mark - Super
 
 - (void)onAvatarGesture:(UIGestureRecognizer *)aRec{
@@ -124,6 +135,18 @@
     //            [_delegate tapSendMsgFailImg];
     //        }
     //    }
+}
+
+#pragma mark - Gesture
+- (void)onGestureBubble:(UIGestureRecognizer *)aRec{
+    if (aRec.state == UIGestureRecognizerStateEnded){
+        if (_delegate && [_delegate respondsToSelector:@selector(playInRightCellWithVoicePath:)]) {
+            NSString *voicePath = self.model.msgContent;
+            voicePath = [voicePath stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
+            voicePath = [voicePath stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            [_delegate playInRightCellWithVoicePath:voicePath];
+        }
+    }
 }
 
 - (void)setupModel:(YHChatModel *)model{
