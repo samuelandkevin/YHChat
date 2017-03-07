@@ -1,18 +1,18 @@
 //
-//  SDBrowserImageView.m
-//  SDPhotoBrowser
+//  YHBrowserImageView.m
+//  YHPhotoBrowser
 //
-//  Created by aier on 15-2-6.
-//  Copyright (c) 2015年 GSD. All rights reserved.
+//  Created by samuelandkevin on 16-12-14.
+//  Copyright (c) 2016年 samuelandkevin. All rights reserved.
 //
 
-#import "SDBrowserImageView.h"
+#import "YHBrowserImageView.h"
 #import "UIImageView+WebCache.h"
-#import "SDPhotoBrowserConfig.h"
+#import "YHPhotoBrowserConfig.h"
 
-@implementation SDBrowserImageView
+@implementation YHBrowserImageView
 {
-//    __weak SDWaitingView *_waitingView;
+//    __weak YHWaitingView *_waitingView;
     BOOL _didCheckSize;
     UIScrollView *_scroll;
     UIImageView *_scrollImageView;
@@ -62,7 +62,7 @@
             imageView.image = self.image;
             _scrollImageView = imageView;
             [scroll addSubview:imageView];
-            scroll.backgroundColor = SDPhotoBrowserBackgrounColor;
+            scroll.backgroundColor = YHPhotoBrowserBackgrounColor;
             _scroll = scroll;
             [self addSubview:scroll];
 //            if (_waitingView) {
@@ -94,14 +94,14 @@
 
 - (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder
 {
-//    SDWaitingView *waiting = [[SDWaitingView alloc] init];
+//    YHWaitingView *waiting = [[YHWaitingView alloc] init];
 //    waiting.bounds = CGRectMake(0, 0, 100, 100);
-//    waiting.mode = SDWaitingViewProgressMode;
+//    waiting.mode = YHWaitingViewProgressMode;
 //    _waitingView = waiting;
 //    [self addSubview:waiting];
     
     
-    __weak SDBrowserImageView *imageViewWeak = self;
+    __weak YHBrowserImageView *imageViewWeak = self;
     
     [self sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         imageViewWeak.progress = (CGFloat)receivedSize / expectedSize;
@@ -126,7 +126,6 @@
             [_scrollImageView setNeedsDisplay];
         }
     }];
-   
 }
 
 - (void)zoomImage:(UIPinchGestureRecognizer *)recognizer
@@ -187,7 +186,7 @@
 {
     if (!_zoomingScroolView) {
         _zoomingScroolView = [[UIScrollView alloc] initWithFrame:self.bounds];
-        _zoomingScroolView.backgroundColor = SDPhotoBrowserBackgrounColor;
+        _zoomingScroolView.backgroundColor = YHPhotoBrowserBackgrounColor;
         _zoomingScroolView.contentSize = self.bounds.size;
         UIImageView *zoomingImageView = [[UIImageView alloc] initWithImage:self.image];
         CGSize imageSize = zoomingImageView.image.size;

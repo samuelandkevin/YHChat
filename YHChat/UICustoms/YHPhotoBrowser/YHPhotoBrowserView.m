@@ -1,14 +1,14 @@
 //
-//  SDPhotoBrowser.m
+//  YHPhotoBrowserView.m
 //  photobrowser
 //
-//  Created by aier on 15-2-3.
-//  Copyright (c) 2015年 aier. All rights reserved.
+//  Created by samuelandkevin on 16-12-14.
+//  Copyright (c) 2016年 samuelandkevin. All rights reserved.
 //
 
-#import "SDPhotoBrowser.h"
+#import "YHPhotoBrowserView.h"
 #import "UIImageView+WebCache.h"
-#import "SDBrowserImageView.h"
+#import "YHBrowserImageView.h"
 #import "YHActionSheet.h"
  
 //  ============在这里方便配置样式相关设置===========
@@ -19,11 +19,11 @@
 //                     \\//
 //                      \/
 
-#import "SDPhotoBrowserConfig.h"
+#import "YHPhotoBrowserConfig.h"
 
 //  =============================================
 
-@implementation SDPhotoBrowser 
+@implementation YHPhotoBrowserView 
 {
     UIScrollView *_scrollView;
     BOOL _hasShowedFistView;
@@ -38,7 +38,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = SDPhotoBrowserBackgrounColor;
+        self.backgroundColor = YHPhotoBrowserBackgrounColor;
     }
     return self;
 }
@@ -62,7 +62,7 @@
     [self addSubview:_scrollView];
     
     for (int i = 0; i < self.imageCount; i++) {
-        SDBrowserImageView *imageView = [[SDBrowserImageView alloc] init];
+        YHBrowserImageView *imageView = [[YHBrowserImageView alloc] init];
         imageView.tag = i;
         
         // 单击图片
@@ -98,19 +98,19 @@
     [super layoutSubviews];
     
     CGRect rect = self.bounds;
-    rect.size.width += SDPhotoBrowserImageViewMargin * 2;
+    rect.size.width += YHPhotoBrowserImageViewMargin * 2;
     
     _scrollView.bounds = rect;
     _scrollView.center = self.center;
     
     CGFloat y = 0;
-    CGFloat w = _scrollView.frame.size.width - SDPhotoBrowserImageViewMargin * 2;
+    CGFloat w = _scrollView.frame.size.width - YHPhotoBrowserImageViewMargin * 2;
     CGFloat h = _scrollView.frame.size.height;
     
     
     
-    [_scrollView.subviews enumerateObjectsUsingBlock:^(SDBrowserImageView *obj, NSUInteger idx, BOOL *stop) {
-        CGFloat x = SDPhotoBrowserImageViewMargin + idx * (SDPhotoBrowserImageViewMargin * 2 + w);
+    [_scrollView.subviews enumerateObjectsUsingBlock:^(YHBrowserImageView *obj, NSUInteger idx, BOOL *stop) {
+        CGFloat x = YHPhotoBrowserImageViewMargin + idx * (YHPhotoBrowserImageViewMargin * 2 + w);
         obj.frame = CGRectMake(x, y, w, h);
     }];
     
@@ -130,9 +130,9 @@
 - (BOOL)hasHighQImage{
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     __block BOOL hasHighQImage = NO;
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(10);
     [manager diskImageExistsForURL:[self highQualityImageURLForIndex:self.currentImageIndex] completion:^(BOOL isInCache) {
-       
+        hasHighQImage = isInCache;
         dispatch_semaphore_signal(semaphore);
     }];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -142,8 +142,13 @@
 //显示原图
 - (void)showOriImage{
     
-    UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
-    
+    UIView *sourceView = nil;
+    if (_currentImageView) {
+        sourceView = _currentImageView;
+    }else{
+        sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
+    }
+
     CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     UIImageView *tempView = [[UIImageView alloc] init];
     tempView.image = [[[SDWebImageManager sharedManager] imageCache] imageFromDiskCacheForKey:[self highQualityImageURLForIndex:self.currentImageIndex].absoluteString];
@@ -154,7 +159,7 @@
     tempView.contentMode = [_scrollView.subviews[self.currentImageIndex] contentMode];
     _scrollView.hidden = YES;
     
-    [UIView animateWithDuration:SDPhotoBrowserShowImageAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:YHPhotoBrowserShowImageAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         tempView.center = self.center;
         tempView.bounds = (CGRect){CGPointZero, targetTemp.size};
     } completion:^(BOOL finished) {
@@ -169,13 +174,13 @@
 //显示缩略图
 - (void)showThumbImage{
     
-    UIView *sourceView  = nil;
+    UIView *sourceView = nil;
     if (_currentImageView) {
         sourceView = _currentImageView;
     }else{
-        sourceView =  self.sourceImagesContainerView.subviews[self.currentImageIndex];
+        sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
     }
-   
+
     CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     
     UIImageView *tempView = [[UIImageView alloc] init];
@@ -188,7 +193,7 @@
     tempView.contentMode = [_scrollView.subviews[self.currentImageIndex] contentMode];
     _scrollView.hidden = YES;
     
-    [UIView animateWithDuration:SDPhotoBrowserShowImageAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:YHPhotoBrowserShowImageAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         tempView.center = self.center;
         tempView.bounds = (CGRect){CGPointZero, targetTemp.size};
     } completion:^(BOOL finished) {
@@ -283,13 +288,22 @@
     [[UIApplication sharedApplication].keyWindow addSubview:label];
     [[UIApplication sharedApplication].keyWindow bringSubviewToFront:label];
     if (error) {
-        label.text = SDPhotoBrowserSaveImageFailText;
+        label.text = YHPhotoBrowserSaveImageFailText;
     }   else {
-        label.text = SDPhotoBrowserSaveImageSuccessText;
+        label.text = YHPhotoBrowserSaveImageSuccessText;
     }
     [label performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.0];
 }
 
+#pragma mark - Lazy Load
+
+- (void)setCurrentImageView:(UIView *)currentImageView{
+    _currentImageView = currentImageView;
+    _currentImageIndex = 0;
+    _sourceImagesContainerView = _currentImageView.superview;
+    _imageCount = 1;
+
+}
 
 #pragma mark - Gesture
 - (void)photoClick:(UITapGestureRecognizer *)recognizer
@@ -297,15 +311,16 @@
     _scrollView.hidden = YES;
     _willDisappear = YES;
     
-    SDBrowserImageView *currentImageView = (SDBrowserImageView *)recognizer.view;
+    YHBrowserImageView *currentImageView = (YHBrowserImageView *)recognizer.view;
     NSInteger currentIndex = currentImageView.tag;
     
-    UIView *sourceView  = nil;
+    UIView *sourceView = nil;
     if (_currentImageView) {
         sourceView = _currentImageView;
     }else{
-        sourceView =  self.sourceImagesContainerView.subviews[currentIndex];
+        sourceView = self.sourceImagesContainerView.subviews[currentIndex];
     }
+    
     
     CGRect targetTemp = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     
@@ -327,7 +342,7 @@
 //    _saveButton.hidden = YES;
     
     
-    [UIView animateWithDuration:SDPhotoBrowserHideImageAnimationDuration delay:0 options:UIViewAnimationOptionTransitionCurlUp animations:^{
+    [UIView animateWithDuration:YHPhotoBrowserHideImageAnimationDuration delay:0 options:UIViewAnimationOptionTransitionCurlUp animations:^{
         tempView.frame = targetTemp;
         self.backgroundColor = [UIColor clearColor];
 //        _indexLabel.alpha = 0.1;
@@ -339,7 +354,7 @@
 
 - (void)imageViewDoubleTaped:(UITapGestureRecognizer *)recognizer
 {
-    SDBrowserImageView *imageView = (SDBrowserImageView *)recognizer.view;
+    YHBrowserImageView *imageView = (YHBrowserImageView *)recognizer.view;
     CGFloat scale;
     if (imageView.isScaled) {
         scale = 1.0;
@@ -347,7 +362,7 @@
         scale = 2.0;
     }
     
-    SDBrowserImageView *view = (SDBrowserImageView *)recognizer.view;
+    YHBrowserImageView *view = (YHBrowserImageView *)recognizer.view;
 
     [view doubleTapToZommWithScale:scale];
 }
@@ -388,8 +403,8 @@
 {
     if ([keyPath isEqualToString:@"frame"]) {
         self.frame = object.bounds;
-        SDBrowserImageView *currentImageView = _scrollView.subviews[_currentImageIndex];
-        if ([currentImageView isKindOfClass:[SDBrowserImageView class]]) {
+        YHBrowserImageView *currentImageView = _scrollView.subviews[_currentImageIndex];
+        if ([currentImageView isKindOfClass:[YHBrowserImageView class]]) {
             [currentImageView clear];
         }
     }
@@ -416,7 +431,7 @@
 // 加载图片
 - (void)setupImageOfImageViewForIndex:(NSInteger)index
 {
-    SDBrowserImageView *imageView = _scrollView.subviews[index];
+    YHBrowserImageView *imageView = _scrollView.subviews[index];
     self.currentImageIndex = index;
     if (imageView.hasLoadedImage) return;
     
@@ -446,7 +461,7 @@
     CGFloat x = scrollView.contentOffset.x;
     CGFloat distance = x - index * _scrollView.bounds.size.width;
     if (distance > margin || distance < - margin) {
-        SDBrowserImageView *imageView = _scrollView.subviews[index];
+        YHBrowserImageView *imageView = _scrollView.subviews[index];
         if (imageView.isScaled) {
             [UIView animateWithDuration:0.5 animations:^{
                 imageView.transform = CGAffineTransformIdentity;

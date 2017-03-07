@@ -12,9 +12,9 @@
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
 #import "UIImage+Extension.h"
-#import "SDPhotoBrowser.h"
+#import "YHPhotoBrowserView.h"
 
-@interface CellChatImageLeft()<SDPhotoBrowserDelegate>
+@interface CellChatImageLeft()<YHPhotoBrowserViewDelegate>
 @property (nonatomic,strong) UIImageView *imgvContent;
 @end
 
@@ -123,23 +123,21 @@
 - (void)gestureOnContent:(UIGestureRecognizer *)aGes{
     if (aGes.state == UIGestureRecognizerStateEnded) {
        
-        SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+        YHPhotoBrowserView *browser = [[YHPhotoBrowserView alloc] init];
         browser.currentImageView = _imgvContent;
-        browser.sourceImagesContainerView = self.contentView;
-        browser.imageCount = 1;
         browser.delegate = self;
         [browser show];
     }
 }
 
-#pragma mark - @protocol SDPhotoBrowserDelegate
+#pragma mark - @protocol YHPhotoBrowserViewDelegate
 
-- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+- (NSURL *)photoBrowser:(YHPhotoBrowserView *)browser highQualityImageURLForIndex:(NSInteger)index
 {
     return [self getImageUrl];
 }
 
-- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+- (UIImage *)photoBrowser:(YHPhotoBrowserView *)browser placeholderImageForIndex:(NSInteger)index
 {
     
     return _imgvContent.image;

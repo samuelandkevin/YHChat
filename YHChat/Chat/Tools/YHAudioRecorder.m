@@ -78,7 +78,7 @@
         NSDictionary *setting=[self getAudioSetting];
         //创建录音机
         NSError *error = nil;
-        _audioRecorder = [[AVAudioRecorder alloc]initWithURL:url settings:setting error:&error];
+        _audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:&error];
         _audioRecorder.delegate = self;
         _audioRecorder.meteringEnabled = YES;//如果要监控声波则必须设置为YES
         if (error) {

@@ -42,5 +42,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YHChat/UICustoms/YHPhotoBrowser/YHPhotoBrowserView.m"
+            timestampString = "510546371.724521"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "-photoClick:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[YHPhotoBrowserView photoClick:]"
+                  moduleName = "YHChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/YHIOS002/Desktop/MyGithubDemo/YHChat/YHChat/UICustoms/YHPhotoBrowser/YHPhotoBrowserView.m"
+                  timestampString = "510546371.817636"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "345"
+                  endingLineNumber = "345"
+                  offsetFromSymbolStart = "1646">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[YHPhotoBrowserView photoClick:]_block_invoke"
+                  moduleName = "YHChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/YHIOS002/Desktop/MyGithubDemo/YHChat/YHChat/UICustoms/YHPhotoBrowser/YHPhotoBrowserView.m"
+                  timestampString = "510546371.819249"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "345"
+                  endingLineNumber = "345"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
