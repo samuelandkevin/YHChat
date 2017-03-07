@@ -17,6 +17,9 @@
 #import "YHChatHeader.h"
 #import "TestData.h"
 #import "YHAudioPlayer.h"
+#import "YHAudioRecorder.h"
+#import "YHVoiceHUD.h"
+#import "YHUploadManager.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate>{
     
@@ -24,6 +27,7 @@
 @property (nonatomic,strong) YHRefreshTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) YHExpressionKeyboard *keyboard;
+@property (nonatomic,strong) YHVoiceHUD *imgvVoiceTips;
 
 @end
 
@@ -55,6 +59,16 @@
     }
     return _dataArray;
 }
+
+- (YHVoiceHUD *)imgvVoiceTips{
+    if (!_imgvVoiceTips) {
+        _imgvVoiceTips = [[YHVoiceHUD alloc] initWithFrame:CGRectMake(0, 0, 155, 155)];
+        _imgvVoiceTips.center = CGPointMake(self.view.center.x, self.view.center.y-64);
+        [self.view addSubview:_imgvVoiceTips];
+    }
+    return _imgvVoiceTips;
+}
+
 
 - (void)initUI{
     
@@ -247,8 +261,28 @@
  
 }
 
+#pragma mark - Private
+- (NSString *)currentRecordFileName
+{
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+    NSString *fileName = [NSString stringWithFormat:@"%ld",(long)timeInterval];
+    return fileName;
+}
+
+//显示录音时间太短Tips
+- (void)showShortRecordTips{
+    WeakSelf
+    self.imgvVoiceTips.hidden = NO;
+    self.imgvVoiceTips.image  =  [UIImage imageNamed:@"voiceShort"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.imgvVoiceTips.hidden = YES;
+    });
+}
+
+
 #pragma mark - YHExpressionKeyboardDelegate
-- (void)sendBtnDidTap:(NSString *)text{
+//发送
+- (void)didTapSendBtn:(NSString *)text{
     
     if (text.length) {
         YHChatModel *model = [YHChatHelper creatMessage:text msgType:YHMessageType_Text toID:nil];
@@ -259,6 +293,69 @@
         
     }
     
+}
+
+- (void)didStartRecordingVoice{
+    WeakSelf
+    self.imgvVoiceTips.hidden = NO;
+    [[YHAudioRecorder shareInstanced] startRecordingWithFileName:[self currentRecordFileName] completion:^(NSError *error) {
+        if (error) {
+            if (error.code != 122) {
+                [HHUtils showAlertWithTitle:@"" message:error.localizedDescription okTitle:@"确定" cancelTitle:nil inViewController:self dismiss:^(BOOL resultYes) {
+                    
+                }];
+            }
+        }
+    }power:^(float progress) {
+        weakSelf.imgvVoiceTips.progress = progress;
+    }];
+}
+
+- (void)didStopRecordingVoice{
+    self.imgvVoiceTips.hidden = YES;
+    WeakSelf
+    [[YHAudioRecorder shareInstanced] stopRecordingWithCompletion:^(NSString *recordPath) {
+        if ([recordPath isEqualToString:shortRecord]) {
+            [weakSelf showShortRecordTips];
+        }else{
+            DDLog(@"record finish , file path is :\n%@",recordPath);
+            [YHChatHelper creatMessage:@"voice[https://]" msgType:YHMessageType_Voice toID:@"1"];
+        }
+    }];
+}
+
+- (void)didDragInside:(BOOL)inside{
+    if (inside) {
+
+        [[YHAudioRecorder shareInstanced] resumeUpdateMeters];
+        self.imgvVoiceTips.image = [UIImage imageNamed:@"voice_1"];
+        self.imgvVoiceTips.hidden = NO;
+    }else{
+
+        [[YHAudioRecorder shareInstanced] pauseUpdateMeters];
+        self.imgvVoiceTips.image = [UIImage imageNamed:@"cancelVoice"];
+        self.imgvVoiceTips.hidden = NO;
+    }
+}
+
+- (void)didCancelRecordingVoice{
+    self.imgvVoiceTips.hidden = YES;
+    [[YHAudioRecorder shareInstanced] removeCurrentRecordFile];
+}
+
+#pragma mark - 网络请求
+- (void)uploadRecordFile:(NSString *)filePath{
+    //上传录音文件
+    [[YHUploadManager sharedInstance] uploadChatRecordWithPath:filePath complete:^(BOOL success, id obj) {
+        if (success) {
+            DDLog(@"上传成功,%@",obj);
+        }else{
+            DDLog(@"上传失败,%@",obj);
+        }
+    } progress:^(int64_t bytesWritten, int64_t totalBytesWritten) {
+        DDLog(@"bytesWritten:%lld -- totalBytesWritten:%lld",bytesWritten,totalBytesWritten);
+    }];
+
 }
 
 #pragma mark - Life Cycle

@@ -440,8 +440,8 @@
 
 - (void)onBtnSend:(UIButton *)sender{
     
-    if (_delegate && [_delegate respondsToSelector:@selector(sendBtnDidTap)]) {
-        [_delegate sendBtnDidTap];
+    if (_delegate && [_delegate respondsToSelector:@selector(didTapSendBtn)]) {
+        [_delegate didTapSendBtn];
     }
     
 }

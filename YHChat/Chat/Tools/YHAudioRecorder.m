@@ -8,40 +8,65 @@
 
 #import "YHAudioRecorder.h"
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
+#import "HHUtils.h"
+#import "YHFilePath.h"
+#import "VoiceConverter.h"
 
-@interface YHAudioRecorder()<AVAudioRecorderDelegate>
+
+#define kChildPath   @"Chat/Recorder"
+#define kRecoderType @".wav"
+#define kAmrType @"amr"
+#define kMinRecordDuration 1.0 //最短录音时长
+
+
+@interface YHAudioRecorder()<AVAudioRecorderDelegate,AVAudioPlayerDelegate>{
+    NSDate *_startRecordDate;
+    NSDate *_endRecordDate;
+    void (^recordFinish)(NSString *recordPath);
+    void (^recordPower)(float progress);
+}
 
 @property (nonatomic,strong) AVAudioRecorder *audioRecorder;
 @property (nonatomic,strong) AVAudioPlayer *audioPlayer;
-@property (nonatomic,strong) NSTimer *timer;
+@property (nonatomic,strong) NSTimer *timerUpdateMeters;
+@property (nonatomic,copy)   NSString *recordFileName;
+
 @end
+
 
 
 @implementation YHAudioRecorder
 
-
-/**
- *  设置音频会话
- */
-- (void)setAudioSession{
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    //设置为播放和录音状态，以便可以在录制完之后播放录音
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    [audioSession setActive:YES error:nil];
++ (instancetype)shareInstanced{
+    static YHAudioRecorder *g_instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        g_instance = [[YHAudioRecorder alloc] init];
+    });
+    return g_instance;
 }
 
-/**
- *  取得录音文件保存路径
- *
- *  @return 录音文件路径
- */
-- (NSURL *)getSavePath{
-    NSString *urlStr = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    urlStr = [urlStr stringByAppendingPathComponent:@""];
-    DDLog(@"record file path:%@",urlStr);
-    NSURL *url = [NSURL fileURLWithPath:urlStr];
-    return url;
+
+- (BOOL)canRecord
+{
+    __block BOOL bCanRecord = YES;
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending)
+    {
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
+            [audioSession performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+                bCanRecord = granted;
+            }];
+        }
+    }
+    return bCanRecord;
 }
+
+
+#pragma mark - Private
+
+
 
 #pragma mark - Lazy Load
 /**
@@ -65,111 +90,227 @@
     return dicM;
 }
 
-/**
- *  获得录音机对象
- *
- *  @return 录音机对象
- */
-- (AVAudioRecorder *)audioRecorder{
-    if (!_audioRecorder) {
-        //创建录音文件保存路径
-        NSURL *url = [self getSavePath];
-        //创建录音格式设置
-        NSDictionary *setting=[self getAudioSetting];
-        //创建录音机
-        NSError *error = nil;
-        _audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:&error];
-        _audioRecorder.delegate = self;
-        _audioRecorder.meteringEnabled = YES;//如果要监控声波则必须设置为YES
-        if (error) {
-            DDLog(@"创建录音机对象时发生错误，错误信息：%@",error.localizedDescription);
-            return nil;
-        }
+- (NSTimer *)timerUpdateMeters{
+    if (!_timerUpdateMeters) {
+        _timerUpdateMeters = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(powerChange) userInfo:nil repeats:YES];
     }
-    return _audioRecorder;
+    return _timerUpdateMeters;
 }
 
-/**
- *  创建播放器
- *
- *  @return 播放器
- */
-- (AVAudioPlayer *)audioPlayer{
-    if (!_audioPlayer) {
-        NSURL *url=[self getSavePath];
-        NSError *error=nil;
-        _audioPlayer=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
-        _audioPlayer.numberOfLoops=0;
-        [_audioPlayer prepareToPlay];
-        if (error) {
-            DDLog(@"创建播放器过程中发生错误，错误信息：%@",error.localizedDescription);
-            return nil;
-        }
+- (void)powerChange{
+    [_audioRecorder updateMeters];
+    float power= [_audioRecorder averagePowerForChannel:0];//取得第一个通道的音频，注意音频强度范围时-160到0,声音越大power绝对值越小
+    CGFloat progress = (1.0/160)*(power + 160);
+    if (recordPower) {
+        recordPower(progress);
     }
-    return _audioPlayer;
-}
-
-/**
- *  录音声波监控定制器
- *
- *  @return 定时器
- */
-- (NSTimer *)timer{
-    if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(audioPowerChange) userInfo:nil repeats:YES];
-    }
-    return _timer;
-}
-
-/**
- *  录音声波状态设置
- */
-- (void)audioPowerChange{
-    [self.audioRecorder updateMeters];//更新测量值
-    float power= [self.audioRecorder averagePowerForChannel:0];//取得第一个通道的音频，注意音频强度范围时-160到0
-    CGFloat progress=(1.0/160.0)*(power+160.0);
-    DDLog(@"%f",progress);
+    DDLog(@"语音功率:%f",progress);
 }
 
 
 #pragma mark -
-/**
- *  点击录音按钮
- */
-- (void)record{
-    if (![self.audioRecorder isRecording]) {
-        [self.audioRecorder record];//首次使用应用时如果调用record方法会询问用户是否允许使用麦克风
-        self.timer.fireDate=[NSDate distantPast];
+
+
+#pragma mark - 录音文件
+// 录音文件主路径
+- (NSString *)recorderMainPath
+{
+    NSString *path = [[YHFilePath getAppCacheDirectory] stringByAppendingPathComponent:kChildPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDirExist = [fileManager fileExistsAtPath:path];
+    if (!isDirExist) {
+        BOOL isCreatDir = [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+        if (!isCreatDir) {
+            DDLog(@"create folder failed");
+            return nil;
+        }
     }
+    return path;
 }
 
-/**
- *  点击暂定按钮
- */
-- (void)pause{
-    if ([self.audioRecorder isRecording]) {
-        [self.audioRecorder pause];
-        self.timer.fireDate=[NSDate distantFuture];
+// fileName的录音文件路径
+- (NSString *)recorderPathWithFileName:(NSString *)fileName
+{
+    NSString *mainPath = [self recorderMainPath];
+    return [mainPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%@",fileName,kRecoderType]];
+}
+
+#pragma mark - Public Method
+// start recording
+- (void)startRecordingWithFileName:(NSString *)fileName
+                        completion:(void(^)(NSError *error))completion
+                        power:(void(^)(float progress))power{
+    self.curRecordFileName = fileName;
+    recordPower = power;
+    NSError *error = nil;
+    if (![self canRecord]) {
+    
+        [HHUtils showAlertWithTitle:@"无法录音" message:@"请在iPhone的“设置-隐私-麦克风”选项中，允许iCom访问你的手机麦克风。" okTitle:@"确定" cancelTitle:nil dismiss:^(BOOL resultYes) {
+        }];
+        
+        if (completion) {
+            error = [NSError errorWithDomain:NSLocalizedString(@"error", @"没权限") code:122 userInfo:nil];
+            completion(error);
+            if (recordPower) {
+                recordPower(0);
+            }
+        }
+        return;
+    }else{
+        [self timerUpdateMeters];
+        
+        //0.取消当前的录制
+        if ([_audioRecorder isRecording]){
+            [_audioRecorder stop];
+            [self cancelCurrentRecording];
+            return;
+        }
+        
+        //1.设置策略
+        NSError *errorCategory = nil;
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&errorCategory];
+        if(errorCategory){
+            DDLog(@"%@", [errorCategory description]);
+        }
+        
+        //2.初始化录音设备
+        NSURL *url = [[NSURL alloc] initFileURLWithPath:[self recorderPathWithFileName:fileName]];
+        NSDictionary *settings = [self getAudioSetting];
+        _audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:&error];
+        _audioRecorder.delegate = self;
+        _audioRecorder.meteringEnabled = YES;//如果要监控声波则必须设置为YES
+        if (!_audioRecorder || error) {
+            _audioRecorder = nil;
+            if (completion) {
+                error = [NSError errorWithDomain:NSLocalizedString(@"error.initRecorderFail", @"Failed to initialize AVAudioRecorder") code:123 userInfo:nil];
+                completion(error);
+                if (recordPower) {
+                    recordPower(0);
+                }
+                
+            }
+            return;
+        }
+        _startRecordDate = [NSDate date];
+        [_audioRecorder prepareToRecord];
+        [_audioRecorder record];
+        
+        if (completion) {
+            completion(error);
+        }
+
     }
+
 }
 
-/**
- *  点击恢复按钮
- *  恢复录音只需要再次调用record，AVAudioSession会帮助你记录上次录音位置并追加录音
+// stop  recording
+- (void)stopRecordingWithCompletion:(void(^)(NSString *recordPath))completion
+{
+    
+    //关闭定时器
+    [self.timerUpdateMeters invalidate];
+    _timerUpdateMeters = nil;
+    
+    _endRecordDate = [NSDate date];
+    NSTimeInterval recordTimeInterval = [_endRecordDate timeIntervalSinceDate:_startRecordDate];
+    if ([_audioRecorder isRecording]) {
+        if (recordTimeInterval < kMinRecordDuration) {
+            if (completion) {
+                completion(shortRecord);
+            }
+            if (recordPower){
+                recordPower(0);
+            }
+         
+            [self cancelCurrentRecording];
+            [self removeCurrentRecordFile];
+            DDLog(@"record time duration is too short");
+            return;
+        }
+        recordFinish = completion;
 
- */
-- (void)resume {
-    [self record];
-}
-
-/**
- *  点击停止按钮
- */
-- (void)stop{
-    [self.audioRecorder stop];
-     self.timer.fireDate=[NSDate distantFuture];
+        WeakSelf
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [weakSelf.audioRecorder stop];
+            DDLog(@"record time duration :%f", recordTimeInterval);
+        });
+        
+        
+    }
     
 }
+
+// pause UpdateMeters
+- (void)pauseUpdateMeters{
+    [self.timerUpdateMeters setFireDate:[NSDate distantFuture]];
+    if (recordPower) {
+        recordPower(0);
+    }
+}
+
+// resume UpdateMeters
+- (void)resumeUpdateMeters{
+    [self.timerUpdateMeters setFireDate:[NSDate distantPast]];
+}
+
+/**
+ 取消当前录制
+ */
+- (void)cancelCurrentRecording
+{
+    _audioRecorder.delegate = nil;
+    if (_audioRecorder.recording) {
+        [_audioRecorder stop];
+    }
+    _audioRecorder = nil;
+    recordFinish = nil;
+}
+
+// 移除录音文件
+- (void)removeCurrentRecordFile{
+    [self removeCurrentRecordFile:self.curRecordFileName];
+}
+
+// 移除录音文件
+- (void)removeCurrentRecordFile:(NSString *)fileName
+{
+    [self cancelCurrentRecording];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [self recorderPathWithFileName:fileName];
+    BOOL isDirExist = [fileManager fileExistsAtPath:path];
+    if (isDirExist) {
+        [fileManager removeItemAtPath:path error:nil];
+    }
+}
+
+
+
+- (void)startPlayRecorder:(NSString *)recorderPath
+{
+
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    NSError *err = nil;  // 加上这两句，否则声音会很小
+    [audioSession setCategory :AVAudioSessionCategoryPlayback error:&err];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:recorderPath] error:nil];
+    self.audioPlayer.numberOfLoops = 0;
+    [self.audioPlayer prepareToPlay];
+    self.audioPlayer.delegate = self;
+    [self.audioPlayer play];
+}
+
+- (void)stopPlayRecorder:(NSString *)recorderPath
+{
+    [self.audioPlayer stop];
+    self.audioPlayer = nil;
+    self.audioPlayer.delegate = nil;
+}
+
+- (void)pause
+{
+    [self.audioPlayer pause];
+}
+
 
 
 #pragma mark - 录音机代理方法
@@ -179,11 +320,47 @@
  *  @param recorder 录音机对象
  *  @param flag     是否成功
  */
-- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-    if (![self.audioPlayer isPlaying]) {
-        [self.audioPlayer play];
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder
+                           successfully:(BOOL)flag{
+    if (![self.audioRecorder isRecording]) {
+        [self.audioRecorder stop];
     }
     DDLog(@"录音完成!");
+    
+    NSString *recordPath = [[_audioRecorder url] path];
+    // 音频格式转换
+    NSString *amrPath = [[recordPath stringByDeletingPathExtension] stringByAppendingPathExtension:kAmrType];
+    [VoiceConverter ConvertWavToAmr:recordPath amrSavePath:amrPath];
+    if (recordFinish) {
+        if (!flag) {
+            recordPath = nil;
+        }
+        recordFinish(amrPath);
+    }
+    _audioRecorder = nil;
+    recordFinish   = nil;
+    
+    //移除.wav原文件
+    [self removeCurrentRecordFile:self.curRecordFileName];
+    
+}
+
+- (void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder
+                                   error:(NSError *)error
+{
+    DDLog(@"audioRecorderEncodeErrorDidOccur");
+}
+
+
+#pragma mark - AVAudioPlayerDelegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
+                       successfully:(BOOL)flag
+{
+    [self.audioPlayer stop];
+    self.audioPlayer = nil;
+   
 }
 
 @end

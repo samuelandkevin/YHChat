@@ -9,7 +9,7 @@
 #ifndef YHSqilteConfig_h
 #define YHSqilteConfig_h
 
-
+//#import "YHDebug.h"
 /**********common宏定义**************/
 #define kDatabaseVersionKey     @"YH_DBVersion" //数据库版本
 //Doc目录

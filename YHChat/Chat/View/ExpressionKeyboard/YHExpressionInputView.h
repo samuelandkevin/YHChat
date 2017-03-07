@@ -11,7 +11,7 @@
 @protocol YHExpressionInputViewDelegate <NSObject>
 
 //点击发送按钮
-- (void)sendBtnDidTap;
+- (void)didTapSendBtn;
 
 @optional
 - (void)emoticonInputDidTapText:(NSString *)text;

@@ -114,6 +114,9 @@
     CGFloat _height_Toolbar;   //当前Toolbar高度
     NSMutableArray *_toolbarButtonArr;
     UIButton       *_toolbarButtonSelected;
+    
+    NSDate *_beginRecordDate;
+    NSDate *_endRecordDate;
 }
 
 //表情键盘被添加到的VC 和 父视图
@@ -368,6 +371,13 @@
 
     [_toolbarPresstoSpeakButton setTitle:@"按住 说话" forState:UIControlStateNormal];
     [_toolbarPresstoSpeakButton setTitle:@"松开 结束" forState:UIControlStateHighlighted];
+
+    [_toolbarPresstoSpeakButton addTarget:self action:@selector(talkButtonDown:) forControlEvents:UIControlEventTouchDown];
+    [_toolbarPresstoSpeakButton addTarget:self action:@selector(talkButtonUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [_toolbarPresstoSpeakButton addTarget:self action:@selector(talkButtonUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+    [_toolbarPresstoSpeakButton addTarget:self action:@selector(talkButtonTouchCancel:) forControlEvents:UIControlEventTouchCancel];
+    [_toolbarPresstoSpeakButton addTarget:self action:@selector(talkButtonDragOutside:) forControlEvents:UIControlEventTouchDragOutside];
+    [_toolbarPresstoSpeakButton addTarget:self action:@selector(talkButtonDragInside:) forControlEvents:UIControlEventTouchDragInside];
     
     _toolbarPresstoSpeakButton.layer.cornerRadius =3;
     _toolbarPresstoSpeakButton.layer.borderWidth  = 1;
@@ -518,10 +528,10 @@
     
 }
 
-- (void)sendBtnDidTap{
+- (void)didTapSendBtn{
     DDLog(@"点击发送,发送文本是：\n%@",_textView.text);
-    if (_delegate && [_delegate respondsToSelector:@selector(sendBtnDidTap:)]) {
-        [_delegate sendBtnDidTap:_textView.text];
+    if (_delegate && [_delegate respondsToSelector:@selector(didTapSendBtn:)]) {
+        [_delegate didTapSendBtn:_textView.text];
     }
     
     //清空输入内容
@@ -764,6 +774,56 @@
     btn.selected = !btn.selected;
     
 }
+
+// 说话按钮
+- (void)talkButtonDown:(UIButton *)sender
+{
+//    DDLog(@"talkButtonDown");
+    if(_delegate && [_delegate respondsToSelector:@selector(didStartRecordingVoice)]){
+        [_delegate didStartRecordingVoice];
+    }
+}
+
+- (void)talkButtonUpInside:(UIButton *)sender
+{
+//     DDLog(@"talkButtonUpInside");
+    if(_delegate && [_delegate respondsToSelector:@selector(didStopRecordingVoice)]){
+        [_delegate didStopRecordingVoice];
+    }
+}
+
+- (void)talkButtonUpOutside:(UIButton *)sender
+{
+//     DDLog(@"talkButtonUpOutside");
+    if(_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoice)]){
+        [_delegate didCancelRecordingVoice];
+    }
+}
+
+- (void)talkButtonDragOutside:(UIButton *)sender
+{
+//    DDLog(@"talkButtonDragOutside");
+    if(_delegate && [_delegate respondsToSelector:@selector(didDragInside:)]){
+        [_delegate didDragInside:NO];
+    }
+}
+
+- (void)talkButtonDragInside:(UIButton *)sender
+{
+//     DDLog(@"talkButtonDragInside");
+    if(_delegate && [_delegate respondsToSelector:@selector(didStopRecordingVoice)]){
+        [_delegate didDragInside:YES];
+    }
+}
+
+- (void)talkButtonTouchCancel:(UIButton *)sender
+{
+     DDLog(@"talkButtonTouchCancel");
+}
+
+
+#pragma mark - Gesture
+
 
 
 #pragma mark - NSNotification
