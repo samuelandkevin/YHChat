@@ -9,9 +9,20 @@
 #import <Foundation/Foundation.h>
 
 @interface YHAudioPlayer : NSObject
+
+/**
+ 单例
+
+ @return YHAudioPlayer
+ */
 + (instancetype)shareInstanced;
-//播放url
-- (void)playWithUrlString:(NSString *)url;
-//播放url结束
-- (void)playFinishWithUrlString:(NSString *)url complete:(void(^)(BOOL finish))complete;
+
+/**
+ 播放音频
+
+ @param url 路径字符串
+ @param progress 进度（0-1）1:代表播放完成
+ */
+- (void)playWithUrlString:(NSString *)url progress:(void(^)(float progress))progress;
+
 @end

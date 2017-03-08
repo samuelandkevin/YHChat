@@ -14,6 +14,8 @@
 
 @interface YHGroupIconFrame : NSObject
 
+- (UIImageView *)iconWithMembersCount:(int)membersCount;
+
 - (BOOL)hasCacheFrameAtIndex:(int)index membersCount:(int)membersCount;
 - (CGRect)getCacheFrameAtIndexAtIndex:(int)index membersCount:(int)membersCount;
 - (void)cacheFrame:(CGRect)frame atIndex:(int)index membersCount:(int)membersCount;
@@ -32,6 +34,13 @@
         g_instance = [YHGroupIconFrame new];
     });
     return g_instance;
+}
+
+- (UIImageView *)iconWithMembersCount:(int)membersCount{
+    if (membersCount == 1) {
+        
+    }
+    return nil;
 }
 
 
@@ -161,8 +170,6 @@
         CGFloat itemW = [self itemWidthAtIndex:i membersCount:(int)membersInGroupIcon imageView:imageView];
         imageView.layer.cornerRadius  = itemW/2;
         imageView.layer.masksToBounds = YES;
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.clipsToBounds = YES;
         imageView.hidden = NO;
         [imageView sd_setImageWithURL:obj placeholderImage:[UIImage imageNamed:@"common_avatar_120px"]  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {}
          ];

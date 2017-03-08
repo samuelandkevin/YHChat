@@ -126,13 +126,13 @@
 #pragma mark - @protocol CellChatVoiceLeft
 - (void)playInLeftCellWithVoicePath:(NSString *)voicePath{
     DDLog(@"播放:%@",voicePath);
-    [[YHAudioPlayer shareInstanced] playWithUrlString:voicePath];
+
 }
 
 #pragma mark - @protocol CellChatVoiceRight
 - (void)playInRightCellWithVoicePath:(NSString *)voicePath{
     DDLog(@"播放:%@",voicePath);
-    [[YHAudioPlayer shareInstanced] playWithUrlString:voicePath];
+
 }
 
 #pragma mark - @protocol UIScrollViewDelegate
@@ -319,7 +319,10 @@
             [weakSelf showShortRecordTips];
         }else{
             DDLog(@"record finish , file path is :\n%@",recordPath);
-            [YHChatHelper creatMessage:@"voice[https://]" msgType:YHMessageType_Voice toID:@"1"];
+            NSString *voiceMsg = [NSString stringWithFormat:@"voice[local://%@]",recordPath];
+            [weakSelf.dataArray addObject:[YHChatHelper creatMessage:voiceMsg msgType:YHMessageType_Voice toID:@"1"]];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:weakSelf.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         }
     }];
 }

@@ -9,9 +9,11 @@
 #import "YHAudioPlayer.h"
 #import <AVFoundation/AVFoundation.h>
 #import "YHDownLoadManager.h"
+#import "VoiceConverter.h"
 
 @interface YHAudioPlayer()<AVAudioPlayerDelegate>
 @property (nonatomic,strong) AVAudioPlayer *player;
+@property (nonatomic,copy) void(^progress)(float progress);
 @end
 
 @implementation YHAudioPlayer
@@ -25,7 +27,17 @@
     return g_instance;
 }
 
-- (void)playWithUrlString:(NSString *)url{
+- (void)playWithUrlString:(NSString *)url progress:(void(^)(float progress))progress{
+    self.progress = progress;
+    
+    //播放本地音频
+    if([url hasPrefix:@"local://"]){
+        NSString *path = [url stringByReplacingOccurrencesOfString:@"local://" withString:@""];
+        [self _fristPlayWithResourcePath:path];
+        return;
+    }
+    
+    //播放流媒体
     WeakSelf
     [[YHDownLoadManager sharedInstance] downLoadAudioWithRequestUrl:url complete:^(BOOL success, id obj) {
         if (success) {
@@ -36,7 +48,6 @@
             DDLog(@"%@",obj);
             
         }
-
     } progress:^(int64_t bytesWritten, int64_t totalBytesWritten) {
         
     }];
@@ -56,15 +67,14 @@
         [_player prepareToPlay];//加载音频文件到缓存
         if(error){
             DDLog(@"初始化播放器过程发生错误,错误信息:%@",error.localizedDescription);
+            if (self.progress) {
+                self.progress(0);
+            }
         }
         [self play];
     });
 }
 
-//播放url结束
-- (void)playFinishWithUrlString:(NSString *)url complete:(void(^)(BOOL finish))complete{
-    
-}
 
 - (BOOL)isPlaying{
     return [_player isPlaying];
@@ -89,10 +99,16 @@
     DDLog(@"audioPlayerDidFinishPlaying");
     [self pause];
     _player = nil;
+    if (self.progress) {
+        self.progress(1);
+    }
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error{
     DDLog(@"audioPlayerDecodeErrorDidOccur");
+    if (self.progress) {
+        self.progress(0);
+    }
 }
 
 

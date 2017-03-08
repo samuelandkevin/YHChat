@@ -37,4 +37,6 @@
 // remove current recordFile
 - (void)removeCurrentRecordFile;
 
+// voice duration
+- (NSUInteger)durationWithVoiceUrl:(NSURL *)voiceUrl;
 @end

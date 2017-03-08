@@ -10,6 +10,7 @@
 #import <Masonry/Masonry.h>
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
+#import "YHAudioPlayer.h"
 
 @interface CellChatVoiceLeft()
 
@@ -49,6 +50,7 @@
     UIImage *image1 = [UIImage imageNamed:@"left-1"];
     UIImage *image2 = [UIImage imageNamed:@"left-2"];
     UIImage *image3 = [UIImage imageNamed:@"left-3"];
+    _imgvVoiceIcon.animationDuration = 0.8;
     _imgvVoiceIcon.animationImages = @[image1, image2, image3];
     [self.contentView addSubview:_imgvVoiceIcon];
     
@@ -114,6 +116,15 @@
             voicePath = [voicePath stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
             voicePath = [voicePath stringByReplacingOccurrencesOfString:@"]" withString:@""];
             [_delegate playInLeftCellWithVoicePath:voicePath];
+            
+            [_imgvVoiceIcon startAnimating];
+            WeakSelf
+            [[YHAudioPlayer shareInstanced] playWithUrlString:voicePath progress:^(float progress) {
+                if (progress == 1) {
+                    DDLog(@"finish playing");
+                }
+                [weakSelf.imgvVoiceIcon stopAnimating];
+            }];
         }
     }
 }

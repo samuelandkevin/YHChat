@@ -209,7 +209,7 @@
     model.isRead = [memberArr[memLength] intValue];
     
     model.isGroupChat = YES;//kun调试
-//    memLength = 6;
+    memLength = 10;
     
     //群名字
     if (model.isGroupChat) {

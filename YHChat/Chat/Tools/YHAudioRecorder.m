@@ -312,6 +312,16 @@
 }
 
 
+// 获取语音时长
+- (NSUInteger)durationWithVoiceUrl:(NSURL *)voiceUrl{
+    
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:voiceUrl options:opts]; // 初始化视频媒体文件
+    NSUInteger second = 0;
+    second = urlAsset.duration.value / urlAsset.duration.timescale; // 获取视频总时长,单位秒
+    return second;
+}
+
 
 #pragma mark - 录音机代理方法
 /**
@@ -329,20 +339,20 @@
     DDLog(@"录音完成!");
     
     NSString *recordPath = [[_audioRecorder url] path];
-    // 音频格式转换
-    NSString *amrPath = [[recordPath stringByDeletingPathExtension] stringByAppendingPathExtension:kAmrType];
-    [VoiceConverter ConvertWavToAmr:recordPath amrSavePath:amrPath];
+//    // 音频格式转换
+//    NSString *amrPath = [[recordPath stringByDeletingPathExtension] stringByAppendingPathExtension:kAmrType];
+//    [VoiceConverter ConvertWavToAmr:recordPath amrSavePath:amrPath];
     if (recordFinish) {
         if (!flag) {
             recordPath = nil;
         }
-        recordFinish(amrPath);
+        recordFinish(recordPath);
     }
     _audioRecorder = nil;
     recordFinish   = nil;
     
-    //移除.wav原文件
-    [self removeCurrentRecordFile:self.curRecordFileName];
+//    //移除.wav原文件
+//    [self removeCurrentRecordFile:self.curRecordFileName];
     
 }
 
