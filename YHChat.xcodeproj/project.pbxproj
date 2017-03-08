@@ -56,6 +56,7 @@
 		AC9246691E6ED4970032FD3D /* YHUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9246681E6ED4970032FD3D /* YHUploadManager.m */; };
 		AC9246781E6ED7B20032FD3D /* TestData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9246741E6ED7B20032FD3D /* TestData.m */; };
 		AC9246791E6ED7B20032FD3D /* YHProtocolConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9246771E6ED7B20032FD3D /* YHProtocolConfig.m */; };
+		AC92467C1E6FD35F0032FD3D /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92467B1E6FD35F0032FD3D /* UIView+Extension.m */; };
 		ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF8047C1E5D264800B27336 /* YHChatHelper.m */; };
 		ACF804841E5D3C9700B27336 /* CellChatImageLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804831E5D3C9700B27336 /* CellChatImageLeft.m */; };
 		ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804861E5D3CC500B27336 /* CellChatImageRight.m */; };
@@ -166,6 +167,8 @@
 		AC9246751E6ED7B20032FD3D /* YHDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHDebug.h; sourceTree = "<group>"; };
 		AC9246761E6ED7B20032FD3D /* YHProtocolConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHProtocolConfig.h; sourceTree = "<group>"; };
 		AC9246771E6ED7B20032FD3D /* YHProtocolConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHProtocolConfig.m; sourceTree = "<group>"; };
+		AC92467A1E6FD35F0032FD3D /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		AC92467B1E6FD35F0032FD3D /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		ACF804791E5D186200B27336 /* YHChatServiceDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatServiceDefs.h; sourceTree = "<group>"; };
 		ACF8047B1E5D264800B27336 /* YHChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatHelper.h; sourceTree = "<group>"; };
 		ACF8047C1E5D264800B27336 /* YHChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatHelper.m; sourceTree = "<group>"; };
@@ -500,6 +503,8 @@
 		AC92465A1E6E913A0032FD3D /* Catagory */ = {
 			isa = PBXGroup;
 			children = (
+				AC92467A1E6FD35F0032FD3D /* UIView+Extension.h */,
+				AC92467B1E6FD35F0032FD3D /* UIView+Extension.m */,
 				AC92465B1E6E913A0032FD3D /* NSDate+LYXCategory.h */,
 				AC92465C1E6E913A0032FD3D /* NSDate+LYXCategory.m */,
 				AC92465D1E6E913A0032FD3D /* UIImage+Extension.h */,
@@ -682,6 +687,7 @@
 				AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */,
 				ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */,
 				AC002DB61E63BBF100EE2851 /* YHEducationExperienceModel.m in Sources */,
+				AC92467C1E6FD35F0032FD3D /* UIView+Extension.m in Sources */,
 				AC9246631E6E91640032FD3D /* YHNavigationController.m in Sources */,
 				AC002DB51E63BBF100EE2851 /* YHChatModel.m in Sources */,
 				AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */,

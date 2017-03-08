@@ -9,7 +9,6 @@
 #import "TestData.h"
 #import "YHChatModel.h"
 #import "YHChatListModel.h"
-//#import "YHDebug.h"
 
 @implementation TestData
 
@@ -204,9 +203,13 @@
     model.isRead = [isReadArr[isReadLength] boolValue];
     
     //成员数量
-    NSArray *memberArr = @[@(1),@(12),@(20),@(4),@(2),@(10),@(5),@(1),@(1),@8,@3];
+    NSArray *memberArr = @[@(1),@(12),@(19),@(4),@(2),@(10),@(5),@(1),@(1),@8,@3];
     int memLength  = arc4random() % memberArr.count;
+    memLength = memLength <= 1 ? 2:memLength;
     model.isRead = [memberArr[memLength] intValue];
+    
+    model.isGroupChat = YES;//kun调试
+//    memLength = 6;
     
     //群名字
     if (model.isGroupChat) {
@@ -224,11 +227,11 @@
                                 @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
                                 @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
         NSMutableArray <NSURL *>*urlArr = [NSMutableArray new];
-        for(int i=0 ;i < avtarArray.count ; i++){
-            NSURL *aUrl = [NSURL URLWithString:avtarArray[i]];
-            [urlArr addObject:aUrl];
+        for (int i =0; i<4; i++) {
+            [urlArr addObjectsFromArray:avtarArray];
         }
-        model.sessionUserHead = urlArr;
+        NSArray *headArray = [urlArr subarrayWithRange:NSMakeRange(0, memLength-1)];
+        model.sessionUserHead = headArray;
         
     }else{
     
