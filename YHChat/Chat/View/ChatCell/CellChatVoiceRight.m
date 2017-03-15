@@ -70,6 +70,12 @@
         make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
     }];
     
+    [self.lbName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-10);
+        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
+        make.height.mas_greaterThanOrEqualTo(14);
+    }];
+    
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kAvatarWidth);
         make.top.equalTo(weakSelf.lbTime.mas_bottom).offset(5);
@@ -77,8 +83,8 @@
     }];
     
     [_imgvBubble mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
-        make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-10);
+        make.top.equalTo(weakSelf.lbName.mas_bottom).offset(5);
+        make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-5);
         make.size.mas_equalTo(CGSizeMake(113, 40));
     }];
     
@@ -164,6 +170,7 @@
 
 - (void)setupModel:(YHChatModel *)model{
     [super setupModel:model];
+    self.lbName.text = self.model.speakerName;
     self.lbTime.text = self.model.createTime;
     _lbDuration.text = @"1 '";
 }

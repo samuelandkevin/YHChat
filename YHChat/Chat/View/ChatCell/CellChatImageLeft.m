@@ -54,6 +54,12 @@
         make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
     }];
     
+    [self.lbName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
+        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
+        make.height.mas_greaterThanOrEqualTo(14);
+    }];
+    
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kAvatarWidth);
         make.top.equalTo(weakSelf.lbTime.mas_bottom).offset(5);
@@ -61,7 +67,7 @@
     }];
     
     [_imgvContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
+        make.top.equalTo(weakSelf.lbName.mas_bottom).offset(5);
         make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
         make.size.mas_equalTo(CGSizeMake(113, 113));
     }];
@@ -82,6 +88,7 @@
 
 - (void)setupModel:(YHChatModel *)model{
     [super setupModel:model];
+    self.lbName.text    = self.model.speakerName;
     self.lbTime.text    = self.model.createTime;
     [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
     
@@ -104,7 +111,7 @@
     
     
     [_imgvContent mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
+        make.top.equalTo(weakSelf.lbName.mas_bottom).offset(5);
         make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
         make.size.mas_equalTo(image.size);
     }];

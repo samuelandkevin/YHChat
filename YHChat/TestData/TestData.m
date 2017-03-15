@@ -143,7 +143,10 @@
     
     
     
-    
+    //对话用户名字
+    NSArray *sessionNickArr = @[@"李一",@"张国富",@"黎明",@"你不是我的菜",@"这名字会好长的啊！呵呵",@"天天",@"我不要要不要" ];
+    int sNickLength  = arc4random() % sessionNickArr.count;
+    model.speakerName = sessionNickArr[sNickLength];
     
     //发布时间
     model.createTime = @"2013-04-17";

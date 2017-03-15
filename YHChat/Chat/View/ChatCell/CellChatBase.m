@@ -37,6 +37,12 @@ const float kAvatarWidth = 44.0f;//头像宽/高
     _lbTime.font = [UIFont systemFontOfSize:12.0];
     [self.contentView addSubview:_lbTime];
     
+    _lbName = [UILabel new];
+    _lbName.textColor = [UIColor grayColor];
+    _lbName.font = [UIFont systemFontOfSize:12.0];
+    [self.contentView addSubview:_lbName];
+    
+    
     _imgvAvatar = [UIImageView new];
     _imgvAvatar.userInteractionEnabled = YES;
     [_imgvAvatar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAvatarGesture:)]];
