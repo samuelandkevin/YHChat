@@ -45,7 +45,7 @@
         UIMenuController *menu = [UIMenuController sharedMenuController];
         if(menu.isMenuVisible) return;
         menu.menuItems = @[
-                           [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(customCopy:)]
+                           [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(customCopy:)],[[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(retweet:)]
                            ];
         
         [menu setTargetRect:self.bounds inView:self];
@@ -75,7 +75,7 @@
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (
-        (action == @selector(customCopy:) && self.text)
+        ((action == @selector(customCopy:) || (action == @selector(retweet:))) && self.text)
         )
         return YES;
     
@@ -97,6 +97,15 @@
 {
     // 将label的文字存储到粘贴板
     [UIPasteboard generalPasteboard].string = self.text;
+    [self finishChoosing];
+}
+
+- (void)retweet:(UIMenuController *)menu{
+
+    WeakSelf
+    if (self.retweetBlock) {
+        weakSelf.retweetBlock(weakSelf.text);
+    }
     [self finishChoosing];
 }
 

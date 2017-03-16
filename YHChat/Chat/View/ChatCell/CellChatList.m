@@ -101,13 +101,13 @@
     [_imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(44);
         make.top.equalTo(weakSelf.contentView).offset(10);
-        make.left.equalTo(weakSelf.contentView).offset(5);
+        make.left.equalTo(weakSelf.contentView).offset(10);
     }];
     
     [_imgvGroupIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(44);
         make.top.equalTo(weakSelf.contentView).offset(10);
-        make.left.equalTo(weakSelf.contentView).offset(5);
+        make.left.equalTo(weakSelf.contentView).offset(10);
     }];
     
     [_lbName setContentHuggingPriority:249 forAxis:UILayoutConstraintAxisHorizontal];

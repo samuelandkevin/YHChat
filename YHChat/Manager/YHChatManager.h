@@ -14,8 +14,6 @@
 
 //连接
 - (void)connectToUserID:(NSString *)toUserId isGroupChat:(BOOL)isGroupChat;
-//发送数据
-- (void)sendData:(id)data;
 //关闭
 - (void)close;
 @end

@@ -15,12 +15,12 @@
 
 @optional
 - (void)tapLeftAvatar:(YHUserInfo *)userInfo;
-
+- (void)retweetMsg:(NSString *)msg inLeftCell:(CellChatTextLeft *)leftCell;//转发消息
 @end
 
 @class YHChatModel;
 @interface CellChatTextLeft : CellChatBase
 
-//@property (nonatomic,strong) YHChatModel *model;
 @property (nonatomic,weak)id<CellChatTextLeftDelegate>delegate;
+@property (nonatomic,assign)NSIndexPath *indexPath;
 @end

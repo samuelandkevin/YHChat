@@ -27,6 +27,7 @@
 		AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */; };
 		AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967D01E5C4340000856F8 /* HHUtils.m */; };
 		AC30AA3F1E7A1D5000E0C9A6 /* YHChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AA3E1E7A1D5000E0C9A6 /* YHChatManager.m */; };
+		AC30AA421E7A7EF300E0C9A6 /* CellChatTips.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AA411E7A7EF300E0C9A6 /* CellChatTips.m */; };
 		AC4446BB1E568E5D00685571 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BA1E568E5D00685571 /* main.m */; };
 		AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BD1E568E5D00685571 /* AppDelegate.m */; };
 		AC4446C61E568E5D00685571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC4446C51E568E5D00685571 /* Assets.xcassets */; };
@@ -107,6 +108,8 @@
 		AC2967D01E5C4340000856F8 /* HHUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHUtils.m; sourceTree = "<group>"; };
 		AC30AA3D1E7A1D5000E0C9A6 /* YHChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatManager.h; sourceTree = "<group>"; };
 		AC30AA3E1E7A1D5000E0C9A6 /* YHChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatManager.m; sourceTree = "<group>"; };
+		AC30AA401E7A7EF300E0C9A6 /* CellChatTips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatTips.h; sourceTree = "<group>"; };
+		AC30AA411E7A7EF300E0C9A6 /* CellChatTips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatTips.m; sourceTree = "<group>"; };
 		AC4446B61E568E5D00685571 /* YHChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YHChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4446BA1E568E5D00685571 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AC4446BC1E568E5D00685571 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				AC002DC11E63D82C00EE2851 /* CellChatVoiceLeft.m */,
 				AC002DC31E63D84E00EE2851 /* CellChatVoiceRight.h */,
 				AC002DC41E63D84E00EE2851 /* CellChatVoiceRight.m */,
+				AC30AA401E7A7EF300E0C9A6 /* CellChatTips.h */,
+				AC30AA411E7A7EF300E0C9A6 /* CellChatTips.m */,
 			);
 			path = ChatCell;
 			sourceTree = "<group>";
@@ -722,6 +727,7 @@
 				AC4725BC1E67B8C900C34684 /* YHAudioPlayer.m in Sources */,
 				AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */,
 				AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */,
+				AC30AA421E7A7EF300E0C9A6 /* CellChatTips.m in Sources */,
 				ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

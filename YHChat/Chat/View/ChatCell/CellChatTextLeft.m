@@ -52,13 +52,19 @@
     _lbContent.textColor = [UIColor blackColor];
     _lbContent.textAlignment = NSTextAlignmentLeft;
     _lbContent.font = [UIFont systemFontOfSize:14.0];
+    WeakSelf
+    _lbContent.retweetBlock = ^(NSString *text){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetMsg:inLeftCell:)]) {
+            [weakSelf.delegate retweetMsg:text inLeftCell:weakSelf];
+        }
+    };
     [self.contentView addSubview:_lbContent];
     
     [self layoutUI];
 }
 
 - (void)layoutUI{
-    __weak typeof(self) weakSelf = self;
+    WeakSelf
     [self layoutCommonUI];
 
     [self.lbName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,6 +108,7 @@
     _lbContent.text = self.model.msgContent;
     self.lbName.text    = self.model.speakerName;
     self.lbTime.text    = self.model.createTime;
+    
     [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
 }
 

@@ -6,43 +6,11 @@
 	<array>
 		<dict>
 			<key>name</key>
-			<string>电话</string>
-			<key>icon_nor</key>
-			<string>chatBar_colorMore_audioCall</string>
-			<key>icon_sel</key>
-			<string>chatBar_colorMore_audioCallSelected</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>拍照</string>
-			<key>icon_nor</key>
-			<string>chatBar_colorMore_camera</string>
-			<key>icon_sel</key>
-			<string>chatBar_colorMore_cameraSelected</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>相册</string>
+			<string>照片</string>
 			<key>icon_nor</key>
 			<string>chatBar_colorMore_photo</string>
 			<key>icon_sel</key>
 			<string>chatBar_colorMore_photoSelected</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>影片</string>
-			<key>icon_nor</key>
-			<string>chatBar_colorMore_video</string>
-			<key>icon_sel</key>
-			<string>chatBar_colorMore_videoSelected</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>录像</string>
-			<key>icon_nor</key>
-			<string>chatBar_colorMore_videoCall</string>
-			<key>icon_sel</key>
-			<string>chatBar_colorMore_videoCallSelected</string>
 		</dict>
 	</array>
 </dict>

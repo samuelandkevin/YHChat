@@ -10,4 +10,6 @@
 
 @interface YHLinkLabel : UILabel
 
+@property (nonatomic,copy) void(^retweetBlock)(NSString *text);
+
 @end

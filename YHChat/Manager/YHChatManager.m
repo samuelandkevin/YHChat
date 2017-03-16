@@ -42,33 +42,6 @@
     [_socket open];
 }
 
-//发送消息
-- (void)sendData:(id)data {
-    WeakSelf
-    dispatch_async(self.socketQueue, ^{
-        if (weakSelf.socket != nil) {
-            // 只有 SR_OPEN 开启状态才能调 send 方法啊，不然要崩
-            if (weakSelf.socket.readyState == SR_OPEN) {
-                [weakSelf.socket send:data];    // 发送数据
-                
-            } else if (weakSelf.socket.readyState == SR_CONNECTING) {
-                DDLog(@"正在连接中，重连后其他方法会去自动同步数据");
-                // 每隔2秒检测一次 socket.readyState 状态，检测 10 次左右
-                // 只要有一次状态是 SR_OPEN 的就调用 [weakSelf.socket send:data] 发送数据
-                // 如果 10 次都还是没连上的，那这个发送请求就丢失了，这种情况是服务器的问题了，小概率的
-                // 代码有点长，我就写个逻辑在这里好了
-                
-            } else if (weakSelf.socket.readyState == SR_CLOSING || weakSelf.socket.readyState == SR_CLOSED) {
-                // websocket 断开了，调用 reConnect 方法重连
-                
-            }
-        } else {
-            DDLog(@"没网络，发送失败，一旦断网 socket 会被我设置 nil 的");
-            DDLog(@"其实最好是发送前判断一下网络状态比较好，我写的有点晦涩，socket==nil来表示断网");
-        }
-    });
-}
-
 //关闭连接
 - (void)close{
     [_socket close];

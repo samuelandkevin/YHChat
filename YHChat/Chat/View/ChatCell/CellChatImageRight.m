@@ -111,6 +111,7 @@
         [_imgvContent sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"chat_img_defaultPhoto"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
             [self updateImageCellHeightWith:image maxSize:CGSizeMake(200, 200)];
+            
         }];
     }
 }

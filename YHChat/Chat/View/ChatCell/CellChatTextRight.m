@@ -52,6 +52,12 @@
     _lbContent.textColor = [UIColor blackColor];
     _lbContent.textAlignment = NSTextAlignmentLeft;
     _lbContent.font = [UIFont systemFontOfSize:14.0];
+    WeakSelf
+    _lbContent.retweetBlock = ^(NSString *text){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetMsg:inRightCell:)]) {
+            [weakSelf.delegate retweetMsg:text inRightCell:weakSelf];
+        }
+    };
     [self.contentView addSubview:_lbContent];
     
     [self layoutUI];

@@ -22,6 +22,7 @@
 #import "YHUploadManager.h"
 #import "YHChatManager.h"
 
+
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate>{
     
 }
@@ -87,8 +88,8 @@
     self.tableView.backgroundColor = RGBCOLOR(239, 236, 236);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
    
-    [self _registerCellClass];
-
+    //注册Cell
+    [YHChatHelper registerCellClassWithTableView:self.tableView];
     
     //表情键盘
     YHExpressionKeyboard *keyboard = [[YHExpressionKeyboard alloc] initWithViewController:self aboveView:self.tableView];
@@ -96,25 +97,26 @@
 
 }
 
-- (void)_registerCellClass{
-    [self.tableView registerClass:[CellChatTextLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatTextLeft class])];
-    [self.tableView registerClass:[CellChatTextRight class] forCellReuseIdentifier:NSStringFromClass([CellChatTextRight class])];
-    [self.tableView registerClass:[CellChatImageLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatImageLeft class])];
-    [self.tableView registerClass:[CellChatImageRight class] forCellReuseIdentifier:NSStringFromClass([CellChatImageRight class])];
-    [self.tableView registerClass:[CellChatVoiceLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
-     [self.tableView registerClass:[CellChatVoiceRight class] forCellReuseIdentifier:NSStringFromClass([CellChatVoiceRight class])];
-}
 
-
-#pragma mark - @protocol CellChatLeftDelegate
+#pragma mark - @protocol CellChatTextLeftDelegate
 
 - (void)tapLeftAvatar:(YHUserInfo *)userInfo{
-    NSLog(@"点击左边头像");
+    DDLog(@"点击左边头像");
 }
 
-#pragma mark - @protocol CellChatRightDelegate
+- (void)retweetMsg:(NSString *)msg inLeftCell:(CellChatTextLeft *)leftCell{
+    DDLog(@"转发左边消息:%@",msg);
+    DDLog(@"所在的行是:%ld",leftCell.indexPath.row);
+}
+
+#pragma mark - @protocol CellChatTextRightDelegate
 - (void)tapRightAvatar:(YHUserInfo *)userInfo{
-    NSLog(@"点击右边头像");
+    DDLog(@"点击右边头像");
+}
+
+- (void)retweetMsg:(NSString *)msg inRightCell:(CellChatTextRight *)rightCell{
+    DDLog(@"转发右边消息:%@",msg);
+    DDLog(@"所在的行是:%ld",rightCell.indexPath.row);
 }
 
 - (void)tapSendMsgFailImg{
@@ -157,48 +159,59 @@
     
     if (indexPath.row < self.dataArray.count) {
         YHChatModel *model = self.dataArray[indexPath.row];
-        if (model.msgType == YHMessageType_Image){
-            if (model.direction == 0) {
-                
-                CellChatImageRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageRight class])];
-                [cell setupModel:model];
-                return cell;
-                
-            }else{
-                
-                CellChatImageLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageLeft class])];
-                [cell setupModel:model];
-                return cell;
-            }
-            
-        }else if (model.msgType == YHMessageType_Voice){
-        
-            if (model.direction == 0) {
-                CellChatVoiceRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceRight class])];
-                cell.delegate = self;
-                [cell setupModel:model];
-                return cell;
-            }else{
-                CellChatVoiceLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
-                cell.delegate = self;
-                [cell setupModel:model];
-                return cell;
-            }
-            
+        if(model.status == 1){
+            //消息撤回
+            CellChatTips *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTips class])];
+            cell.model = model;
+            return cell;
         }else{
-            if (model.direction == 0) {
-                CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
-                cell.delegate = self;
-                [cell setupModel:model];
-                return cell;
+            if (model.msgType == YHMessageType_Image){
+                if (model.direction == 0) {
+                    
+                    CellChatImageRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageRight class])];
+                    [cell setupModel:model];
+                    return cell;
+                    
+                }else{
+                    
+                    CellChatImageLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageLeft class])];
+                    [cell setupModel:model];
+                    return cell;
+                }
+                
+            }else if (model.msgType == YHMessageType_Voice){
+                
+                if (model.direction == 0) {
+                    CellChatVoiceRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceRight class])];
+                    cell.delegate = self;
+                    [cell setupModel:model];
+                    return cell;
+                }else{
+                    CellChatVoiceLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
+                    cell.delegate = self;
+                    [cell setupModel:model];
+                    return cell;
+                }
+                
             }else{
-                CellChatTextLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextLeft class])];
-                cell.delegate = self;
-                [cell setupModel:model];
-                return cell;
+                if (model.direction == 0) {
+                    CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
+                    cell.delegate = self;
+                    cell.indexPath = indexPath;
+                    [cell setupModel:model];
+                    return cell;
+                }else{
+                    CellChatTextLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextLeft class])];
+                    cell.delegate = self;
+                    cell.indexPath = indexPath;
+                    [cell setupModel:model];
+                    return cell;
+                }
             }
+
         }
-       
+        
+        
         
     }
     return [[UITableViewCell alloc] init];
@@ -210,53 +223,10 @@
 {
     if (indexPath.row < self.dataArray.count) {
         YHChatModel *model = self.dataArray[indexPath.row];
-        if (model.msgType == YHMessageType_Image) {
-            if (model.direction == 0) {
-                
-                return [CellChatImageRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                    CellChatImageRight *cell = (CellChatImageRight *)sourceCell;
-                    [cell setupModel:model];
-                }];
-                
-            }else{
-                
-                return [CellChatImageLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                    CellChatImageLeft *cell = (CellChatImageLeft *)sourceCell;
-                    [cell setupModel:model];
-                }];
-            }
-            
-        }else if (model.msgType == YHMessageType_Voice){
-            if (model.direction == 0) {
-               return [CellChatVoiceRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                       CellChatVoiceRight *cell = (CellChatVoiceRight *)sourceCell;
-                       [cell setupModel:model];
-                }];
-            }else{
-                return [CellChatVoiceLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                    CellChatVoiceLeft *cell = (CellChatVoiceLeft *)sourceCell;
-                    [cell setupModel:model];
-                }];
-            }
-        }else{
-            if (model.direction == 0) {
-                return [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                    CellChatTextRight *cell = (CellChatTextRight *)sourceCell;
-                    [cell setupModel:model];
-                }];
-            }else{
-                return [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
-                    CellChatTextLeft *cell = (CellChatTextLeft *)sourceCell;
-                    [cell setupModel:model];
-                }];
-            }
-        }
-        
+        return [YHChatHelper heightWithModel:model tableView:tableView];
     }
-    
     return 44.0f;
    
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -283,7 +253,7 @@
 }
 
 
-#pragma mark - YHExpressionKeyboardDelegate
+#pragma mark - @protocol YHExpressionKeyboardDelegate
 //发送
 - (void)didTapSendBtn:(NSString *)text{
     
@@ -295,8 +265,6 @@
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         
     }
-    
-    [[YHChatManager sharedInstance] sendData:text];
     
 }
 
@@ -369,7 +337,7 @@
 #pragma mark - Life Cycle
 
 - (void)dealloc{
-    NSLog(@"%s is dealloc",__func__);
+    DDLog(@"%s is dealloc",__func__);
 }
 
 - (void)didReceiveMemoryWarning {

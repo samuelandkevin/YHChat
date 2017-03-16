@@ -30,6 +30,7 @@
 @property (nonatomic,assign) int timestamp;        //时间戳
 @property (nonatomic,assign) int msgType;          //消息类型 // 0是文本 1是图片 2是语音 3是文件
 @property (nonatomic,assign) int direction;
+@property (nonatomic,assign) int status; //消息状态（撤回：1,未撤回：0）
 
 /*****自定义,以后可能并入服务器****/
 @property (nonatomic,assign) YHMessageDeliveryState deliveryState;//消息发送状态

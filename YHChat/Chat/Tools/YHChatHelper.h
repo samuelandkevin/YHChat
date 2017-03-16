@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "YHChatServiceDefs.h"
+#import <UIKit/UIKit.h>
 
 @class YHChatModel;
 @interface YHChatHelper : NSObject
@@ -15,4 +16,9 @@
 //从本地创建一条消息
 + (YHChatModel *)creatMessage:(NSString *)msg msgType:(YHMessageType)msgType  toID:(NSString *)toID;
 
+//注册Cell
++ (void)registerCellClassWithTableView:(__weak UITableView *)tableView;
+
+//行高
++ (CGFloat)heightWithModel:(__weak YHChatModel *)model tableView:(__weak UITableView *)tableView;
 @end

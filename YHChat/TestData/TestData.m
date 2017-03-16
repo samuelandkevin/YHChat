@@ -88,6 +88,11 @@
         model.audienceName = nStr;
     }
     
+    //消息是否已撤回
+    NSArray *stautsArr = @[@"0",@"1",@"1",@"0",@"0",@"1",@"0",@"0"];
+    int nStatusLength  = arc4random() % stautsArr.count;
+    model.status = [stautsArr[nStatusLength] intValue];
+    
     
     //消息类型
     NSArray *msgTypeArr = @[@(0),@(1),@(2),@(3)];

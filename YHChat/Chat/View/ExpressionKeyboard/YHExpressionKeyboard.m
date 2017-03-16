@@ -243,20 +243,20 @@
     [_toolbarVioceButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kToolbarBtnH);
         make.left.equalTo(weakSelf.topToolBar.mas_left).offset(5);
-        make.bottom.equalTo(weakSelf.topToolBar).offset(-5);
+        make.bottom.equalTo(weakSelf.topToolBar).offset(-8);
     }];
     
     [_toolbarEmoticonButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kToolbarBtnH);
         make.right.equalTo(weakSelf.toolbarExtraButton.mas_left);
-        make.bottom.equalTo(weakSelf.topToolBar).offset(-5);
+        make.bottom.equalTo(weakSelf.topToolBar).offset(-8);
     }];
     
     
     [_toolbarExtraButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kToolbarBtnH);
         make.right.equalTo(weakSelf.topToolBar.mas_right);
-        make.bottom.equalTo(weakSelf.topToolBar).offset(-5);
+        make.bottom.equalTo(weakSelf.topToolBar).offset(-8);
     }];
     
     
