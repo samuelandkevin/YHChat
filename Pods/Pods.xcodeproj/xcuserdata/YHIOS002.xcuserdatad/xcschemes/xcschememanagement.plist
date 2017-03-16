@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SocketRocket.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>YYKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,17 +52,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>219943C1108C4E1D97624825B87186EF</key>
+		<key>1DCDB2F1C75ED0AB821F819036088887</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9071F38C87F9D878CD04A47FD4E51AA0</key>
+		<key>25F1259217AA466471EAE382C257498E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9A103E9B8818D7808854EB32FAED8FCD</key>
+		<key>4EA5DAA78C0FEE58D3224B49CBBA7974</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5002BC271A4D8D6091843AB88F7F9ED4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

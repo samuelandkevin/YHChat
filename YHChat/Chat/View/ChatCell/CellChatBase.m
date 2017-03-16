@@ -7,7 +7,7 @@
 //
 
 #import "CellChatBase.h"
-
+#import <Masonry/Masonry.h>
 @interface CellChatBase()
 
 @end
@@ -28,18 +28,20 @@ const float kAvatarWidth = 44.0f;//头像宽/高
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = RGBCOLOR(239, 236, 236);
     
+    _viewTimeBG = [UIView new];
+    _viewTimeBG.backgroundColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1.0];
+    [self.contentView addSubview:_viewTimeBG];
+    
     _lbTime = [UILabel new];
     _lbTime.textColor = [UIColor whiteColor];
-    _lbTime.layer.cornerRadius  = 3;
-    _lbTime.layer.masksToBounds = YES;
-    _lbTime.backgroundColor = [UIColor grayColor];
     _lbTime.textAlignment = NSTextAlignmentCenter;
-    _lbTime.font = [UIFont systemFontOfSize:12.0];
-    [self.contentView addSubview:_lbTime];
+    _lbTime.font = [UIFont systemFontOfSize:14.0];
+    [_viewTimeBG addSubview:_lbTime];
+    
     
     _lbName = [UILabel new];
-    _lbName.textColor = [UIColor grayColor];
-    _lbName.font = [UIFont systemFontOfSize:12.0];
+    _lbName.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    _lbName.font = [UIFont systemFontOfSize:14.0];
     [self.contentView addSubview:_lbName];
     
     
@@ -63,7 +65,36 @@ const float kAvatarWidth = 44.0f;//头像宽/高
     _imgvSendMsgFail.image = [UIImage imageNamed:@"button_retry_comment"];
     [self.contentView addSubview:_imgvSendMsgFail];
 
+    [self layoutCommonUI];
 }
+
+- (void)layoutCommonUI{
+    WeakSelf
+    [self.lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(weakSelf.viewTimeBG);
+    }];
+    
+    [self.viewTimeBG mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.lbTime.mas_left).offset(-10);
+        make.top.equalTo(weakSelf.lbTime.mas_top).offset(-10);
+        make.right.equalTo(weakSelf.lbTime.mas_right).offset(10);
+        make.bottom.equalTo(weakSelf.lbTime.mas_bottom).offset(10);
+        make.centerX.equalTo(weakSelf.contentView.mas_centerX);
+        make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
+    }];
+    
+    [self.lbName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
+    }];
+    
+    [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(kAvatarWidth);
+        make.top.equalTo(weakSelf.viewTimeBG.mas_bottom).offset(5);
+    }];
+    
+
+}
+
 
 #pragma mark - Gesture
 - (void)onAvatarGesture:(UIGestureRecognizer *)aRec{

@@ -21,6 +21,7 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - SocketRocket (0.5.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - Masonry
   - MJRefresh
   - SDWebImage
+  - SocketRocket
   - YYKit
 
 SPEC CHECKSUMS:
@@ -39,8 +41,9 @@ SPEC CHECKSUMS:
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: ea0bf7c64c378b26ec6bc7b41d8a0f432f559f74
+PODFILE CHECKSUM: c65981ea61e122b57ce223a43e6c802b01cff742
 
 COCOAPODS: 1.1.1

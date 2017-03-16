@@ -47,20 +47,13 @@
 
 - (void)layoutUI{
     WeakSelf
-    [self.lbTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.contentView);
-        make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
-    }];
+    [self layoutCommonUI];
     
     [self.lbName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-10);
-        make.top.equalTo(weakSelf.imgvAvatar.mas_top);
-        make.height.mas_greaterThanOrEqualTo(14);
     }];
     
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(kAvatarWidth);
-        make.top.equalTo(weakSelf.lbTime.mas_bottom).offset(5);
         make.right.equalTo(weakSelf.contentView).offset(-5);
     }];
     

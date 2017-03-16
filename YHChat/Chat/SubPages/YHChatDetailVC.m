@@ -20,6 +20,7 @@
 #import "YHAudioRecorder.h"
 #import "YHVoiceHUD.h"
 #import "YHUploadManager.h"
+#import "YHChatManager.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate>{
     
@@ -49,6 +50,8 @@
         });
 
     }
+    
+    [[YHChatManager sharedInstance] connectToUserID:@"99f16547-637c-4d84-8a55-ef24031977dd" isGroupChat:NO];
     
 }
 
@@ -292,6 +295,8 @@
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         
     }
+    
+    [[YHChatManager sharedInstance] sendData:text];
     
 }
 

@@ -14,7 +14,7 @@
 #import "YHExpressionAddView.h"
 
 #define kNaviBarH       64   //导航栏高度
-#define kTopToolbarH    46   //顶部工具栏高度
+#define kTopToolbarH    50   //顶部工具栏高度
 #define kToolbarBtnH    35   //顶部工具栏的按钮高度
 #define kBotContainerH  216  //底部表情高度
 #define DURTAION  0.25f      //键盘显示/收起动画时间

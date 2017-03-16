@@ -7,5 +7,6 @@ target 'YHChat' do
     pod 'YYKit'
     pod 'SDWebImage'
     pod 'AFNetworking'
+    pod 'SocketRocket'
 end
 
