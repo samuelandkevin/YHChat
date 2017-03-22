@@ -23,7 +23,7 @@
 #import "YHChatManager.h"
 
 
-@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate>{
+@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate>{
     
 }
 @property (nonatomic,strong) YHRefreshTableView *tableView;
@@ -128,6 +128,27 @@
     }];
 }
 
+- (void)withDrawMsg:(NSString *)msg inRightCell:(CellChatTextRight *)rightCell{
+    DDLog(@"撤回消息:\n%@",msg);
+}
+
+#pragma mark - @protocol CellChatImageLeftDelegate
+
+- (void)retweetImage:(UIImage *)image inLeftCell:(CellChatImageLeft *)leftCell{
+    DDLog(@"转发图片：%@",image);
+}
+
+#pragma mark - @protocol CellChatImageRightDelegate
+
+- (void)retweetImage:(UIImage *)image inRightCell:(CellChatImageRight *)rightCell{
+    DDLog(@"转发图片：%@",image);
+}
+
+- (void)withDrawImage:(UIImage *)image inRightCell:(CellChatImageRight *)rightCell{
+    DDLog(@"撤销图片：%@",image);
+}
+
+
 #pragma mark - @protocol CellChatVoiceLeft
 - (void)playInLeftCellWithVoicePath:(NSString *)voicePath{
     DDLog(@"播放:%@",voicePath);
@@ -139,6 +160,7 @@
     DDLog(@"播放:%@",voicePath);
 
 }
+
 
 #pragma mark - @protocol UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -169,13 +191,18 @@
                 if (model.direction == 0) {
                     
                     CellChatImageRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageRight class])];
+                    cell.delegate = self;
+                    cell.indexPath = indexPath;
                     [cell setupModel:model];
                     return cell;
                     
                 }else{
                     
                     CellChatImageLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageLeft class])];
+                    cell.delegate = self;
+                    cell.indexPath = indexPath;
                     [cell setupModel:model];
+                    
                     return cell;
                 }
                 

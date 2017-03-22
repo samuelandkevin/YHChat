@@ -9,6 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "CellChatBase.h"
 
+@class CellChatImageRight;
+@protocol CellChatImageRightDelegate <NSObject>
+
+@optional
+- (void)retweetImage:(UIImage *)image inRightCell:(CellChatImageRight *)rightCell;//转发图片
+- (void)withDrawImage:(UIImage *)image inRightCell:(CellChatImageRight *)rightCell;//撤回图片
+
+@end
+
+
 @interface CellChatImageRight : CellChatBase
+
+@property (nonatomic,weak)id<CellChatImageRightDelegate>delegate;
+@property (nonatomic,assign)NSIndexPath *indexPath;
 
 @end

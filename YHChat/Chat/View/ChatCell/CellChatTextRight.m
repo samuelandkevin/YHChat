@@ -45,12 +45,12 @@
     [self.contentView addSubview:_imgvBubble];
     
     _lbContent = [YHChatLabel new];
-    _lbContent.numberOfLines = 0;
+    _lbContent.isReceiver = YES;
     
     //-5-AvatarWidth-10-15-5-10-AvatarWidth
     _lbContent.preferredMaxLayoutWidth = SCREEN_WIDTH - 133;
     CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
-    _lbContent.textColor = RGB16(0x303030);
+    _lbContent.textColor = [UIColor whiteColor];
     _lbContent.textAlignment = NSTextAlignmentLeft;
     _lbContent.numberOfLines = 0;
     _lbContent.font = [UIFont systemFontOfSize:(14+addFontSize)];
@@ -60,6 +60,13 @@
             [weakSelf.delegate retweetMsg:text inRightCell:weakSelf];
         }
     };
+    _lbContent.withDrawBlock = ^(NSString *text){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(withDrawMsg:inRightCell:)]) {
+            [weakSelf.delegate withDrawMsg:text inRightCell:weakSelf];
+        }
+    };
+
+    
     [self.contentView addSubview:_lbContent];
     
     _lbContent.highlightTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect) {

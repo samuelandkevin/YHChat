@@ -43,6 +43,8 @@
 		AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8481E5AEE7F00AF48B5 /* YHExpressionInputView.m */; };
 		AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F84A1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m */; };
 		AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */; };
+		AC83CCC31E82787A001871D8 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC83CCC21E82787A001871D8 /* NSDate+Extension.m */; };
+		AC83CCC61E827C63001871D8 /* YHChatImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC83CCC51E827C63001871D8 /* YHChatImageView.m */; };
 		AC9246401E6E4E960032FD3D /* YHBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463A1E6E4E960032FD3D /* YHBrowserImageView.m */; };
 		AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463D1E6E4E960032FD3D /* YHPhotoBrowserView.m */; };
 		AC9246421E6E4E960032FD3D /* YHWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463F1E6E4E960032FD3D /* YHWaitingView.m */; };
@@ -51,7 +53,6 @@
 		AC9246571E6E8EFC0032FD3D /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC92464C1E6E8EFC0032FD3D /* libopencore-amrnb.a */; };
 		AC9246581E6E8EFC0032FD3D /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC92464D1E6E8EFC0032FD3D /* libopencore-amrwb.a */; };
 		AC9246591E6E8EFC0032FD3D /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = AC9246551E6E8EFC0032FD3D /* VoiceConverter.mm */; };
-		AC92465F1E6E913A0032FD3D /* NSDate+LYXCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92465C1E6E913A0032FD3D /* NSDate+LYXCategory.m */; };
 		AC9246601E6E913A0032FD3D /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92465E1E6E913A0032FD3D /* UIImage+Extension.m */; };
 		AC9246631E6E91640032FD3D /* YHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9246621E6E91640032FD3D /* YHNavigationController.m */; };
 		AC9246661E6EBBD80032FD3D /* YHVoiceHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9246651E6EBBD80032FD3D /* YHVoiceHUD.m */; };
@@ -139,6 +140,10 @@
 		AC61F84A1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHExpressionKeyboard.m; sourceTree = "<group>"; };
 		AC6314FC1E6D7A8E0030BD40 /* YHActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHActionSheet.h; sourceTree = "<group>"; };
 		AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHActionSheet.m; sourceTree = "<group>"; };
+		AC83CCC11E82787A001871D8 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		AC83CCC21E82787A001871D8 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		AC83CCC41E827C63001871D8 /* YHChatImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatImageView.h; sourceTree = "<group>"; };
+		AC83CCC51E827C63001871D8 /* YHChatImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatImageView.m; sourceTree = "<group>"; };
 		AC9246391E6E4E960032FD3D /* YHBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBrowserImageView.h; sourceTree = "<group>"; };
 		AC92463A1E6E4E960032FD3D /* YHBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBrowserImageView.m; sourceTree = "<group>"; };
 		AC92463B1E6E4E960032FD3D /* YHPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHPhotoBrowserConfig.h; sourceTree = "<group>"; };
@@ -158,8 +163,6 @@
 		AC9246531E6E8EFC0032FD3D /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
 		AC9246541E6E8EFC0032FD3D /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
 		AC9246551E6E8EFC0032FD3D /* VoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceConverter.mm; sourceTree = "<group>"; };
-		AC92465B1E6E913A0032FD3D /* NSDate+LYXCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LYXCategory.h"; sourceTree = "<group>"; };
-		AC92465C1E6E913A0032FD3D /* NSDate+LYXCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+LYXCategory.m"; sourceTree = "<group>"; };
 		AC92465D1E6E913A0032FD3D /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		AC92465E1E6E913A0032FD3D /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		AC9246611E6E91640032FD3D /* YHNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHNavigationController.h; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 				AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */,
 				AC002DD21E641AAF00EE2851 /* YHChatLabel.h */,
 				AC002DD31E641AAF00EE2851 /* YHChatLabel.m */,
+				AC83CCC41E827C63001871D8 /* YHChatImageView.h */,
+				AC83CCC51E827C63001871D8 /* YHChatImageView.m */,
 				AC002DD51E641ADB00EE2851 /* YHRefreshTableView.h */,
 				AC002DD61E641ADB00EE2851 /* YHRefreshTableView.m */,
 				AC9246611E6E91640032FD3D /* YHNavigationController.h */,
@@ -515,8 +520,8 @@
 			children = (
 				AC92467A1E6FD35F0032FD3D /* UIView+Extension.h */,
 				AC92467B1E6FD35F0032FD3D /* UIView+Extension.m */,
-				AC92465B1E6E913A0032FD3D /* NSDate+LYXCategory.h */,
-				AC92465C1E6E913A0032FD3D /* NSDate+LYXCategory.m */,
+				AC83CCC11E82787A001871D8 /* NSDate+Extension.h */,
+				AC83CCC21E82787A001871D8 /* NSDate+Extension.m */,
 				AC92465D1E6E913A0032FD3D /* UIImage+Extension.h */,
 				AC92465E1E6E913A0032FD3D /* UIImage+Extension.m */,
 			);
@@ -686,7 +691,6 @@
 				AC61F84C1E5AEE7F00AF48B5 /* YHExpressionAddView.m in Sources */,
 				AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */,
 				AC9246401E6E4E960032FD3D /* YHBrowserImageView.m in Sources */,
-				AC92465F1E6E913A0032FD3D /* NSDate+LYXCategory.m in Sources */,
 				AC002DB71E63BBF100EE2851 /* YHUserInfo.m in Sources */,
 				AC4446DC1E56992C00685571 /* YHChatDetailVC.m in Sources */,
 				AC002DDF1E641B1700EE2851 /* YHDownLoadManager.m in Sources */,
@@ -694,8 +698,10 @@
 				AC9246421E6E4E960032FD3D /* YHWaitingView.m in Sources */,
 				AC2967C61E5BE0A5000856F8 /* CellChatList.m in Sources */,
 				AC002DB91E63BBF100EE2851 /* YHWorkExperienceModel.m in Sources */,
+				AC83CCC61E827C63001871D8 /* YHChatImageView.m in Sources */,
 				AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */,
 				ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */,
+				AC83CCC31E82787A001871D8 /* NSDate+Extension.m in Sources */,
 				AC002DB61E63BBF100EE2851 /* YHEducationExperienceModel.m in Sources */,
 				AC92467C1E6FD35F0032FD3D /* UIView+Extension.m in Sources */,
 				AC9246631E6E91640032FD3D /* YHNavigationController.m in Sources */,

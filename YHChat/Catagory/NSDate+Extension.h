@@ -1,14 +1,14 @@
 //
-//  NSDate+LYXCategory.h
-//  OA
+//  NSDate+Extension.h
+//  YHChat
 //
-//  Created by liuyx on 15/7/23.
-//  Copyright (c) 2015年 com.tgnet. All rights reserved.
+//  Created by YHIOS002 on 17/3/22.
+//  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface NSDate (LYXCategory)
+@interface NSDate (Extension)
 
 + (NSString *)showDateString:(NSString *)dateString;
 

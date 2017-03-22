@@ -97,11 +97,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YHChat/Chat/Tools/YHChatHelper.m"
-            timestampString = "511859297.261594"
+            timestampString = "511867344.826736"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "-dealloc"
             landmarkType = "7">
          </BreakpointContent>

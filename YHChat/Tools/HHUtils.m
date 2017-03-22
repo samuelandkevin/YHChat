@@ -14,7 +14,7 @@
 #import <sys/utsname.h>
 #import "AppDelegate.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "NSDate+LYXCategory.h"
+#import "NSDate+Extension.h"
 
 #define FileHashDefaultChunkSizeForReadingData 1024*512
 #define kCommonAlertTag         10

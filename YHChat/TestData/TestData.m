@@ -62,14 +62,10 @@
                             @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
                             @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
     int avtarIndex = arc4random() % avtarArray.count;
-    if (avtarIndex < avtarArray.count) {
-        
-        if ([model.speakerId isEqualToString:MYUID]) {
-            model.speakerAvatar = MYAVTARURL;
-        }else{
-            model.speakerAvatar = [NSURL URLWithString:avtarArray[avtarIndex]];
-        }
-        
+    if ([model.speakerId isEqualToString:MYUID]) {
+        model.speakerAvatar = MYAVTARURL;
+    }else{
+        model.speakerAvatar = [NSURL URLWithString:avtarArray[avtarIndex]];
     }
     
     //聊天记录ID
@@ -77,17 +73,6 @@
     int result = (int)myIdLength % 2;
     model.chatId = [NSString stringWithFormat:@"%d",result];;
     
-    //名字
-    CGFloat nLength = arc4random() % 3 + 1;
-    NSMutableString *nStr = [NSMutableString new];
-    for (int i = 0; i < nLength; i++) {
-        [nStr appendString: @"测试名字"];
-    }
-    if ([model.speakerId isEqualToString:MYUID]) {
-        model.speakerName = @"我";
-    }else{
-        model.audienceName = nStr;
-    }
     
     //消息是否已撤回
     NSArray *stautsArr = @[@"0",@"1",@"1",@"0",@"0",@"1",@"0",@"0"];
@@ -95,7 +80,7 @@
     model.status = [stautsArr[nStatusLength] intValue];
     
     
-    //消息类型
+    //消息类型  0是文本 1是图片 2是语音 3是文件
     NSArray *msgTypeArr = @[@(0),@(1),@(2),@(3)];
     int nMsgTypeLength  = arc4random() % msgTypeArr.count;
     model.msgType = nMsgTypeLength;
@@ -106,11 +91,23 @@
     NSString *aTextMsg = textMsgArr[textMsglength];
     NSMutableString *qStr = [NSMutableString string];
     CGFloat qlength = arc4random() % 2;
-    for (NSUInteger i = 0; i < qlength; ++i) {
+    if (qlength == 0) {
         [qStr appendString:aTextMsg];
+    }else{
+        for (NSUInteger i = 0; i < qlength; ++i) {
+            [qStr appendString:aTextMsg];
+        }
     }
     CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
-    model.msgContent = [YHExpressionHelper attributedStringWithText:qStr fontSize:(13+addFontSize) textColor:RGB16(0x303030)];
+    
+    UIColor *textColor = [UIColor blackColor];
+    if ([model.speakerId isEqualToString:MYUID]) {
+        textColor = [UIColor whiteColor];
+    }
+    
+    model.msgContent = [YHExpressionHelper attributedStringWithText:qStr fontSize:(13+addFontSize) textColor:textColor];
+    
+    
 
     
     //消息内容为图片
@@ -160,6 +157,10 @@
     NSArray *sessionNickArr = @[@"李一",@"张国富",@"黎明",@"你不是我的菜",@"这名字会好长的啊！呵呵",@"天天",@"我不要要不要" ];
     int sNickLength  = arc4random() % sessionNickArr.count;
     model.speakerName = sessionNickArr[sNickLength];
+    if ([model.speakerId isEqualToString:MYUID]) {
+        model.speakerName = @"samuelandkeivn";
+    }
+    
     
     //发布时间
     model.createTime = @"2013-04-17";

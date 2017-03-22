@@ -1,27 +1,25 @@
 //
-//  NSDate+LYXCategory.m
-//  OA
+//  NSDate+Extension.m
+//  YHChat
 //
-//  Created by liuyx on 15/7/23.
-//  Copyright (c) 2015年 com.tgnet. All rights reserved.
+//  Created by YHIOS002 on 17/3/22.
+//  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
-#import "NSDate+LYXCategory.h"
+#import "NSDate+Extension.h"
 
 @interface NSDate()
-
 @property (nonatomic,strong) NSDateFormatter *sharedDateFormatter;
-
 @end
 
-@implementation NSDate (LYXCategory)
+@implementation NSDate (Extension)
 
 static NSDateFormatter * sharedDateFormatterInstance;
 
 #pragma mark - Lazy Load
 - (NSDateFormatter *)sharedDateFormatter {
     if(sharedDateFormatterInstance == nil)
-     sharedDateFormatterInstance = [[NSDateFormatter alloc] init];
+        sharedDateFormatterInstance = [[NSDateFormatter alloc] init];
     return sharedDateFormatterInstance;
 }
 
@@ -129,12 +127,12 @@ static NSDateFormatter * sharedDateFormatterInstance;
     return returnString;
 }
 
-//获取固定的时间格式的当前时间 @"yyyy-MM-dd'T'HH:mm:ss"
+//获取固定的时间格式的当前时间 @"yyyy-MM-dd HH:mm:ss"
 - (NSString *)getNowDate{
-    NSString *dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+    NSString *dateFormat = @"yyyy-MM-dd HH:mm:ss";
     [self.sharedDateFormatter setDateFormat:dateFormat];
     NSString *returnString = [self.sharedDateFormatter stringFromDate:self];
-
+    
     return returnString;
 }
 
@@ -229,5 +227,6 @@ static NSDateFormatter * sharedDateFormatterInstance;
     NSString *secondStr=[date.sharedDateFormatter stringFromDate:date];
     return atoi([secondStr UTF8String]);
 }
+
 
 @end

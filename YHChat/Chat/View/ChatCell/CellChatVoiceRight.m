@@ -164,7 +164,7 @@
     [super setupModel:model];
     self.lbName.text = self.model.speakerName;
     self.lbTime.text = self.model.createTime;
-    _lbDuration.text = @"1 '";
+//    _lbDuration.text = @"1 '";
 }
 
 #pragma mark - Life

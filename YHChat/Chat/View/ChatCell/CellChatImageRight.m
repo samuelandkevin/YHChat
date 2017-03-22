@@ -13,10 +13,11 @@
 #import "YHChatModel.h"
 #import "UIImage+Extension.h"
 #import "YHPhotoBrowserView.h"
+#import "YHChatImageView.h"
 
 @interface CellChatImageRight()<YHPhotoBrowserViewDelegate>
 
-@property (nonatomic,strong) UIImageView *imgvContent;
+@property (nonatomic,strong) YHChatImageView *imgvContent;
 @end
 
 @implementation CellChatImageRight
@@ -35,13 +36,26 @@
 
 - (void)setupUI{
     
-    _imgvContent = [UIImageView new];
+    _imgvContent = [YHChatImageView new];
+    _imgvContent.isReceiver = YES;
     UIImage *oriImg = [UIImage imageNamed:@"chat_img_defaultPhoto"];
     _imgvContent.userInteractionEnabled = YES;
     [_imgvContent addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureOnContent:)]];
     _imgvContent.image = [UIImage imageArrowWithSize:oriImg.size image:oriImg isSender:YES];
     [self.contentView addSubview:_imgvContent];
     
+    WeakSelf
+    _imgvContent.retweetBlock = ^(UIImage *image){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetImage:inRightCell:)]) {
+            [weakSelf.delegate retweetImage:image inRightCell:weakSelf];
+        }
+    };
+    
+    _imgvContent.withDrawBlock = ^(UIImage *image){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(withDrawImage:inRightCell:)]) {
+            [weakSelf.delegate withDrawImage:image inRightCell:weakSelf];
+        }
+    };
     [self layoutUI];
 }
 

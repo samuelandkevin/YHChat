@@ -17,6 +17,7 @@
 - (void)tapRightAvatar:(YHUserInfo *)userInfo;
 - (void)tapSendMsgFailImg;//点击发送失败图标
 - (void)retweetMsg:(NSString *)msg inRightCell:(CellChatTextRight *)rightCell;//转发消息
+- (void)withDrawMsg:(NSString *)msg inRightCell:(CellChatTextRight *)rightCell;//撤回消息
 - (void)onLinkInChatTextRightCell:(CellChatTextRight *)cell linkType:(int)linkType linkText:(NSString *)linkText;
 @end
 

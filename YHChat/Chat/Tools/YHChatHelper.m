@@ -11,6 +11,7 @@
 #import "YHChatHeader.h"
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
 #import "YHExpressionHelper.h"
+#import "NSDate+Extension.h"
 
 @implementation YHChatHelper
 
@@ -19,13 +20,15 @@
     YHChatModel *model  = [YHChatModel new];
     model.speakerId     = MYUID;
     model.speakerAvatar = MYAVTARURL;
+    model.speakerName   = @"samuelandkevin";
     model.direction     = 0;
     model.msgType       = msgType;
     model.audienceId = toID;
     model.chatType   = msgType;
     CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
-    model.msgContent = [YHExpressionHelper attributedStringWithText:msg fontSize:(addFontSize+14) textColor:RGB16(0x303030)];
-    model.timestamp  = [YHChatHelper currentMsgTime];
+    model.msgContent = [YHExpressionHelper attributedStringWithText:msg fontSize:(addFontSize+14) textColor:[UIColor whiteColor]];
+    NSDate *date = [[NSDate alloc] init ];
+    model.createTime  = [date getNowDate];
     return model;
 }
 
