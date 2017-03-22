@@ -110,7 +110,7 @@
 - (void)onGestureBubble:(UIGestureRecognizer *)aRec{
     if (aRec.state == UIGestureRecognizerStateEnded){
         if (_delegate && [_delegate respondsToSelector:@selector(playInLeftCellWithVoicePath:)]) {
-            NSString *voicePath = self.model.msgContent;
+            NSString *voicePath = self.model.msgContent.string;
             voicePath = [voicePath stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
             voicePath = [voicePath stringByReplacingOccurrencesOfString:@"]" withString:@""];
             [_delegate playInLeftCellWithVoicePath:voicePath];

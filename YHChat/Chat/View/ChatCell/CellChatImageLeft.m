@@ -114,7 +114,7 @@
 #pragma mark - Private
 //获取消息内容图片
 - (NSURL *)getImageUrl{
-    NSString *picUrlStr = [self.model.msgContent stringByReplacingOccurrencesOfString:@"img[" withString:@""];
+    NSString *picUrlStr = [self.model.msgContent.string stringByReplacingOccurrencesOfString:@"img[" withString:@""];
     picUrlStr = [picUrlStr stringByReplacingOccurrencesOfString:@"]" withString:@""];
     NSURL *url = [NSURL URLWithString:picUrlStr];
     return url;

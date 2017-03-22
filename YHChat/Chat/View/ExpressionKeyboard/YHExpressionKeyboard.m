@@ -354,6 +354,7 @@
     _textView.showsVerticalScrollIndicator = YES;
     _textView.alwaysBounceVertical = NO;
     _textView.font = [UIFont systemFontOfSize:14];
+    _textView.returnKeyType = UIReturnKeySend;
     _textView.delegate = self;
     
     [_topToolBar addSubview:_textView];
@@ -459,6 +460,11 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@""]) {
         [_textView deleteEmoticon];
+    }
+    if([text isEqualToString:@"\n"]){
+        //发送
+        [self didTapSendBtn];
+        return NO;
     }
     return YES;
 }

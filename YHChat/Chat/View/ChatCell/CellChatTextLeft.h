@@ -16,6 +16,7 @@
 @optional
 - (void)tapLeftAvatar:(YHUserInfo *)userInfo;
 - (void)retweetMsg:(NSString *)msg inLeftCell:(CellChatTextLeft *)leftCell;//转发消息
+- (void)onLinkInChatTextLeftCell:(CellChatTextLeft *)cell linkType:(int)linkType linkText:(NSString *)linkText;
 @end
 
 @class YHChatModel;

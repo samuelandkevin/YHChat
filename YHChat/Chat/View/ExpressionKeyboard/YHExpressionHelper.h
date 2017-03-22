@@ -30,7 +30,18 @@
 /// 获取“+” models
 + (NSArray <YHExtraModel*>*)extraModels;
 
++ (NSRegularExpression *)regexAt;
+
 + (NSRegularExpression *)regexEmoticon;
 
++ (NSRegularExpression *)regexURL;
+
 + (NSDictionary *)emoticonDic;
+
+
+//匹配@,表情后得到的属性字符串
++ (NSMutableAttributedString *)attributedStringWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor;
+
+//从缓存中获取属性文本
++ (NSMutableAttributedString *)attributedStringWithCacheAttributeString:(NSMutableAttributedString *)attStr fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor;
 @end

@@ -1,14 +1,14 @@
 //
-//  YHLinkLabel.m
+//  YHChatLabel.m
 //  PikeWay
 //
 //  Created by YHIOS002 on 16/8/25.
 //  Copyright © 2016年 YHSoft. All rights reserved.
 //
 
-#import "YHLinkLabel.h"
+#import "YHChatLabel.h"
 
-@implementation YHLinkLabel
+@implementation YHChatLabel
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -125,6 +125,7 @@
 
 #pragma mark - Life
 - (void)dealloc{
+    DDLog(@"%s is dealloc",__func__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

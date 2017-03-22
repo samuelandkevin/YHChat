@@ -1,12 +1,16 @@
 //
 //  YHExpressionHelper.m
-//  
+//
 //
 //  Created by samuelandkevin on 17/2/10.
 //  Copyright (c) 2017 samuelandkevin. All rights reserved.
 //
 
 #import "YHExpressionHelper.h"
+
+#define kWBLinkAtName @"at" //NSString
+#define kWBCellTextHighlightColor UIColorHex(527ead) // Link 文本色
+#define kWBCellTextHighlightBackgroundColor UIColorHex(bfdffe) // Link 点击背景色
 
 @implementation YHExpressionHelper
 
@@ -62,7 +66,7 @@
     
     NSString *path = [[self toolBarBundle] pathForScaledResource:name ofType:ext];
     if (!path){
-       path = [[self extraBundle] pathForScaledResource:name ofType:ext];
+        path = [[self extraBundle] pathForScaledResource:name ofType:ext];
     }
     if (!path) {
         return nil;
@@ -101,7 +105,7 @@
     static NSMutableArray *extras;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-    
+        
         NSString *plistPath = [[self extraBundle].bundlePath stringByAppendingPathComponent:@"info.plist"];
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
         NSArray *more = dict[@"more"];
@@ -161,6 +165,18 @@
     return groups;
 }
 
+
++ (NSRegularExpression *)regexAt {
+    static NSRegularExpression *regex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // 微博的 At 只允许 英文数字下划线连字符，和 unicode 4E00~9FA5 范围内的中文字符，这里保持和微博一致。。
+        // 目前中文字符范围比这个大
+        regex = [NSRegularExpression regularExpressionWithPattern:@"@[-_a-zA-Z0-9\u4E00-\u9FA5]+" options:kNilOptions error:NULL];
+    });
+    return regex;
+}
+
 + (NSRegularExpression *)regexEmoticon {
     static NSRegularExpression *regex;
     static dispatch_once_t onceToken;
@@ -170,11 +186,20 @@
     return regex;
 }
 
++ (NSRegularExpression *)regexURL{
+    static NSRegularExpression *regex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:kNilOptions error:NULL];
+    });
+    return regex;
+}
+
 + (NSDictionary *)emoticonDic {
     static NSMutableDictionary *dic;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
+        NSString *emoticonBundlePath = [self emoticonBundle].bundlePath;
         dic = [self _emoticonDicFromPath:emoticonBundlePath];
     });
     return dic;
@@ -212,4 +237,94 @@
     }
     return dic;
 }
+
+//匹配@,表情后得到的属性字符串
++ (NSMutableAttributedString *)attributedStringWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor{
+    
+    UIFont *font = [UIFont systemFontOfSize:fontSize];
+    NSMutableAttributedString *aStr = [[NSMutableAttributedString alloc] initWithString:text];
+    aStr.font = font;
+    aStr.color = textColor;
+    
+    
+    // 高亮状态的背景
+    YYTextBorder *highlightBorder = [YYTextBorder new];
+    highlightBorder.insets = UIEdgeInsetsMake(-2, 0, -2, 0);
+    highlightBorder.cornerRadius = 3;
+    highlightBorder.fillColor = kWBCellTextHighlightBackgroundColor;
+    
+    // 匹配 url
+    NSArray *ulResults = [[YHExpressionHelper regexURL] matchesInString:aStr.string options:kNilOptions range:text.rangeOfAll];
+    for (NSTextCheckingResult *at in ulResults) {
+        if (at.range.location == NSNotFound && at.range.length <= 1) continue;
+        if ([aStr attribute:YYTextHighlightAttributeName atIndex:at.range.location] == nil) {
+            [aStr setColor:kWBCellTextHighlightColor range:at.range];
+            
+            // 高亮状态
+            YYTextHighlight *highlight = [YYTextHighlight new];
+            [highlight setBackgroundBorder:highlightBorder];
+            // 数据信息，用于稍后用户点击
+            highlight.userInfo = @{kWBLinkAtName : [aStr.string substringWithRange:NSMakeRange(at.range.location + 1, at.range.length - 1)]};
+            [aStr setTextHighlight:highlight range:at.range];
+        }
+    }
+    
+    
+    
+    
+    // 匹配 @用户名
+    NSArray *atResults = [[YHExpressionHelper regexAt] matchesInString:aStr.string options:kNilOptions range:text.rangeOfAll];
+    for (NSTextCheckingResult *at in atResults) {
+        if (at.range.location == NSNotFound && at.range.length <= 1) continue;
+        if ([aStr attribute:YYTextHighlightAttributeName atIndex:at.range.location] == nil) {
+            [aStr setColor:kWBCellTextHighlightColor range:at.range];
+            
+            // 高亮状态
+            YYTextHighlight *highlight = [YYTextHighlight new];
+            [highlight setBackgroundBorder:highlightBorder];
+            // 数据信息，用于稍后用户点击
+            highlight.userInfo = @{kWBLinkAtName : [aStr.string substringWithRange:NSMakeRange(at.range.location + 1, at.range.length - 1)]};
+            [aStr setTextHighlight:highlight range:at.range];
+        }
+    }
+    
+    
+    // 匹配 [表情]
+    NSArray<NSTextCheckingResult *> *emoticonResults = [[YHExpressionHelper regexEmoticon] matchesInString:aStr.string options:kNilOptions range:text.rangeOfAll];
+    NSUInteger emoClipLength = 0;
+    for (NSTextCheckingResult *emo in emoticonResults) {
+        if (emo.range.location == NSNotFound && emo.range.length <= 1) continue;
+        NSRange range = emo.range;
+        range.location -= emoClipLength;
+        if ([aStr attribute:YYTextHighlightAttributeName atIndex:range.location]) continue;
+        if ([aStr attribute:YYTextAttachmentAttributeName atIndex:range.location]) continue;
+        NSString *emoString = [aStr.string substringWithRange:range];
+        NSString *imagePath = [YHExpressionHelper emoticonDic][emoString];
+        UIImage *image = [YHExpressionHelper imageWithPath:imagePath];
+        if (!image) continue;
+        
+        NSAttributedString *emoText = [NSAttributedString attachmentStringWithEmojiImage:image fontSize:fontSize];
+        [aStr replaceCharactersInRange:range withAttributedString:emoText];
+        emoClipLength += range.length - 1;
+    }
+    
+    return aStr;
+    
+}
+
+//从缓存中获取属性文本
++ (NSMutableAttributedString *)attributedStringWithCacheAttributeString:(NSMutableAttributedString *)attStr fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor{
+    
+    NSMutableAttributedString * retStr = nil;
+    NSString *wholeStr = attStr.string;
+    NSString *content  = @"";
+    NSUInteger location = [wholeStr rangeOfString:@"{\n    CTForegroundColor"].location;
+    if (location != NSNotFound) {
+        content = [wholeStr substringToIndex:location];
+    }
+    retStr = [YHExpressionHelper attributedStringWithText:content fontSize:fontSize textColor:textColor];
+    return retStr;
+}
+
+
 @end

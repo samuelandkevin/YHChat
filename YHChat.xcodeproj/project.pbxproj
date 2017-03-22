@@ -18,7 +18,7 @@
 		AC002DC21E63D82C00EE2851 /* CellChatVoiceLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DC11E63D82C00EE2851 /* CellChatVoiceLeft.m */; };
 		AC002DC51E63D84E00EE2851 /* CellChatVoiceRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DC41E63D84E00EE2851 /* CellChatVoiceRight.m */; };
 		AC002DC81E64016E00EE2851 /* CellChatBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DC71E64016E00EE2851 /* CellChatBase.m */; };
-		AC002DD41E641AAF00EE2851 /* YHLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DD31E641AAF00EE2851 /* YHLinkLabel.m */; };
+		AC002DD41E641AAF00EE2851 /* YHChatLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DD31E641AAF00EE2851 /* YHChatLabel.m */; };
 		AC002DD71E641ADB00EE2851 /* YHRefreshTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DD61E641ADB00EE2851 /* YHRefreshTableView.m */; };
 		AC002DDE1E641B1700EE2851 /* NetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DDA1E641B1700EE2851 /* NetManager.m */; };
 		AC002DDF1E641B1700EE2851 /* YHDownLoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC002DDC1E641B1700EE2851 /* YHDownLoadManager.m */; };
@@ -89,8 +89,8 @@
 		AC002DC41E63D84E00EE2851 /* CellChatVoiceRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatVoiceRight.m; sourceTree = "<group>"; };
 		AC002DC61E64016E00EE2851 /* CellChatBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatBase.h; sourceTree = "<group>"; };
 		AC002DC71E64016E00EE2851 /* CellChatBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatBase.m; sourceTree = "<group>"; };
-		AC002DD21E641AAF00EE2851 /* YHLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHLinkLabel.h; sourceTree = "<group>"; };
-		AC002DD31E641AAF00EE2851 /* YHLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHLinkLabel.m; sourceTree = "<group>"; };
+		AC002DD21E641AAF00EE2851 /* YHChatLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatLabel.h; sourceTree = "<group>"; };
+		AC002DD31E641AAF00EE2851 /* YHChatLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatLabel.m; sourceTree = "<group>"; };
 		AC002DD51E641ADB00EE2851 /* YHRefreshTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHRefreshTableView.h; sourceTree = "<group>"; };
 		AC002DD61E641ADB00EE2851 /* YHRefreshTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHRefreshTableView.m; sourceTree = "<group>"; };
 		AC002DD91E641B1700EE2851 /* NetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetManager.h; sourceTree = "<group>"; };
@@ -251,8 +251,8 @@
 				AC9246381E6E4E960032FD3D /* YHPhotoBrowser */,
 				AC6314FC1E6D7A8E0030BD40 /* YHActionSheet.h */,
 				AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */,
-				AC002DD21E641AAF00EE2851 /* YHLinkLabel.h */,
-				AC002DD31E641AAF00EE2851 /* YHLinkLabel.m */,
+				AC002DD21E641AAF00EE2851 /* YHChatLabel.h */,
+				AC002DD31E641AAF00EE2851 /* YHChatLabel.m */,
 				AC002DD51E641ADB00EE2851 /* YHRefreshTableView.h */,
 				AC002DD61E641ADB00EE2851 /* YHRefreshTableView.m */,
 				AC9246611E6E91640032FD3D /* YHNavigationController.h */,
@@ -709,7 +709,7 @@
 				AC002DB41E63BBF100EE2851 /* YHChatListModel.m in Sources */,
 				AC9246561E6E8EFC0032FD3D /* amrFileCodec.mm in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
-				AC002DD41E641AAF00EE2851 /* YHLinkLabel.m in Sources */,
+				AC002DD41E641AAF00EE2851 /* YHChatLabel.m in Sources */,
 				AC9246451E6E84940032FD3D /* YHFilePath.m in Sources */,
 				AC002DC21E63D82C00EE2851 /* CellChatVoiceLeft.m in Sources */,
 				AC9246661E6EBBD80032FD3D /* YHVoiceHUD.m in Sources */,

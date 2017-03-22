@@ -1,5 +1,5 @@
 //
-//  YHLinkLabel.h
+//  YHChatLabel.h
 //  PikeWay
 //
 //  Created by YHIOS002 on 16/8/25.
@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <YYKit/YYKit.h>
 
-@interface YHLinkLabel : UILabel
+@interface YHChatLabel : YYLabel
 
 @property (nonatomic,copy) void(^retweetBlock)(NSString *text);
 

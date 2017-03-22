@@ -11,12 +11,12 @@
 #import <Masonry/Masonry.h>
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
-#import "YHLinkLabel.h"
+#import "YHChatLabel.h"
 
 @interface CellChatTextLeft()
 
 @property (nonatomic,strong) UIImageView *imgvBubble;
-@property (nonatomic,strong) YHLinkLabel *lbContent;
+@property (nonatomic,strong) YHChatLabel *lbContent;
 
 @end
 
@@ -44,14 +44,17 @@
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     
-    _lbContent = [YHLinkLabel new];
+    _lbContent = [YHChatLabel new];
     _lbContent.numberOfLines = 0;
     
     //-5-AvatarWidth-10-15-5-10-AvatarWidth
     _lbContent.preferredMaxLayoutWidth = SCREEN_WIDTH - 133;
-    _lbContent.textColor = [UIColor blackColor];
+    CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
+    _lbContent.textColor = RGB16(0x303030);
     _lbContent.textAlignment = NSTextAlignmentLeft;
-    _lbContent.font = [UIFont systemFontOfSize:14.0];
+    _lbContent.numberOfLines = 0;
+    _lbContent.font = [UIFont systemFontOfSize:(14+addFontSize)];
+    
     WeakSelf
     _lbContent.retweetBlock = ^(NSString *text){
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetMsg:inLeftCell:)]) {
@@ -59,6 +62,24 @@
         }
     };
     [self.contentView addSubview:_lbContent];
+    
+    _lbContent.highlightTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect) {
+        
+        NSString *linkText = [text.string substringWithRange:range];
+        int linkType = 0;
+        if([linkText hasPrefix:@"http"]){
+            linkType = 1;
+        }else if ([linkText hasPrefix:@"@"]){
+            linkType = 0;
+        }
+        DDLog(@"点击:\n%@",linkText);
+        
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(onLinkInChatTextLeftCell:linkType:linkText:)]) {
+            [weakSelf.delegate onLinkInChatTextLeftCell:weakSelf linkType:linkType linkText:linkText];
+        }
+        
+    };
+    
     
     [self layoutUI];
 }
@@ -105,7 +126,7 @@
 
 - (void)setupModel:(YHChatModel *)model{
     [super setupModel:model];
-    _lbContent.text = self.model.msgContent;
+    _lbContent.attributedText = self.model.msgContent;
     self.lbName.text    = self.model.speakerName;
     self.lbTime.text    = self.model.createTime;
     

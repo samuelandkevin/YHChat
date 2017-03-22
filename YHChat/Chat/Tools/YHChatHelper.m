@@ -10,6 +10,7 @@
 #import "YHChatModel.h"
 #import "YHChatHeader.h"
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
+#import "YHExpressionHelper.h"
 
 @implementation YHChatHelper
 
@@ -22,7 +23,8 @@
     model.msgType       = msgType;
     model.audienceId = toID;
     model.chatType   = msgType;
-    model.msgContent = msg;
+    CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
+    model.msgContent = [YHExpressionHelper attributedStringWithText:msg fontSize:(addFontSize+14) textColor:RGB16(0x303030)];
     model.timestamp  = [YHChatHelper currentMsgTime];
     return model;
 }
