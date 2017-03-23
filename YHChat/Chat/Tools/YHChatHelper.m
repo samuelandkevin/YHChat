@@ -13,7 +13,20 @@
 #import "YHExpressionHelper.h"
 #import "NSDate+Extension.h"
 
+@interface YHChatHelper()
+
+@property (nonatomic,strong) NSMutableDictionary *heightDict;
+
+@end
+
 @implementation YHChatHelper
+
+- (instancetype)init{
+    if (self = [super init]) {
+        self.heightDict = [NSMutableDictionary new];
+    }
+    return  self;
+}
 
 #pragma mark - Public
 + (YHChatModel *)creatMessage:(NSString *)msg msgType:(YHMessageType)msgType  toID:(NSString *)toID {
@@ -25,6 +38,7 @@
     model.msgType       = msgType;
     model.audienceId = toID;
     model.chatType   = msgType;
+    model.chatId        = [NSString stringWithFormat:@"%ld",1000 + random()%1000];//本地消息记录ID是手动设置，等消息发送成功后将此替换。
     CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
     model.msgContent = [YHExpressionHelper attributedStringWithText:msg fontSize:(addFontSize+14) textColor:[UIColor whiteColor]];
     NSDate *date = [[NSDate alloc] init ];
@@ -40,7 +54,7 @@
     return iTime;
 }
 
-+ (void)registerCellClassWithTableView:(__weak UITableView *)tableView{
+- (void)registerCellClassWithTableView:(__weak UITableView *)tableView{
    
     [tableView registerClass:[CellChatTextLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatTextLeft class])];
     [tableView registerClass:[CellChatTextRight class] forCellReuseIdentifier:NSStringFromClass([CellChatTextRight class])];
@@ -110,57 +124,85 @@
     return [[UITableViewCell alloc] init];
 }
 
-+ (CGFloat)heightWithModel:(__weak YHChatModel *)model tableView:(__weak UITableView *)tableView{
+- (CGFloat)heightWithModel:(__weak YHChatModel *)model tableView:(__weak UITableView *)tableView{
+    
+    CGFloat height;
+    if (model.chatId) {
+        height = [_heightDict[model.chatId] floatValue];
+        if (height) {
+            return height;
+        }
+    }
+    
     if(model.status == 1){
         //消息撤回
-        return [CellChatTips hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+        height = [CellChatTips hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
             CellChatTips *cell = (CellChatTips *)sourceCell;
             cell.model = model;
+        } cache:^NSDictionary *{
+            return @{
+                     kHYBCacheUniqueKey: model.chatId,
+                     kHYBCacheStateKey : @(model.showCheckBox),
+                     kHYBRecalculateForStateKey:@(YES)
+                     };// 标识不用重新更新
         }];
     }else{
         if (model.msgType == YHMessageType_Image) {
             if (model.direction == 0) {
                 
-                return [CellChatImageRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                height = [CellChatImageRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatImageRight *cell = (CellChatImageRight *)sourceCell;
                     [cell setupModel:model];
                 }];
-                
             }else{
                 
-                return [CellChatImageLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                height = [CellChatImageLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatImageLeft *cell = (CellChatImageLeft *)sourceCell;
                     [cell setupModel:model];
+                } cache:^NSDictionary *{
+                    return @{
+                             kHYBCacheUniqueKey: model.chatId,
+                             kHYBCacheStateKey : @(model.showCheckBox),
+                             kHYBRecalculateForStateKey:@(YES)
+                             };// 标识不用重新更新
                 }];
             }
             
         }else if (model.msgType == YHMessageType_Voice){
             if (model.direction == 0) {
-                return [CellChatVoiceRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                height = [CellChatVoiceRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatVoiceRight *cell = (CellChatVoiceRight *)sourceCell;
                     [cell setupModel:model];
-                }];
+                } ];
             }else{
-                return [CellChatVoiceLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                height = [CellChatVoiceLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatVoiceLeft *cell = (CellChatVoiceLeft *)sourceCell;
                     [cell setupModel:model];
-                }];
+                } ];
             }
         }else{
             if (model.direction == 0) {
-                return [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                height = [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatTextRight *cell = (CellChatTextRight *)sourceCell;
                     [cell setupModel:model];
                 }];
+
             }else{
-                return [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                height = [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatTextLeft *cell = (CellChatTextLeft *)sourceCell;
                     [cell setupModel:model];
                 }];
+                
             }
         }
         
     }
+    
+    if (model.chatId) {
+        [_heightDict setObject:@(height) forKey:model.chatId];
+    }
+   
+    return height;
 }
 
 - (void)dealloc{

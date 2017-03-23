@@ -93,8 +93,9 @@
     }];
 
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView).offset(5);
+        make.left.equalTo(weakSelf.btnCheckBox.mas_right).offset(5);
     }];
+    
     
     [_imgvBubble mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(5);
@@ -126,7 +127,9 @@
 
 - (void)setupModel:(YHChatModel *)model{
     [super setupModel:model];
-    _lbContent.attributedText = self.model.msgContent;
+    
+//    _lbContent.attributedText = self.model.msgContent;
+    _lbContent.textLayout = model.layout.textLayout;
     self.lbName.text    = self.model.speakerName;
     self.lbTime.text    = self.model.createTime;
     

@@ -26,6 +26,8 @@
 		AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C31E5BE0A5000856F8 /* CellChatTextLeft.m */; };
 		AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */; };
 		AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2967D01E5C4340000856F8 /* HHUtils.m */; };
+		AC2A4B261E837AF400B67A9E /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A4B251E837AF400B67A9E /* UIBarButtonItem+Extension.m */; };
+		AC2A4B2A1E83CD6200B67A9E /* YHChatTextLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A4B291E83CD6200B67A9E /* YHChatTextLayout.m */; };
 		AC30AA3F1E7A1D5000E0C9A6 /* YHChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AA3E1E7A1D5000E0C9A6 /* YHChatManager.m */; };
 		AC30AA421E7A7EF300E0C9A6 /* CellChatTips.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30AA411E7A7EF300E0C9A6 /* CellChatTips.m */; };
 		AC4446BB1E568E5D00685571 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446BA1E568E5D00685571 /* main.m */; };
@@ -107,6 +109,10 @@
 		AC2967C51E5BE0A5000856F8 /* CellChatTextRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatTextRight.m; sourceTree = "<group>"; };
 		AC2967CF1E5C4340000856F8 /* HHUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHUtils.h; sourceTree = "<group>"; };
 		AC2967D01E5C4340000856F8 /* HHUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHUtils.m; sourceTree = "<group>"; };
+		AC2A4B241E837AF400B67A9E /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
+		AC2A4B251E837AF400B67A9E /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		AC2A4B281E83CD6200B67A9E /* YHChatTextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatTextLayout.h; sourceTree = "<group>"; };
+		AC2A4B291E83CD6200B67A9E /* YHChatTextLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatTextLayout.m; sourceTree = "<group>"; };
 		AC30AA3D1E7A1D5000E0C9A6 /* YHChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatManager.h; sourceTree = "<group>"; };
 		AC30AA3E1E7A1D5000E0C9A6 /* YHChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatManager.m; sourceTree = "<group>"; };
 		AC30AA401E7A7EF300E0C9A6 /* CellChatTips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatTips.h; sourceTree = "<group>"; };
@@ -318,6 +324,15 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
+		AC2A4B271E83CD2400B67A9E /* LayoutModel */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A4B281E83CD6200B67A9E /* YHChatTextLayout.h */,
+				AC2A4B291E83CD6200B67A9E /* YHChatTextLayout.m */,
+			);
+			path = LayoutModel;
+			sourceTree = "<group>";
+		};
 		AC4446AD1E568E5D00685571 = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +407,7 @@
 		AC4446D21E56970E00685571 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AC2A4B271E83CD2400B67A9E /* LayoutModel */,
 				AC002DA61E63BBF100EE2851 /* ChatModel */,
 				AC002DAB1E63BBF100EE2851 /* UserInfoModel */,
 			);
@@ -524,6 +540,8 @@
 				AC83CCC21E82787A001871D8 /* NSDate+Extension.m */,
 				AC92465D1E6E913A0032FD3D /* UIImage+Extension.h */,
 				AC92465E1E6E913A0032FD3D /* UIImage+Extension.m */,
+				AC2A4B241E837AF400B67A9E /* UIBarButtonItem+Extension.h */,
+				AC2A4B251E837AF400B67A9E /* UIBarButtonItem+Extension.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -714,6 +732,7 @@
 				AC002DDE1E641B1700EE2851 /* NetManager.m in Sources */,
 				AC002DB41E63BBF100EE2851 /* YHChatListModel.m in Sources */,
 				AC9246561E6E8EFC0032FD3D /* amrFileCodec.mm in Sources */,
+				AC2A4B2A1E83CD6200B67A9E /* YHChatTextLayout.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
 				AC002DD41E641AAF00EE2851 /* YHChatLabel.m in Sources */,
 				AC9246451E6E84940032FD3D /* YHFilePath.m in Sources */,
@@ -730,6 +749,7 @@
 				AC9246691E6ED4970032FD3D /* YHUploadManager.m in Sources */,
 				AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */,
 				AC002DC81E64016E00EE2851 /* CellChatBase.m in Sources */,
+				AC2A4B261E837AF400B67A9E /* UIBarButtonItem+Extension.m in Sources */,
 				AC4725BC1E67B8C900C34684 /* YHAudioPlayer.m in Sources */,
 				AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */,
 				AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */,

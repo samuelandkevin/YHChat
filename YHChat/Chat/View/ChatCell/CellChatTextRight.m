@@ -157,7 +157,8 @@
 
 - (void)setupModel:(YHChatModel *)model{
     [super setupModel:model];
-    _lbContent.attributedText = self.model.msgContent;
+//    _lbContent.attributedText = self.model.msgContent;
+    _lbContent.textLayout = model.layout.textLayout;
     self.lbName.text    = self.model.speakerName;
     self.lbTime.text    = self.model.createTime;
     [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];

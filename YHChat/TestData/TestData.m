@@ -20,6 +20,8 @@
     NSMutableArray *retArr = [NSMutableArray arrayWithCapacity:totalCount];
     for (int i=0; i<totalCount; i++) {
         YHChatModel *model = [self _creatOneChatModelWithTotalCount:totalCount];
+        //会话Id
+        model.chatId = [NSString stringWithFormat:@"%d",(100+i)];
         [retArr addObject:model];
     }
     return retArr;
@@ -173,11 +175,6 @@
     
     YHChatListModel *model = [YHChatListModel new];
     
-    //聊天Id
-    NSArray *chatId = @[@"1",@"2",@"3",@"4"];
-    int cUidLength  = arc4random() % chatId.count;
-    model.chatId = chatId[cUidLength];
-
     //是否群聊天
     NSArray *isGroupChatArr = @[@(0),@(1),@(1),@(0),@(1)];
     int isGChatLength  = arc4random() % isGroupChatArr.count;
@@ -225,8 +222,8 @@
     memLength = memLength <= 1 ? 2:memLength;
     model.isRead = [memberArr[memLength] intValue];
     
-    model.isGroupChat = YES;//kun调试
-    memLength = 10;
+//    model.isGroupChat = YES;//kun调试
+//    memLength = 10;
     
     //群名字
     if (model.isGroupChat) {
@@ -258,11 +255,6 @@
         model.sessionUserName = sessionNickArr[sNickLength];
     }
     
-    
-    //消息ID
-    NSArray *msgIdArr = @[@"100",@"200",@"300",@"400"];
-    int msgIdLength  = arc4random() % msgIdArr.count;
-    model.msgId = chatId[msgIdLength];
 
     model.status = 0;
     model.updateTime = @"";

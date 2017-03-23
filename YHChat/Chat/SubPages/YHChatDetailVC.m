@@ -21,15 +21,19 @@
 #import "YHVoiceHUD.h"
 #import "YHUploadManager.h"
 #import "YHChatManager.h"
+#import "UIBarButtonItem+Extension.h"
+#import "YHChatTextLayout.h"
 
-
-@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate>{
+@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate,CellChatBaseDelegate>{
     
 }
 @property (nonatomic,strong) YHRefreshTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *layouts;
 @property (nonatomic,strong) YHExpressionKeyboard *keyboard;
 @property (nonatomic,strong) YHVoiceHUD *imgvVoiceTips;
+
+@property (nonatomic,strong) YHChatHelper *chatHelper;
 
 @end
 
@@ -40,11 +44,21 @@
     // Do any additional setup after loading the view.
     self.navigationController.navigationBar.translucent = NO;
     [self initUI];
-    
+   
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightItemWithTitle:@"更多" target:self selector:@selector(onMore:) block:^(UIButton *btn) {
+        [btn setTitle:@"取消" forState:UIControlStateSelected];
+        [btn setTitle:@"更多" forState:UIControlStateNormal];
+    }];
     
     //模拟数据源
     [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:40]];
-
+    for (YHChatModel *model in self.dataArray) {
+        YHChatTextLayout *layout = [[YHChatTextLayout alloc] init];
+        [layout layoutWithText:model.msgContent.string];
+        model.layout = layout;
+        [self.layouts addObject:layout];
+    }
+    
     if (self.dataArray.count) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
@@ -62,6 +76,13 @@
         _dataArray = [NSMutableArray new];
     }
     return _dataArray;
+}
+
+- (NSMutableArray *)layouts{
+    if (!_layouts) {
+        _layouts = [NSMutableArray new];
+    }
+    return _layouts;
 }
 
 - (YHVoiceHUD *)imgvVoiceTips{
@@ -89,7 +110,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
    
     //注册Cell
-    [YHChatHelper registerCellClassWithTableView:self.tableView];
+    _chatHelper = [[YHChatHelper alloc ] init];
+    [_chatHelper registerCellClassWithTableView:self.tableView];
     
     //表情键盘
     YHExpressionKeyboard *keyboard = [[YHExpressionKeyboard alloc] initWithViewController:self aboveView:self.tableView];
@@ -149,16 +171,21 @@
 }
 
 
-#pragma mark - @protocol CellChatVoiceLeft
+#pragma mark - @protocol CellChatVoiceLeftDelegate
 - (void)playInLeftCellWithVoicePath:(NSString *)voicePath{
     DDLog(@"播放:%@",voicePath);
 
 }
 
-#pragma mark - @protocol CellChatVoiceRight
+#pragma mark - @protocol CellChatVoiceRightDelegate
 - (void)playInRightCellWithVoicePath:(NSString *)voicePath{
     DDLog(@"播放:%@",voicePath);
 
+}
+
+#pragma mark - @protocol CellChatBaseDelegate
+- (void)onCheckBoxAtIndexPath:(NSIndexPath *)indexPath model:(YHChatModel *)model{
+    DDLog(@"选择第%ld行的聊天记录",(long)indexPath.row);
 }
 
 
@@ -192,6 +219,7 @@
                     
                     CellChatImageRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageRight class])];
                     cell.delegate = self;
+                    cell.baseDelegate = self;
                     cell.indexPath = indexPath;
                     [cell setupModel:model];
                     return cell;
@@ -200,6 +228,7 @@
                     
                     CellChatImageLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatImageLeft class])];
                     cell.delegate = self;
+                    cell.baseDelegate = self;
                     cell.indexPath = indexPath;
                     [cell setupModel:model];
                     
@@ -211,11 +240,13 @@
                 if (model.direction == 0) {
                     CellChatVoiceRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceRight class])];
                     cell.delegate = self;
+                    cell.baseDelegate = self;
                     [cell setupModel:model];
                     return cell;
                 }else{
                     CellChatVoiceLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
                     cell.delegate = self;
+                    cell.baseDelegate = self;
                     [cell setupModel:model];
                     return cell;
                 }
@@ -224,12 +255,14 @@
                 if (model.direction == 0) {
                     CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
                     cell.delegate = self;
+                    cell.baseDelegate = self;
                     cell.indexPath = indexPath;
                     [cell setupModel:model];
                     return cell;
                 }else{
                     CellChatTextLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextLeft class])];
                     cell.delegate = self;
+                    cell.baseDelegate = self;
                     cell.indexPath = indexPath;
                     [cell setupModel:model];
                     return cell;
@@ -250,7 +283,7 @@
 {
     if (indexPath.row < self.dataArray.count) {
         YHChatModel *model = self.dataArray[indexPath.row];
-        return [YHChatHelper heightWithModel:model tableView:tableView];
+        return [_chatHelper heightWithModel:model tableView:tableView];
     }
     return 44.0f;
    
@@ -359,6 +392,16 @@
         DDLog(@"bytesWritten:%lld -- totalBytesWritten:%lld",bytesWritten,totalBytesWritten);
     }];
 
+}
+
+#pragma mark - Action
+- (void)onMore:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    BOOL showCheckBox = sender.selected? YES:NO;
+    for (YHChatModel *model in self.dataArray) {
+        model.showCheckBox = showCheckBox;
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - Life Cycle

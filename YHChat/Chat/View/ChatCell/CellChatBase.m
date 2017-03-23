@@ -13,6 +13,7 @@
 @end
 
 const float kAvatarWidth = 44.0f;//头像宽/高
+const float kCheckBoxWidth = 30;//勾选框宽高
 @implementation CellChatBase
 
 
@@ -48,8 +49,8 @@ const float kAvatarWidth = 44.0f;//头像宽/高
     _imgvAvatar = [UIImageView new];
     _imgvAvatar.userInteractionEnabled = YES;
     [_imgvAvatar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAvatarGesture:)]];
-    _imgvAvatar.layer.cornerRadius = kAvatarWidth/2.0;
-    _imgvAvatar.layer.masksToBounds = YES;
+//    _imgvAvatar.layer.cornerRadius = kAvatarWidth/2.0;
+//    _imgvAvatar.layer.masksToBounds = YES;
     _imgvAvatar.image = [UIImage imageNamed:@"common_avatar_80px"];
     [self.contentView addSubview:_imgvAvatar];
     
@@ -65,6 +66,12 @@ const float kAvatarWidth = 44.0f;//头像宽/高
     _imgvSendMsgFail.image = [UIImage imageNamed:@"button_retry_comment"];
     [self.contentView addSubview:_imgvSendMsgFail];
 
+    _btnCheckBox = [UIButton new];
+    [_btnCheckBox setImage:[UIImage imageNamed:@"chat_checkBox_nor"] forState:UIControlStateNormal];
+    [_btnCheckBox setImage:[UIImage imageNamed:@"chat_checkBox_sel"] forState:UIControlStateSelected];
+    [_btnCheckBox addTarget:self action:@selector(onBtnCheckBox:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_btnCheckBox];
+    
     [self layoutCommonUI];
 }
 
@@ -92,6 +99,11 @@ const float kAvatarWidth = 44.0f;//头像宽/高
         make.top.equalTo(weakSelf.viewTimeBG.mas_bottom).offset(5);
     }];
     
+    [self.btnCheckBox mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(kCheckBoxWidth);
+        make.left.equalTo(weakSelf.contentView.mas_left).offset(-kCheckBoxWidth);
+        make.centerY.equalTo(weakSelf.imgvAvatar.mas_centerY);
+    }];
 
 }
 
@@ -112,6 +124,38 @@ const float kAvatarWidth = 44.0f;//头像宽/高
 #pragma mark - Public Method
 - (void)setupModel:(YHChatModel *)model{
     self.model = model;
+    if (self.model.showCheckBox) {
+        [self showCheckBox];
+    }else{
+        [self hideCheckBox];
+    }
+    self.btnCheckBox.selected = self.model.isSelected;
+}
+
+- (void)showCheckBox{
+    WeakSelf
+    [self.btnCheckBox mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(kCheckBoxWidth);
+        make.left.equalTo(weakSelf.contentView);
+        make.centerY.equalTo(weakSelf.imgvAvatar.mas_centerY);
+    }];
+}
+
+- (void)hideCheckBox{
+    WeakSelf
+    [self.btnCheckBox mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(kCheckBoxWidth);
+        make.left.equalTo(weakSelf.contentView.mas_left).offset(-kCheckBoxWidth);
+        make.centerY.equalTo(weakSelf.imgvAvatar.mas_centerY);
+    }];
+}
+
+#pragma mark - Action
+- (void)onBtnCheckBox:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    if (_baseDelegate && [_baseDelegate respondsToSelector:@selector(onCheckBoxAtIndexPath:model:)]) {
+        [_baseDelegate onCheckBoxAtIndexPath:self.indexPath model:self.model];
+    }
 }
 
 #pragma mark - Life

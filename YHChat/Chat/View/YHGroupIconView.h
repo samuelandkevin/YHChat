@@ -2,7 +2,7 @@
 //  YHGroupIconView.h
 //  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by kun on 2017/1/18.
+//  Created by samuelandkevin on 2017/1/18.
 //  Copyright © 2017年 YHSoft. All rights reserved.
 //  聊天群图标（由群成员头像拼成icon）
 

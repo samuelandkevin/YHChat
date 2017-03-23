@@ -2,7 +2,7 @@
 //  YHUserSetting.h
 //  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by kun on 16/5/2.
+//  Created by samuelandkevin on 16/5/2.
 //  Copyright © 2016年 YHSoft. All rights reserved.
 //  用户隐私设置
 

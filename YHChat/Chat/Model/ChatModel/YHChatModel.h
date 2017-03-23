@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "YHChatServiceDefs.h"
+#import "YHChatTextLayout.h"
 
 #pragma mark - 聊天记录Model
 @interface YHChatModel : NSObject
@@ -39,8 +40,9 @@
 /******以下非服务器返回字段******/
 @property (nonatomic,assign) CGSize imageSize;
 @property (nonatomic,assign) CGFloat cellHeight;
-
-
+@property (nonatomic,assign) BOOL isSelected;  //被选中
+@property (nonatomic,assign) BOOL showCheckBox;//显示勾选框
+@property (nonatomic,strong) YHChatTextLayout *layout;
 
 @end
 

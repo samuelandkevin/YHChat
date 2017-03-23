@@ -22,6 +22,5 @@
 @interface CellChatImageRight : CellChatBase
 
 @property (nonatomic,weak)id<CellChatImageRightDelegate>delegate;
-@property (nonatomic,assign)NSIndexPath *indexPath;
 
 @end

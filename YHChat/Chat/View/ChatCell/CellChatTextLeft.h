@@ -23,5 +23,5 @@
 @interface CellChatTextLeft : CellChatBase
 
 @property (nonatomic,weak)id<CellChatTextLeftDelegate>delegate;
-@property (nonatomic,assign)NSIndexPath *indexPath;
+
 @end

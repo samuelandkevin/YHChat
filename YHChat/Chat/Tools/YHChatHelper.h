@@ -17,8 +17,8 @@
 + (YHChatModel *)creatMessage:(NSString *)msg msgType:(YHMessageType)msgType  toID:(NSString *)toID;
 
 //注册Cell
-+ (void)registerCellClassWithTableView:(__weak UITableView *)tableView;
+- (void)registerCellClassWithTableView:(__weak UITableView *)tableView;
 
 //行高
-+ (CGFloat)heightWithModel:(__weak YHChatModel *)model tableView:(__weak UITableView *)tableView;
+- (CGFloat)heightWithModel:(__weak YHChatModel *)model tableView:(__weak UITableView *)tableView;
 @end

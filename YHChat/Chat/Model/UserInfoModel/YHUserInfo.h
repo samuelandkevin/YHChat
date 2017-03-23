@@ -2,7 +2,7 @@
 //  YHUserInfo.h
 //  samuelandkevin github:https://github.com/samuelandkevin/YHChat
 //
-//  Created by kun on 16/4/25.
+//  Created by samuelandkevin on 16/4/25.
 //  Copyright © 2016年 YHSoft. All rights reserved.
 //  当前用户Model
 

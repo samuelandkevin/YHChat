@@ -64,7 +64,7 @@
     }];
 
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView).offset(5);
+        make.left.equalTo(weakSelf.btnCheckBox.mas_right).offset(5);
     }];
     
     [_imgvContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,7 +98,7 @@
         NSURL *url = [self getImageUrl];
         [_imgvContent sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"chat_img_defaultPhoto"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             
-            [self updateImageCellHeightWith:image maxSize:CGSizeMake(200, 200)];
+//            [self updateImageCellHeightWith:image maxSize:CGSizeMake(200, 200)];
             
         }];
     }

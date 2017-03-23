@@ -71,7 +71,7 @@
     }];
     
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView).offset(5);
+        make.left.equalTo(weakSelf.btnCheckBox.mas_right).offset(5);
     }];
     
     [_imgvBubble mas_makeConstraints:^(MASConstraintMaker *make) {
