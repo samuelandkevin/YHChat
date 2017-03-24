@@ -16,7 +16,7 @@
 
 @property (nonatomic,copy) NSString *chatId;       //聊天记录Id
 @property (nonatomic,assign) int chatType;         //聊天类型（1:群聊/0:单聊）
-@property (nonatomic,strong) NSMutableAttributedString  *msgContent;   //聊天内容
+@property (nonatomic,copy) NSString *msgContent;   //聊天内容
 @property (nonatomic,copy) NSString *content;
 @property (nonatomic,copy) NSString *createTime;   //发言时间
 @property (nonatomic,copy) NSString *updateTime;   //最近更新时间

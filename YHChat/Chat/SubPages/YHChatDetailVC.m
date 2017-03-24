@@ -54,7 +54,7 @@
     [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:40]];
     for (YHChatModel *model in self.dataArray) {
         YHChatTextLayout *layout = [[YHChatTextLayout alloc] init];
-        [layout layoutWithText:model.msgContent.string];
+        [layout layoutWithText:model.msgContent];
         model.layout = layout;
         [self.layouts addObject:layout];
     }

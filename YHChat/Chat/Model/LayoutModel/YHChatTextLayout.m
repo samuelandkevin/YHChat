@@ -12,7 +12,7 @@
  文本 Line 位置修改
  将每行文本的高度和位置固定下来，不受中英文/Emoji字体的 ascent/descent 影响
  */
-@interface WBTextLinePositionModifier : NSObject <YYTextLinePositionModifier>
+@interface YHChatTextLinePositionModifier : NSObject <YYTextLinePositionModifier>
 @property (nonatomic, strong) UIFont *font; // 基准字体 (例如 Heiti SC/PingFang SC)
 @property (nonatomic, assign) CGFloat paddingTop; //文本顶部留白
 @property (nonatomic, assign) CGFloat paddingBottom; //文本底部留白
@@ -20,7 +20,7 @@
 - (CGFloat)heightForLineCount:(NSUInteger)lineCount;
 @end
 
-@implementation WBTextLinePositionModifier
+@implementation YHChatTextLinePositionModifier
 
 
 - (instancetype)init {
@@ -48,7 +48,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    WBTextLinePositionModifier *one = [self.class new];
+    YHChatTextLinePositionModifier *one = [self.class new];
     one->_font = _font;
     one->_paddingTop = _paddingTop;
     one->_paddingBottom = _paddingBottom;
@@ -71,7 +71,7 @@
 @implementation YHChatTextLayout
 
 - (void)layoutWithText:(NSString *)text{
-    WBTextLinePositionModifier *modifier = [WBTextLinePositionModifier new];
+    YHChatTextLinePositionModifier *modifier = [YHChatTextLinePositionModifier new];
     modifier.font = [UIFont fontWithName:@"Heiti SC" size:14];
     modifier.paddingTop = 5;
     modifier.paddingBottom = 5;
