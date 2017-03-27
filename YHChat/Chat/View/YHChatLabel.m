@@ -1,14 +1,14 @@
 //
-//  YHChatImageView.m
-//  YHChat
+//  YHChatLabel.m
+//  PikeWay
 //
-//  Created by YHIOS002 on 17/3/22.
-//  Copyright © 2017年 samuelandkevin. All rights reserved.
+//  Created by YHIOS002 on 16/8/25.
+//  Copyright © 2016年 YHSoft. All rights reserved.
 //
 
-#import "YHChatImageView.h"
+#import "YHChatLabel.h"
 
-@implementation YHChatImageView
+@implementation YHChatLabel
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -46,12 +46,12 @@
         if(menu.isMenuVisible) return;
         
         NSArray *menuItems = @[
-                               [[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(retweet:)]
+                               [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(customCopy:)],[[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(retweet:)]
                                ];
         if (_isReceiver) {
             menuItems = @[
-                          [[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(retweet:)],[[UIMenuItem alloc] initWithTitle:@"撤回" action:@selector(withdraw:)]
-                          ];
+              [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(customCopy:)],[[UIMenuItem alloc] initWithTitle:@"转发" action:@selector(retweet:)],[[UIMenuItem alloc] initWithTitle:@"撤回" action:@selector(withdraw:)]
+              ];
         }
         menu.menuItems = menuItems;
         
@@ -59,7 +59,10 @@
         //    [menu setTargetRect:self.frame inView:self.superview];
         [menu setMenuVisible:YES animated:YES];
         
-        self.backgroundColor = RGBCOLOR(230, 230, 230);
+       
+        self.backgroundColor = _isReceiver?kGrayColor: RGBCOLOR(230, 230, 230);
+       
+        
     }
     
     
@@ -81,18 +84,37 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    if ( ((action == @selector(retweet:) || (action == @selector(withdraw:))) && self.image))
+    if (
+        ((action == @selector(customCopy:) || (action == @selector(retweet:)) || (action == @selector(withdraw:))) && self.text)
+        )
         return YES;
     
     return NO;
 }
 #pragma mark - 监听MenuItem的点击事件/** 剪切 */
+- (void)cut:(UIMenuController *)menu
+{    //UIPasteboard 是可以在应用程序与应用程序之间共享的 \
+    (应用程序:你的app就是一个应用程序 比如你的QQ消息可以剪切到百度查找一样)
+    // 将label的文字存储到粘贴板
+    [UIPasteboard generalPasteboard].string = self.text;
+    // 清空文字
+    self.text = nil;
+    [self finishChoosing];
+}
+
+
+- (void)customCopy:(UIMenuController *)menu
+{
+    // 将label的文字存储到粘贴板
+    [UIPasteboard generalPasteboard].string = self.text;
+    [self finishChoosing];
+}
 
 - (void)retweet:(UIMenuController *)menu{
-    
+
     WeakSelf
     if (self.retweetBlock) {
-        weakSelf.retweetBlock(weakSelf.image);
+        weakSelf.retweetBlock(weakSelf.attributedText.string);
     }
     [self finishChoosing];
 }
@@ -101,8 +123,16 @@
     
     WeakSelf
     if (self.withDrawBlock) {
-        weakSelf.withDrawBlock(weakSelf.image);
+        weakSelf.withDrawBlock(weakSelf.attributedText.string);
     }
+    [self finishChoosing];
+}
+
+
+- (void)paste:(UIMenuController *)menu
+{
+    // 将粘贴板的文字赋值给label
+    self.text = [UIPasteboard generalPasteboard].string;
     [self finishChoosing];
 }
 
@@ -117,6 +147,5 @@
     DDLog(@"%s is dealloc",__func__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 @end

@@ -239,7 +239,7 @@
 }
 
 //匹配@,表情后得到的属性字符串
-+ (NSMutableAttributedString *)attributedStringWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor{
++ (NSMutableAttributedString *)attributedStringWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor matchTextColor:(UIColor *)matchTextColor matchTextHighlightBGColor:(UIColor *)matchTextHighlightBGColor{
     
     UIFont *font = [UIFont systemFontOfSize:fontSize];
     NSMutableAttributedString *aStr = [[NSMutableAttributedString alloc] initWithString:text];
@@ -251,14 +251,14 @@
     YYTextBorder *highlightBorder = [YYTextBorder new];
     highlightBorder.insets = UIEdgeInsetsMake(-2, 0, -2, 0);
     highlightBorder.cornerRadius = 3;
-    highlightBorder.fillColor = kWBCellTextHighlightBackgroundColor;
+    highlightBorder.fillColor = matchTextHighlightBGColor;
     
     // 匹配 url
     NSArray *ulResults = [[YHExpressionHelper regexURL] matchesInString:aStr.string options:kNilOptions range:text.rangeOfAll];
     for (NSTextCheckingResult *at in ulResults) {
         if (at.range.location == NSNotFound && at.range.length <= 1) continue;
         if ([aStr attribute:YYTextHighlightAttributeName atIndex:at.range.location] == nil) {
-            [aStr setColor:kWBCellTextHighlightColor range:at.range];
+            [aStr setColor:matchTextColor range:at.range];
             
             // 高亮状态
             YYTextHighlight *highlight = [YYTextHighlight new];
@@ -277,7 +277,7 @@
     for (NSTextCheckingResult *at in atResults) {
         if (at.range.location == NSNotFound && at.range.length <= 1) continue;
         if ([aStr attribute:YYTextHighlightAttributeName atIndex:at.range.location] == nil) {
-            [aStr setColor:kWBCellTextHighlightColor range:at.range];
+            [aStr setColor:matchTextColor range:at.range];
             
             // 高亮状态
             YYTextHighlight *highlight = [YYTextHighlight new];
@@ -313,7 +313,7 @@
 }
 
 //从缓存中获取属性文本
-+ (NSMutableAttributedString *)attributedStringWithCacheAttributeString:(NSMutableAttributedString *)attStr fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor{
++ (NSMutableAttributedString *)attributedStringWithCacheAttributeString:(NSMutableAttributedString *)attStr fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor matchTextColor:(UIColor *)matchTextColor matchTextHighlightBGColor:(UIColor *)matchTextHighlightBGColor{
     
     NSMutableAttributedString * retStr = nil;
     NSString *wholeStr = attStr.string;
@@ -322,7 +322,7 @@
     if (location != NSNotFound) {
         content = [wholeStr substringToIndex:location];
     }
-    retStr = [YHExpressionHelper attributedStringWithText:content fontSize:fontSize textColor:textColor];
+    retStr = [YHExpressionHelper attributedStringWithText:content fontSize:fontSize textColor:textColor matchTextColor:matchTextColor matchTextHighlightBGColor:matchTextHighlightBGColor];
     return retStr;
 }
 

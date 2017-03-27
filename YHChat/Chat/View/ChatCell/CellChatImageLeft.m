@@ -45,7 +45,7 @@
     _imgvContent.image = [UIImage imageArrowWithSize:oriImg.size image:oriImg isSender:NO];
     [self.contentView addSubview:_imgvContent];
     WeakSelf
-    _imgvContent.retweetBlock = ^(UIImage *image){
+    _imgvContent.retweetImageBlock = ^(UIImage *image){
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetImage:inLeftCell:)]) {
             [weakSelf.delegate retweetImage:image inLeftCell:weakSelf];
         }

@@ -25,7 +25,7 @@ extern const float kAvatarWidth;//头像宽/高
 @property (nonatomic,strong) YHChatModel *model;
 @property (nonatomic,assign) NSIndexPath *indexPath;
 @property (nonatomic,assign) id<CellChatBaseDelegate>baseDelegate;
-
+@property (nonatomic,assign) BOOL showCheckBox;
 #pragma mark - Public 控件
 @property (nonatomic,strong) UILabel *lbTime;    //发言时间
 @property (nonatomic,strong) UIView  *viewTimeBG;//发言时间背景
@@ -54,8 +54,8 @@ extern const float kAvatarWidth;//头像宽/高
 - (void)layoutCommonUI;
 
 //显示勾选框
-- (void)showCheckBox;
+//- (void)showCheckBox;
 
 //隐藏勾选框
-- (void)hideCheckBox;
+//- (void)hideCheckBox;
 @end

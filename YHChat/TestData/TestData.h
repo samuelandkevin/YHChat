@@ -18,7 +18,7 @@
  @param totalCount 数量
  @return YHChatModel的数组
  */
-+ (NSArray <YHChatModel *>*)randomGenerateChatModel:(int)totalCount;
++ (NSArray <YHChatModel *>*)randomGenerateChatModel:(int)totalCount aChatListModel:(YHChatListModel *)aChatListModel;
 
 
 /**

@@ -15,11 +15,15 @@
 
 #pragma mark - 产生模拟数据源 (模拟服务器数据,实际开发可删除)
 //随机生成totalCount数量的聊天记录
-+ (NSArray <YHChatModel *>*)randomGenerateChatModel:(int)totalCount{
++ (NSArray <YHChatModel *>*)randomGenerateChatModel:(int)totalCount aChatListModel:(YHChatListModel *)aChatListModel{
     
     NSMutableArray *retArr = [NSMutableArray arrayWithCapacity:totalCount];
     for (int i=0; i<totalCount; i++) {
         YHChatModel *model = [self _creatOneChatModelWithTotalCount:totalCount];
+        if (!aChatListModel.isGroupChat && ![model.speakerId isEqualToString:MYUID]) {
+            model.speakerAvatar = aChatListModel.sessionUserHead[0];
+            model.speakerName   = aChatListModel.sessionUserName;
+        }
         //会话Id
         model.chatId = [NSString stringWithFormat:@"%d",(100+i)];
         [retArr addObject:model];
@@ -215,8 +219,14 @@
     memLength = memLength <= 1 ? 2:memLength;
     model.isRead = [memberArr[memLength] intValue];
     
-//    model.isGroupChat = YES;//kun调试
-//    memLength = 10;
+    
+    //群成员头像
+    NSArray *avtarArray = @[
+                            @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
+                            @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
+                            @"https://testapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
+                            @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
+                            @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
     
     //群名字
     if (model.isGroupChat) {
@@ -226,13 +236,7 @@
         model.groupName = gStr;
         model.sessionUserName = gStr;
         
-        //群成员头像
-        NSArray *avtarArray = @[
-                                @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
-                                @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
-                                @"https://testapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
-                                @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
-                                @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
+        
         NSMutableArray <NSURL *>*urlArr = [NSMutableArray new];
         for (int i =0; i<4; i++) {
             [urlArr addObjectsFromArray:avtarArray];
@@ -246,6 +250,10 @@
         NSArray *sessionNickArr = @[@"李一",@"张国富",@"黎明",@"你不是我的菜",@"这名字会好长的啊！呵呵",@"天天",@"我不要要不要" ];
         int sNickLength  = arc4random() % sessionNickArr.count;
         model.sessionUserName = sessionNickArr[sNickLength];
+        
+        NSString *headUrlStr = avtarArray[arc4random() % avtarArray.count];
+        NSURL *hearUrl = [NSURL URLWithString:headUrlStr];
+        model.sessionUserHead = @[hearUrl];
     }
     
 

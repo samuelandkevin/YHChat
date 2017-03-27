@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"首页";
+    self.title = @"YHChat";
     self.navigationController.navigationBar.translucent = NO;
     [self initUI];
 
@@ -86,6 +86,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     YHChatDetailVC *vc = [[YHChatDetailVC alloc] init];
+    vc.model = self.dataArray[indexPath.row];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

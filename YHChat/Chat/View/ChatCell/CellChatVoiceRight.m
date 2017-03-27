@@ -11,10 +11,12 @@
 #import "YHChatModel.h"
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHAudioPlayer.h"
+#import "YHChatImageView.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface CellChatVoiceRight()
 
-@property (nonatomic,strong) UIImageView *imgvBubble;
+@property (nonatomic,strong) YHChatImageView *imgvBubble;
 @property (nonatomic,strong) UIImageView *imgvVoiceIcon;
 @property (nonatomic,strong) UILabel *lbDuration;
 @end
@@ -36,13 +38,31 @@
 
 - (void)setupUI{
     
-    _imgvBubble = [UIImageView new];
+    _imgvBubble = [YHChatImageView new];
+    _imgvBubble.isReceiver = YES;
     UIImage *imgBubble = [UIImage imageNamed:@"chat_bubbleRight"];
     imgBubble = [imgBubble resizableImageWithCapInsets:UIEdgeInsetsMake(30, 15, 30, 30) resizingMode:UIImageResizingModeStretch];
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     _imgvBubble.userInteractionEnabled = YES;
     [_imgvBubble addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGestureBubble:)]];
+    
+    
+    WeakSelf
+    
+    _imgvBubble.retweetVoiceBlock = ^(){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetVoice:inRightCell:)]) {
+            NSString *voicePath = [weakSelf voicePath];
+            [weakSelf.delegate retweetVoice:voicePath inRightCell:weakSelf];
+        }
+    };
+    
+    _imgvBubble.withDrawVoiceBlock = ^(){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(withDrawVoice:inRightCell:)]) {
+            NSString *voicePath = [weakSelf voicePath];
+            [weakSelf.delegate withDrawVoice:voicePath inRightCell:weakSelf];
+        }
+    };
     
     
     _imgvVoiceIcon = [UIImageView new];
@@ -137,13 +157,20 @@
     //    }
 }
 
+#pragma mark - Private
+- (NSString *)voicePath{
+    WeakSelf
+    NSString *path = weakSelf.model.msgContent;
+    path = [path stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
+    path = [path stringByReplacingOccurrencesOfString:@"]" withString:@""];
+    return path;
+}
+
 #pragma mark - Gesture
 - (void)onGestureBubble:(UIGestureRecognizer *)aRec{
     if (aRec.state == UIGestureRecognizerStateEnded){
         if (_delegate && [_delegate respondsToSelector:@selector(playInRightCellWithVoicePath:)]) {
-            NSString *voicePath = self.model.msgContent;
-            voicePath = [voicePath stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
-            voicePath = [voicePath stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            NSString *voicePath = [self voicePath];
             [_delegate playInRightCellWithVoicePath:voicePath];
             
             
@@ -164,6 +191,7 @@
     [super setupModel:model];
     self.lbName.text = self.model.speakerName;
     self.lbTime.text = self.model.createTime;
+    [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
 //    _lbDuration.text = @"1 '";
 }
 

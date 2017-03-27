@@ -13,5 +13,5 @@
 @property (nonatomic, assign) CGFloat textHeight; //文本高度(包括下方留白)
 @property (nonatomic, strong) YYTextLayout *textLayout; //文本
 
-- (void)layoutWithText:(NSString *)text;
+- (void)layoutWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor matchTextColor:(UIColor *)matchTextColor matchTextHighlightBGColor:(UIColor *)matchTextHighlightBGColor;
 @end

@@ -9,7 +9,7 @@
 #import "CellChatBase.h"
 #import <Masonry/Masonry.h>
 @interface CellChatBase()
-
+@property (nonatomic,assign) BOOL checkBoxisActivity;
 @end
 
 const float kAvatarWidth = 44.0f;//头像宽/高
@@ -124,15 +124,26 @@ const float kCheckBoxWidth = 30;//勾选框宽高
 #pragma mark - Public Method
 - (void)setupModel:(YHChatModel *)model{
     self.model = model;
-    if (self.model.showCheckBox) {
-        [self showCheckBox];
+   
+   
+    if (self.showCheckBox) {
+        _checkBoxisActivity = YES;
+        if (_checkBoxisActivity) {
+            [self _showCheckBox];
+        }
     }else{
-        [self hideCheckBox];
+        if (_checkBoxisActivity) {
+            [self _hideCheckBox];
+        }
+        _checkBoxisActivity = NO;
     }
+   
     self.btnCheckBox.selected = self.model.isSelected;
 }
 
-- (void)showCheckBox{
+#pragma mark - Prviate
+
+- (void)_showCheckBox{
     WeakSelf
     [self.btnCheckBox mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kCheckBoxWidth);
@@ -141,7 +152,7 @@ const float kCheckBoxWidth = 30;//勾选框宽高
     }];
 }
 
-- (void)hideCheckBox{
+- (void)_hideCheckBox{
     WeakSelf
     [self.btnCheckBox mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(kCheckBoxWidth);

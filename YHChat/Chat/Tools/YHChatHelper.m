@@ -12,6 +12,7 @@
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
 #import "YHExpressionHelper.h"
 #import "NSDate+Extension.h"
+#import "YHChatTextLayout.h"
 
 @interface YHChatHelper()
 
@@ -40,7 +41,19 @@
     model.chatType   = msgType;
     model.chatId        = [NSString stringWithFormat:@"%ld",1000 + random()%1000];//本地消息记录ID是手动设置，等消息发送成功后将此替换。
     CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
-    model.msgContent = [YHExpressionHelper attributedStringWithText:msg fontSize:(addFontSize+14) textColor:[UIColor whiteColor]];
+    
+    UIColor *textColor = [UIColor blackColor];
+    UIColor *matchTextColor = UIColorHex(527ead);
+    UIColor *matchTextHighlightBGColor = UIColorHex(bfdffe);
+    if (model.direction == 0) {
+        textColor = [UIColor whiteColor];
+        matchTextColor = [UIColor greenColor];
+        matchTextHighlightBGColor = [UIColor grayColor];
+    }
+    model.msgContent = msg;
+    YHChatTextLayout *layout = [[YHChatTextLayout alloc] init];
+    [layout layoutWithText:msg fontSize:addFontSize+14 textColor:textColor matchTextColor:matchTextColor matchTextHighlightBGColor:matchTextHighlightBGColor];
+    model.layout = layout;
     NSDate *date = [[NSDate alloc] init ];
     model.createTime  = [date getNowDate];
     return model;

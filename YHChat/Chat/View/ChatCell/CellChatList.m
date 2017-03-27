@@ -157,6 +157,7 @@
         _imgvGroupIcon.hidden = NO;
         _imgvAvatar.hidden = YES;
     }else{
+        [_imgvAvatar sd_setImageWithURL:_model.sessionUserHead[0] placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
         _imgvAvatar.hidden = NO;
         _imgvGroupIcon.hidden = YES;
     }

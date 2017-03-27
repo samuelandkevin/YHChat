@@ -70,16 +70,16 @@
 
 @implementation YHChatTextLayout
 
-- (void)layoutWithText:(NSString *)text{
+- (void)layoutWithText:(NSString *)text fontSize:(CGFloat)fontSize textColor:(UIColor *)textColor matchTextColor:(UIColor *)matchTextColor matchTextHighlightBGColor:(UIColor *)matchTextHighlightBGColor{
     YHChatTextLinePositionModifier *modifier = [YHChatTextLinePositionModifier new];
-    modifier.font = [UIFont fontWithName:@"Heiti SC" size:14];
-    modifier.paddingTop = 5;
-    modifier.paddingBottom = 5;
+    modifier.font = [UIFont fontWithName:@"Heiti SC" size:fontSize];
+    modifier.paddingTop = 0;
+    modifier.paddingBottom = 0;
     
     YYTextContainer *container = [YYTextContainer new];
     container.size = CGSizeMake(SCREEN_WIDTH - 133, HUGE);
     container.linePositionModifier = modifier;
-    NSMutableAttributedString *maStr = [YHExpressionHelper attributedStringWithText:text fontSize:14 textColor:[UIColor blackColor]];
+    NSMutableAttributedString *maStr = [YHExpressionHelper attributedStringWithText:text fontSize:fontSize textColor:textColor matchTextColor:matchTextColor matchTextHighlightBGColor:matchTextHighlightBGColor];
     _textLayout = [YYTextLayout layoutWithContainer:container text:maStr];
     if (!_textLayout) return;
     

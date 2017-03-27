@@ -11,10 +11,12 @@
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
 #import "YHAudioPlayer.h"
+#import "YHChatImageView.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface CellChatVoiceLeft()
 
-@property (nonatomic,strong) UIImageView *imgvBubble;
+@property (nonatomic,strong) YHChatImageView *imgvBubble;
 @property (nonatomic,strong) UILabel *lbDuration;
 @property (nonatomic,strong) UIImageView *imgvVoiceIcon;
 @end
@@ -37,13 +39,23 @@
 
 - (void)setupUI{
     
-    _imgvBubble = [UIImageView new];
+    _imgvBubble = [YHChatImageView new];
+    _imgvBubble.isReceiver = NO;
     UIImage *imgBubble = [UIImage imageNamed:@"chat_bubbleLeft"];
     imgBubble = [imgBubble resizableImageWithCapInsets:UIEdgeInsetsMake(30, 30, 30, 15) resizingMode:UIImageResizingModeStretch];
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     _imgvBubble.userInteractionEnabled = YES;
     [_imgvBubble addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGestureBubble:)]];
+    
+    
+    WeakSelf
+    _imgvBubble.retweetVoiceBlock = ^(){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetVoice:inLeftCell:)]) {
+            NSString *voicePath = [weakSelf voicePath];
+            [weakSelf.delegate retweetVoice:voicePath inLeftCell:weakSelf];
+        }
+    };
     
     _imgvVoiceIcon = [UIImageView new];
     _imgvVoiceIcon.image = [UIImage imageNamed:@"left-3"];
@@ -95,6 +107,15 @@
     
 }
 
+#pragma mark - Private
+- (NSString *)voicePath{
+    WeakSelf
+    NSString *path = weakSelf.model.msgContent;
+    path = [path stringByReplacingOccurrencesOfString:@"voice[" withString:@""];
+    path = [path stringByReplacingOccurrencesOfString:@"]" withString:@""];
+    return path;
+}
+
 #pragma mark - Super
 
 - (void)onAvatarGesture:(UIGestureRecognizer *)aRec{
@@ -132,6 +153,7 @@
     [super setupModel:model];
     self.lbName.text = self.model.speakerName;
     self.lbTime.text = self.model.createTime;
+    [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
 //    _lbDuration.text = @"1 '";
 }
 

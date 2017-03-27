@@ -51,7 +51,6 @@
     _lbContent.preferredMaxLayoutWidth = SCREEN_WIDTH - 133;
     CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
     _lbContent.textColor = [UIColor whiteColor];
-    _lbContent.textAlignment = NSTextAlignmentLeft;
     _lbContent.numberOfLines = 0;
     _lbContent.font = [UIFont systemFontOfSize:(14+addFontSize)];
     WeakSelf

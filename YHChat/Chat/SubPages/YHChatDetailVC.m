@@ -35,6 +35,7 @@
 
 @property (nonatomic,strong) YHChatHelper *chatHelper;
 
+@property (nonatomic,assign) BOOL showCheckBox;
 @end
 
 @implementation YHChatDetailVC
@@ -42,30 +43,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.navigationController.navigationBar.translucent = NO;
-    [self initUI];
-   
+    
+    //设置导航栏
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithTarget:self selector:@selector(onBack:)];
+    
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem rightItemWithTitle:@"更多" target:self selector:@selector(onMore:) block:^(UIButton *btn) {
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
         [btn setTitle:@"取消" forState:UIControlStateSelected];
         [btn setTitle:@"更多" forState:UIControlStateNormal];
     }];
     
+    
+    self.title = self.model.isGroupChat?[NSString stringWithFormat:@"%@(%lu)",self.model.sessionUserName,(unsigned long)self.model.sessionUserHead.count]: self.model.sessionUserName;
+    
+    [self initUI];
+   
+    
     //模拟数据源
-    [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:40]];
+    [self.dataArray addObjectsFromArray:[TestData randomGenerateChatModel:40 aChatListModel:self.model]];
+    CGFloat addFontSize = [[[NSUserDefaults standardUserDefaults] valueForKey:kSetSystemFontSize] floatValue];
     for (YHChatModel *model in self.dataArray) {
+        UIColor *textColor = [UIColor blackColor];
+        UIColor *matchTextColor = UIColorHex(527ead);
+        UIColor *matchTextHighlightBGColor = UIColorHex(bfdffe);
+        if (model.direction == 0) {
+            textColor = [UIColor whiteColor];
+            matchTextColor = [UIColor greenColor];
+            matchTextHighlightBGColor = [UIColor grayColor];
+        }
         YHChatTextLayout *layout = [[YHChatTextLayout alloc] init];
-        [layout layoutWithText:model.msgContent];
+        [layout layoutWithText:model.msgContent fontSize:(14+addFontSize) textColor:textColor matchTextColor:matchTextColor matchTextHighlightBGColor:matchTextHighlightBGColor];
         model.layout = layout;
         [self.layouts addObject:layout];
     }
     
     if (self.dataArray.count) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            [self.tableView scrollToBottomAnimated:NO];
         });
 
     }
     
+    //设置WebScoket
     [[YHChatManager sharedInstance] connectToUserID:@"99f16547-637c-4d84-8a55-ef24031977dd" isGroupChat:NO];
     
 }
@@ -97,7 +118,7 @@
 
 - (void)initUI{
     
-    self.title = @"聊天详情";
+    
     self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = RGBCOLOR(239, 236, 236);
     
@@ -152,6 +173,10 @@
 
 - (void)withDrawMsg:(NSString *)msg inRightCell:(CellChatTextRight *)rightCell{
     DDLog(@"撤回消息:\n%@",msg);
+    if (rightCell.indexPath.row < self.dataArray.count) {
+        [self.dataArray removeObjectAtIndex:rightCell.indexPath.row];
+        [self.tableView deleteRowAtIndexPath:rightCell.indexPath withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 #pragma mark - @protocol CellChatImageLeftDelegate
@@ -167,7 +192,12 @@
 }
 
 - (void)withDrawImage:(UIImage *)image inRightCell:(CellChatImageRight *)rightCell{
-    DDLog(@"撤销图片：%@",image);
+    DDLog(@"撤回图片：%@",image);
+    if (rightCell.indexPath.row < self.dataArray.count) {
+        [self.dataArray removeObjectAtIndex:rightCell.indexPath.row];
+        [self.tableView deleteRowAtIndexPath:rightCell.indexPath withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
 }
 
 
@@ -177,10 +207,28 @@
 
 }
 
+- (void)retweetVoice:(NSString *)voicePath inLeftCell:(CellChatVoiceLeft *)leftCell{
+    DDLog(@"转发语音:%@",voicePath);
+}
+
 #pragma mark - @protocol CellChatVoiceRightDelegate
 - (void)playInRightCellWithVoicePath:(NSString *)voicePath{
     DDLog(@"播放:%@",voicePath);
 
+}
+
+//转发语音
+- (void)retweetVoice:(NSString *)voicePath inRightCell:(CellChatVoiceRight *)rightCell{
+    DDLog(@"转发语音:%@",voicePath);
+}
+
+//撤回语音
+- (void)withDrawVoice:(NSString *)voicePath inRightCell:(CellChatVoiceRight *)rightCell{
+    DDLog(@"撤回语音:%@",voicePath);
+    if (rightCell.indexPath.row < self.dataArray.count) {
+        [self.dataArray removeObjectAtIndex:rightCell.indexPath.row];
+        [self.tableView deleteRowAtIndexPath:rightCell.indexPath withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 #pragma mark - @protocol CellChatBaseDelegate
@@ -221,6 +269,7 @@
                     cell.delegate = self;
                     cell.baseDelegate = self;
                     cell.indexPath = indexPath;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                     
@@ -230,6 +279,7 @@
                     cell.delegate = self;
                     cell.baseDelegate = self;
                     cell.indexPath = indexPath;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     
                     return cell;
@@ -241,12 +291,16 @@
                     CellChatVoiceRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceRight class])];
                     cell.delegate = self;
                     cell.baseDelegate = self;
+                    cell.indexPath = indexPath;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                 }else{
                     CellChatVoiceLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
                     cell.delegate = self;
                     cell.baseDelegate = self;
+                    cell.indexPath = indexPath;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                 }
@@ -257,6 +311,7 @@
                     cell.delegate = self;
                     cell.baseDelegate = self;
                     cell.indexPath = indexPath;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                 }else{
@@ -264,6 +319,7 @@
                     cell.delegate = self;
                     cell.baseDelegate = self;
                     cell.indexPath = indexPath;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                 }
@@ -322,8 +378,7 @@
         [self.dataArray addObject:model];
         
         [self.tableView reloadData];
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        
+        [self.tableView scrollToBottomAnimated:NO];
     }
     
 }
@@ -355,7 +410,7 @@
             NSString *voiceMsg = [NSString stringWithFormat:@"voice[local://%@]",recordPath];
             [weakSelf.dataArray addObject:[YHChatHelper creatMessage:voiceMsg msgType:YHMessageType_Voice toID:@"1"]];
             [weakSelf.tableView reloadData];
-            [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:weakSelf.dataArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            [weakSelf.tableView scrollToBottomAnimated:NO];
         }
     }];
 }
@@ -397,11 +452,13 @@
 #pragma mark - Action
 - (void)onMore:(UIButton *)sender{
     sender.selected = !sender.selected;
-    BOOL showCheckBox = sender.selected? YES:NO;
-    for (YHChatModel *model in self.dataArray) {
-        model.showCheckBox = showCheckBox;
-    }
+    _showCheckBox = sender.selected? YES:NO;
     [self.tableView reloadData];
+}
+
+#pragma mark -  Action
+- (void)onBack:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Life Cycle

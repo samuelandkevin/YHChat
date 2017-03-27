@@ -45,13 +45,13 @@
     [self.contentView addSubview:_imgvContent];
     
     WeakSelf
-    _imgvContent.retweetBlock = ^(UIImage *image){
+    _imgvContent.retweetImageBlock = ^(UIImage *image){
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetImage:inRightCell:)]) {
             [weakSelf.delegate retweetImage:image inRightCell:weakSelf];
         }
     };
     
-    _imgvContent.withDrawBlock = ^(UIImage *image){
+    _imgvContent.withDrawImageBlock = ^(UIImage *image){
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(withDrawImage:inRightCell:)]) {
             [weakSelf.delegate withDrawImage:image inRightCell:weakSelf];
         }

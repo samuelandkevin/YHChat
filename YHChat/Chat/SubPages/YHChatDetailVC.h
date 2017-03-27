@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YHChatListModel.h"
 
 @interface YHChatDetailVC : UIViewController
+
+@property (nonatomic,strong)YHChatListModel *model;
 
 @end

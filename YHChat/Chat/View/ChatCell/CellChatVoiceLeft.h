@@ -14,6 +14,9 @@
 
 - (void)playInLeftCellWithVoicePath:(NSString *)voicePath;
 
+@optional
+- (void)retweetVoice:(NSString *)voicePath inLeftCell:(CellChatVoiceLeft *)leftCell;//转发语音
+
 @end
 
 @interface CellChatVoiceLeft : CellChatBase
