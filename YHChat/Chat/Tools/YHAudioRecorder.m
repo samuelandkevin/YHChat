@@ -2,7 +2,7 @@
 //  YHAudioRecorder.m
 //  YHChat
 //
-//  Created by YHIOS002 on 17/3/2.
+//  Created by samuelandkevin on 17/3/2.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import "HHUtils.h"
-#import "YHFilePath.h"
+#import "YHFileTool.h"
 #import "VoiceConverter.h"
 
 
@@ -115,7 +115,7 @@
 // 录音文件主路径
 - (NSString *)recorderMainPath
 {
-    NSString *path = [[YHFilePath getAppCacheDirectory] stringByAppendingPathComponent:kChildPath];
+    NSString *path = [[YHFileTool getAppCacheDirectory] stringByAppendingPathComponent:kChildPath];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirExist = [fileManager fileExistsAtPath:path];
     if (!isDirExist) {

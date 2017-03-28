@@ -12,6 +12,14 @@
 			<key>icon_sel</key>
 			<string>chatBar_colorMore_photoSelected</string>
 		</dict>
+		<dict>
+			<key>name</key>
+			<string>文件</string>
+			<key>icon_nor</key>
+			<string>chatBar_colorMore_video</string>
+			<key>icon_sel</key>
+			<string>chatBar_colorMore_videoSelected</string>
+		</dict>
 	</array>
 </dict>
 </plist>

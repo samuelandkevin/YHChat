@@ -1,14 +1,15 @@
 //
-//  YHFilePath.m
+//  YHFileTool.m
 //  YHSOFT
 //
 //  Created by samuelandkevin on 16/9/17.
 //  Copyright (c) 2016年 samuelandkevin Co.,Ltd. All rights reserved.
 //
+#define kChildPath @"com.samuelandkevin.chat/File"
+#import "YHFileTool.h"
 
-#import "YHFilePath.h"
 
-@implementation YHFilePath
+@implementation YHFileTool
 
 + (NSString *)getTempDataCacheDirectory {
     return [[self getAppCacheDirectory] stringByAppendingPathComponent:@"appdata"];         // 1.5.3 修改，之前是 tempData目录
@@ -101,6 +102,51 @@
     }
     
     return fileNames;
+}
+
+// 文件主目录
++ (NSString *)fileMainPath
+{
+
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:kChildPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDirExist = [fileManager fileExistsAtPath:path];
+    if (!isDirExist) {
+        BOOL isCreatDir = [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+        if (!isCreatDir) {
+            DDLog(@"create folder failed");
+            return nil;
+        }
+    }
+    return path;
+}
+
+// 小于1024显示KB，否则显示MB
++ (NSString *)filesize:(NSString *)path
+{
+    CGFloat size = [self fileSizeWithPath:path];
+    if ( size > 1000.0) { // 1000kb不好看，所以我就以1000为标准了
+        return [NSString stringWithFormat:@"%.1fMB",size/1024.0];
+    } else {
+        return [NSString stringWithFormat:@"%.1fKB",size];
+    }
+}
+
++ (NSString *)fileSizeWithInteger:(NSUInteger)integer
+{
+    CGFloat size = integer/1024.0;
+    if ( size > 1000.0) { // 1000kb不好看，所以我就以1000为标准了
+        return [NSString stringWithFormat:@"%.1fMB",size/1024.0];
+    } else {
+        return [NSString stringWithFormat:@"%.1fKB",size];
+    }
+}
+
+// 返回字节
++ (CGFloat)fileSizeWithPath:(NSString *)path
+{
+    NSDictionary *outputFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    return [outputFileAttributes fileSize]/1024.0;
 }
 
 @end

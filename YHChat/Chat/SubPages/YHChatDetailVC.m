@@ -23,6 +23,9 @@
 #import "YHChatManager.h"
 #import "UIBarButtonItem+Extension.h"
 #import "YHChatTextLayout.h"
+#import "YHDocumentVC.h"
+#import "YHNavigationController.h"
+#import "YHWebViewController.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate,CellChatBaseDelegate>{
     
@@ -152,6 +155,15 @@
     DDLog(@"所在的行是:%ld",leftCell.indexPath.row);
 }
 
+- (void)onLinkInChatTextLeftCell:(CellChatTextLeft *)cell linkType:(int)linkType linkText:(NSString *)linkText{
+    if (linkType == 1) {
+        //点击URL
+        YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL URLWithString:linkText]];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 #pragma mark - @protocol CellChatTextRightDelegate
 - (void)tapRightAvatar:(YHUserInfo *)userInfo{
     DDLog(@"点击右边头像");
@@ -176,6 +188,15 @@
     if (rightCell.indexPath.row < self.dataArray.count) {
         [self.dataArray removeObjectAtIndex:rightCell.indexPath.row];
         [self.tableView deleteRowAtIndexPath:rightCell.indexPath withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (void)onLinkInChatTextRightCell:(CellChatTextRight *)cell linkType:(int)linkType linkText:(NSString *)linkText{
+    if (linkType == 1) {
+        //点击URL
+        YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL URLWithString:linkText]];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -432,6 +453,17 @@
 - (void)didCancelRecordingVoice{
     self.imgvVoiceTips.hidden = YES;
     [[YHAudioRecorder shareInstanced] removeCurrentRecordFile];
+}
+
+- (void)didSelectExtraItem:(NSString *)itemName{
+    if ([itemName isEqualToString:@"文件"]) {
+        YHDocumentVC *vc = [[YHDocumentVC alloc] init];
+        YHNavigationController *nav = [[YHNavigationController alloc] initWithRootViewController:vc];
+        [vc didSelectFilesComplete:^(NSArray<NSString *> *files) {
+            DDLog(@"准备发送文件。");
+        }];
+        [self.navigationController presentViewController:nav animated:YES completion:NULL];
+    }
 }
 
 #pragma mark - 网络请求

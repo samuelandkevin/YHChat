@@ -2,7 +2,7 @@
 //  YHChatTextLayout.m
 //  YHChat
 //
-//  Created by YHIOS002 on 17/3/23.
+//  Created by samuelandkevin on 17/3/23.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //
 

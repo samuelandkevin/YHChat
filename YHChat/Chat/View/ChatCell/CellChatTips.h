@@ -2,7 +2,7 @@
 //  CellChatTips.h
 //  YHChat
 //
-//  Created by YHIOS002 on 17/3/16.
+//  Created by samuelandkevin on 17/3/16.
 //  Copyright © 2017年 samuelandkevin. All rights reserved.
 //  
 

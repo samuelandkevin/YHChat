@@ -21,4 +21,9 @@
 
 //行高
 - (CGFloat)heightWithModel:(__weak YHChatModel *)model tableView:(__weak UITableView *)tableView;
+
+
++ (NSNumber *)fileType:(NSString *)type;
+//获取相应文件类型的图片
++ (UIImage *)imageWithFileType:(YHFileType)type;
 @end

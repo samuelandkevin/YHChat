@@ -218,6 +218,66 @@
     return height;
 }
 
+
++ (NSDictionary *)fileTypeDictionary
+{
+    NSDictionary *dic = @{
+                          @"mp3":@1,@"mp4":@2,@"mpe":@2,@"docx":@5,
+                          @"amr":@1,@"avi":@2,@"wmv":@2,@"xls":@6,
+                          @"wav":@1,@"rmvb":@2,@"mkv":@2,@"xlsx":@6,
+                          @"mp3":@1,@"rm":@2,@"vob":@2,@"ppt":@7,
+                          @"aac":@1,@"asf":@2,@"html":@3,@"pptx":@7,
+                          @"wma":@1,@"divx":@2,@"htm":@3,@"png":@8,
+                          @"ogg":@1,@"mpg":@2,@"pdf":@4,@"jpg":@8,
+                          @"ape":@1,@"mpeg":@2,@"doc":@5,@"jpeg":@8,
+                          @"gif":@8,@"bmp":@8,@"tiff":@8,@"svg":@8
+                          };
+    return dic;
+}
+
++ (NSNumber *)fileType:(NSString *)type
+{
+    NSDictionary *dic = [self fileTypeDictionary];
+    return [dic objectForKey:type];
+}
+
++ (UIImage *)imageWithFileType:(YHFileType)type
+{
+    switch (type) {
+        case YHFileType_Audio:
+            return [UIImage imageNamed:@"yinpin"];
+            break;
+        case YHFileType_Video:
+            return [UIImage imageNamed:@"shipin"];
+            break;
+        case YHFileType_Html:
+            return [UIImage imageNamed:@"html"];
+            break;
+        case YHFileType_Pdf:
+            return  [UIImage imageNamed:@"pdf"];
+            break;
+        case YHFileType_Doc:
+            return  [UIImage imageNamed:@"word"];
+            break;
+        case YHFileType_Xls:
+            return [UIImage imageNamed:@"excerl"];
+            break;
+        case YHFileType_Ppt:
+            return [UIImage imageNamed:@"ppt"];
+            break;
+        case YHFileType_Img:
+            return [UIImage imageNamed:@"zhaopian"];
+            break;
+        case YHFileType_Txt:
+            return [UIImage imageNamed:@"txt"];
+            break;
+        default:
+            return [UIImage imageNamed:@"iconfont-wenjian"];
+            break;
+    }
+}
+
+
 - (void)dealloc{
     DDLog(@"%s is dealloc",__func__);
 }

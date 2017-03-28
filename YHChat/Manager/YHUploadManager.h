@@ -1,8 +1,8 @@
 //
 //  YHUploadManager.h
-//  PikeWay
+//  samuelandkevin
 //
-//  Created by YHIOS002 on 17/1/12.
+//  Created by samuelandkevin on 17/1/12.
 //  Copyright © 2017年 YHSoft. All rights reserved.
 //
 

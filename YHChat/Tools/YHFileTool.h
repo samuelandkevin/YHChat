@@ -1,5 +1,5 @@
 //
-//  YHFilePath.h
+//  YHFileTool.h
 //  YHSOFT
 //
 //  Created by samuelandkevin on 16/9/17.
@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface YHFilePath : NSObject
+#import <UIKit/UIKit.h>
+@interface YHFileTool : NSObject
 
 + (NSString *)getAppSupportDataDirectory;
 + (NSString *)getAppCacheDirectory;
@@ -17,4 +17,9 @@
 + (NSArray *)GetFilesListAtPath:(NSString *)dirPath withType:(NSString *)type;
 + (NSString *)getWebrootDirectory;
 
+// 文件主目录
++ (NSString *)fileMainPath;
+// 文件大小
++ (NSString *)filesize:(NSString *)path;
++ (CGFloat)fileSizeWithPath:(NSString *)path;
 @end
