@@ -9,7 +9,8 @@ align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/p
 align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic3@2x.png?raw=true" width = "320" height = "568" alt="pic3" 
 align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic4@2x.png?raw=true" width = "320" height = "568" alt="pic4"
 align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic5@2x.png?raw=true" width = "320" height = "568" alt="pic5" 
-align=center /> </br>
+align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic6@2x.png?raw=true" width = "320" height = "568" alt="pic5" 
+align=center /></br>
 </br>
 ### (2)动态效果:</br>
 <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/YHChat.gif?raw=true" width = "300" height = "568" alt="gif1" 
