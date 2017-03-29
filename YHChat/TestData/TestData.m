@@ -10,6 +10,7 @@
 #import "YHChatModel.h"
 #import "YHChatListModel.h"
 #import "YHExpressionHelper.h"
+#import "YHFileModel.h"
 
 @implementation TestData
 
@@ -92,7 +93,7 @@
     model.msgType = nMsgTypeLength;
     
     //消息内容为文本
-    NSArray *textMsgArr = @[@"http://www.cocoachina.com @郭靖 @samuelandkevin https://github.com/samuelandkevin/YHChat",@"我家这个好忠犬啊～[喵喵]  http://t.cn/Ry4UXdF //@我是呆毛芳子蜀黍w:这是什么鬼？  http://t.cn/Ry4U5fQ //@清新可口喵酱圆脸星人是扭蛋狂魔:窝家这个 超委婉的拒绝了窝 http://t.cn/Ry4ylqt //@GloriAries:我家这位好高冷orz http://t.cn/RyUsE79 //@-水蛋蛋-:我的是玩咖即视感  http://t.cn/RyUsS8Q ",@"你他妈😂😂😂😂😂😂",@"#为周杰伦正名# [拜拜]看不下去，什么叫我伦给国足添堵？！演唱会去就审批过的，票也早就开售了，何来我伦干扰国足比赛了？[微笑]国足赛场八月才临时改的场地，甩锅给我伦？这锅不接[微笑]抽奖，不用关注，转发就行，9.10号抽一个人送三盒日本带回来的 白色恋人@转发抽奖平台 [拜拜]",@"iPhone 6s官方宣传视频曝光，你们城里人真会玩，如果iphone 6s真的是这样那的确是碉堡了[嘻嘻]http://t.cn/RyU1m9J",@"别以为这是危言耸听，我身边就有一个坦白了自己刚刚经历过吃了毓婷还中奖的妹子[拜拜]这是最后的补救手段，并且不是万能的，事前做好该做的事情吧[拜拜]",@" 苹果小贴士：如果你用苹果的触控板，看到任何你不认识的字，可以轻易的三指点按－就可以看到解说（词典或维基百科）。在这个示范可以看出这个功能还相当智能，我点选的是英文字，但它不止帮我找到了答案，还选择了中文！在 iPhone 上要多指点按并不精确，这也可能就是 Force Touch 的切入点。",@"电子工业实习课上焊了个小电视，据说跟着抖动100下会boom～@哔哩哔哩智能姬 @哔哩哔哩弹幕网 http://t.cn/z8289ns"];
+    NSArray *textMsgArr = @[@"http://www.cocoachina.com @郭靖 @samuelandkevin https://github.com/samuelandkevin/YHChat",@"我家这个好忠犬啊～[喵喵]  https://github.com/samuelandkevin/YHChat/blob/master/README.md //@我是呆毛芳子蜀黍w:这是什么鬼？  http://t.cn/Ry4U5fQ //@清新可口喵酱圆脸星人是扭蛋狂魔:窝家这个 超委婉的拒绝了窝 http://t.cn/Ry4ylqt //@GloriAries:我家这位好高冷orz https://github.com/samuelandkevin/YHChat/blob/master/README.md //@-水蛋蛋-:我的是玩咖即视感  http://t.cn/RyUsS8Q ",@"你他妈😂😂😂😂😂😂",@"#为周杰伦正名# [拜拜]看不下去，什么叫我伦给国足添堵？！演唱会去就审批过的，票也早就开售了，何来我伦干扰国足比赛了？[微笑]国足赛场八月才临时改的场地，甩锅给我伦？这锅不接[微笑]抽奖，不用关注，转发就行，9.10号抽一个人送三盒日本带回来的 白色恋人@转发抽奖平台 [拜拜]",@"iPhone 6s官方宣传视频曝光，你们城里人真会玩，如果iphone 6s真的是这样那的确是碉堡了[嘻嘻]http://t.cn/RyU1m9J",@"别以为这是危言耸听，我身边就有一个坦白了自己刚刚经历过吃了毓婷还中奖的妹子[拜拜]这是最后的补救手段，并且不是万能的，事前做好该做的事情吧[拜拜]",@" 苹果小贴士：如果你用苹果的触控板，看到任何你不认识的字，可以轻易的三指点按－就可以看到解说（词典或维基百科）。在这个示范可以看出这个功能还相当智能，我点选的是英文字，但它不止帮我找到了答案，还选择了中文！在 iPhone 上要多指点按并不精确，这也可能就是 Force Touch 的切入点。",@"电子工业实习课上焊了个小电视，据说跟着抖动100下会boom～@哔哩哔哩智能姬 @哔哩哔哩弹幕网 http://t.cn/z8289ns"];
     int textMsglength = arc4random() % textMsgArr.count;
     NSString *aTextMsg = textMsgArr[textMsglength];
     NSMutableString *qStr = [[NSMutableString alloc] init];
@@ -111,7 +112,6 @@
     }
     
     model.msgContent = qStr;
-
 
     //消息内容为图片
     NSArray *imgMsgArr = @[@"img[https://testapp.gtax.cn/images/2016/08/25/2241c4b32b8445da87532d6044888f3d.jpg!t300x300.jpg]",
@@ -150,6 +150,38 @@
     if (model.msgType == 2) {
         NSString *voiceUrlStr = voiceArr[voicelength];
         model.msgContent = voiceUrlStr;
+    }
+    
+    
+    //消息内容为文件
+    NSArray *fileMsgArr = @[@"file(http://testapp.gtax.cn/images/2017/01/14/d95f7b8acf034f0bb00d7c19ac00a053.docx)[doc.docx]",
+                            @"file(http://testapp.gtax.cn/images/2017/01/22/8074214c25f044c48487efc8d491e467.pptx)[ppt.pptx]",
+                            @"file(http://testapp.gtax.cn/images/2017/01/22/e53cbb3f30fc4dc5a2004f05f33abecd.docx)[呼呼呼嘎嘎嘎.docx]",
+                            @"file(http://testapp.gtax.cn/images/2017/01/22/885b4d1dc46d46c09e23f97f8c1a21c6.xlsx)[exel.xlsx]"];
+    int filelength = arc4random() % fileMsgArr.count;
+    if (model.msgType == 3) {
+        NSString *fileStr = fileMsgArr[filelength];
+        model.msgContent = fileStr;
+        
+        YHFileModel *fileModel = [YHFileModel new];
+        NSString *fileMsg = [fileStr stringByReplacingOccurrencesOfString:@"file(" withString:@""];
+        NSUInteger urlLocationEnd   = [fileMsg rangeOfString:@")"].location;
+        NSUInteger urlLength = urlLocationEnd;
+        NSString *urlStr;
+        NSString *ext;
+        if (urlLocationEnd != NSNotFound && urlLength > 0) {
+            urlStr = [fileMsg substringWithRange:NSMakeRange(0, urlLength)];
+            ext = urlStr.pathExtension;
+            
+        }
+        NSString *fileName;
+        fileName = [fileMsg stringByReplacingOccurrencesOfString:urlStr withString:@""];
+        fileName = [fileName substringFromIndex:2];
+        fileName = [fileName substringWithRange:NSMakeRange(0, fileName.length-1)];
+        fileModel.filePath = urlStr;
+        fileModel.name = fileName;
+        fileModel.ext  = ext;
+        model.fileModel = fileModel;
     }
     
     //对话用户名字

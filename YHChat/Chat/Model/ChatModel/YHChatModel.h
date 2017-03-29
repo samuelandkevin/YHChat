@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "YHChatServiceDefs.h"
 #import "YHChatTextLayout.h"
+#import "YHFileModel.h"
 
 #pragma mark - 聊天记录Model
 @interface YHChatModel : NSObject
@@ -43,7 +44,7 @@
 @property (nonatomic,assign) BOOL isSelected;  //被选中
 @property (nonatomic,assign) BOOL showCheckBox;//显示勾选框
 @property (nonatomic,strong) YHChatTextLayout *layout;
-
+@property (nonatomic,strong) YHFileModel *fileModel;
 @end
 
 #pragma mark - 聊天的音频文件

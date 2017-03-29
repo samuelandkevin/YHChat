@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "YHChatListVC.h"
 #import "YHNavigationController.h"
+#import "NetManager.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[NetManager sharedInstance] startMonitoring];
+    
     self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     YHChatListVC *vc = [[YHChatListVC alloc] init];
     YHNavigationController *nav = [[YHNavigationController alloc] initWithRootViewController:vc];

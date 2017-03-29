@@ -84,7 +84,7 @@
 
 
 //下载办公文件（pdf,word,ppt,xls）
-- (void)downOfficeDocWithRequestUrl:(NSString *)requestUrl sessionID:(NSString *)sessionID complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress{
+- (void)downOfficeDocWithRequestUrl:(NSString *)requestUrl rename:(NSString *)rename sessionID:(NSString *)sessionID complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress{
 
     if (!requestUrl) {
         complete(NO,@"download url is nil");
@@ -104,8 +104,9 @@
         }
     }
     
-    //保存在本地的文件名
+    //保存在本地的文件名(唯一名字)
     NSString *saveFileName = [requestUrl lastPathComponent];
+    //
    
     [self _downLoadFileWithRequestUrl:requestUrl downLoadQueue:self.downLoadOfficeFileQueue saveInDir:OfficeDir saveFileName:saveFileName maxConcurrentCount:kDownloadOfficeFileMAXCount complete:^(BOOL success, id obj) {
         if(success){
@@ -185,7 +186,10 @@
         }
 
     } progress:^(NSProgress *downloadProgress) {
-        
+        if (model.progress) {
+             model.progress(downloadProgress.completedUnitCount,downloadProgress.totalUnitCount);
+        }
+       
     }];
 }
 

@@ -76,6 +76,8 @@
     [tableView registerClass:[CellChatVoiceLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatVoiceLeft class])];
     [tableView registerClass:[CellChatVoiceRight class] forCellReuseIdentifier:NSStringFromClass([CellChatVoiceRight class])];
     [tableView registerClass:[CellChatTips class] forCellReuseIdentifier:NSStringFromClass([CellChatTips class])];
+    [tableView registerClass:[CellChatFileLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatFileLeft class])];
+    [tableView registerClass:[CellChatFileRight class] forCellReuseIdentifier:NSStringFromClass([CellChatFileRight class])];
 
 }
 
@@ -152,12 +154,6 @@
         height = [CellChatTips hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
             CellChatTips *cell = (CellChatTips *)sourceCell;
             cell.model = model;
-        } cache:^NSDictionary *{
-            return @{
-                     kHYBCacheUniqueKey: model.chatId,
-                     kHYBCacheStateKey : @(model.showCheckBox),
-                     kHYBRecalculateForStateKey:@(YES)
-                     };// 标识不用重新更新
         }];
     }else{
         if (model.msgType == YHMessageType_Image) {
@@ -172,12 +168,6 @@
                 height = [CellChatImageLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
                     CellChatImageLeft *cell = (CellChatImageLeft *)sourceCell;
                     [cell setupModel:model];
-                } cache:^NSDictionary *{
-                    return @{
-                             kHYBCacheUniqueKey: model.chatId,
-                             kHYBCacheStateKey : @(model.showCheckBox),
-                             kHYBRecalculateForStateKey:@(YES)
-                             };// 标识不用重新更新
                 }];
             }
             
@@ -193,6 +183,19 @@
                     [cell setupModel:model];
                 } ];
             }
+        }else if (model.msgType == YHMessageType_Doc){
+            if (model.direction == 0) {
+                height = [CellChatFileRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatFileRight *cell = (CellChatFileRight *)sourceCell;
+                    [cell setupModel:model];
+                } ];
+            }else{
+                height = [CellChatFileLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatFileLeft *cell = (CellChatFileLeft *)sourceCell;
+                    [cell setupModel:model];
+                } ];
+            }
+            
         }else{
             if (model.direction == 0) {
                 height = [CellChatTextRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {

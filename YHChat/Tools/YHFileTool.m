@@ -5,9 +5,9 @@
 //  Created by samuelandkevin on 16/9/17.
 //  Copyright (c) 2016年 samuelandkevin Co.,Ltd. All rights reserved.
 //
-#define kChildPath @"com.samuelandkevin.chat/File"
-#import "YHFileTool.h"
 
+#import "YHFileTool.h"
+#import "YHSqilteConfig.h"
 
 @implementation YHFileTool
 
@@ -108,7 +108,7 @@
 + (NSString *)fileMainPath
 {
 
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:kChildPath];
+    NSString *path = OfficeDir;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirExist = [fileManager fileExistsAtPath:path];
     if (!isDirExist) {

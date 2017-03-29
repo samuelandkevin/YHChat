@@ -27,7 +27,8 @@
 #import "YHNavigationController.h"
 #import "YHWebViewController.h"
 
-@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate,CellChatBaseDelegate>{
+@interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate,CellChatBaseDelegate,
+CellChatFileLeftDelegate,CellChatFileRightDelegate>{
     
 }
 @property (nonatomic,strong) YHRefreshTableView *tableView;
@@ -252,6 +253,22 @@
     }
 }
 
+#pragma mark - @protocol CellChatFileLeftDelegate
+- (void)onChatFile:(YHFileModel *)chatFile inLeftCell:(CellChatFileLeft *)leftCell{
+    YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePath]];
+    vc.title = chatFile.name;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - @protocol CellChatFileRightDelegate
+- (void)onChatFile:(YHFileModel *)chatFile inRightCell:(CellChatFileRight *)rightCell{
+    YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePath]];
+    vc.title = chatFile.name;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - @protocol CellChatBaseDelegate
 - (void)onCheckBoxAtIndexPath:(NSIndexPath *)indexPath model:(YHChatModel *)model{
     DDLog(@"选择第%ld行的聊天记录",(long)indexPath.row);
@@ -326,6 +343,23 @@
                     return cell;
                 }
                 
+            }else if(model.msgType == YHMessageType_Doc){
+                if (model.direction == 0) {
+                    CellChatFileRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatFileRight class])];
+                    cell.delegate = self;
+                    cell.baseDelegate = self;
+                    cell.showCheckBox = _showCheckBox;
+                    [cell setupModel:model];
+                    return cell;
+                }else{
+                    CellChatFileLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatFileLeft class])];
+                    cell.delegate = self;
+                    cell.baseDelegate = self;
+                    cell.showCheckBox = _showCheckBox;
+                    [cell setupModel:model];
+                    return cell;
+                }
+                
             }else{
                 if (model.direction == 0) {
                     CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
@@ -368,7 +402,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
+    
 }
 
 #pragma mark - Private

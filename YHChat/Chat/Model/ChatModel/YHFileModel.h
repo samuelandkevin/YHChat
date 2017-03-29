@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(int,FileStatus){
+    FileStatus_UnDownLoaded = 0,
+    FileStatus_isDownLoading,
+    FileStatus_HasDownLoaded
+};
+
 @interface YHFileModel : NSObject
 
 @property (nonatomic,copy) NSString *name;
@@ -18,5 +24,5 @@
 @property (nonatomic,copy) NSString *ext;//后缀名
 @property (nonatomic,assign,readonly) NSNumber *fileType; //文件类型
 @property (nonatomic,assign) BOOL isSelected;
-
+@property (nonatomic,assign) FileStatus status;
 @end
