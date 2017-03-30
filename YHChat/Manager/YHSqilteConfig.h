@@ -157,4 +157,17 @@ static inline NSString *tableNameVisitors(NSString *intervieweeID){
     return [NSString stringWithFormat:@"vis_%@",[intervieweeID stringByReplacingOccurrencesOfString:@"-" withString:@""]];
 }
 
+/********************办公文件表*****************/
+//办公文件表路径
+static inline NSString *pathOfficeFileWithDir(NSString *dir){
+    NSString *pathLog = [dir stringByAppendingPathComponent:[NSString stringWithFormat:@"officeFile.sqlite"]];
+    return pathLog;
+}
+
+//办公文件表名的命名方式
+static inline NSString *tableNameOfficeFile(){
+    return @"officeFile";
+}
+
+
 #endif /* YHSqilteConfig_h */

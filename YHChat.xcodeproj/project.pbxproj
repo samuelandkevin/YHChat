@@ -49,6 +49,20 @@
 		AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6314FD1E6D7A8E0030BD40 /* YHActionSheet.m */; };
 		AC6400471E8B42C1001DF0F2 /* CellChatFileLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400461E8B42C1001DF0F2 /* CellChatFileLeft.m */; };
 		AC64004A1E8B42E3001DF0F2 /* CellChatFileRight.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400491E8B42E3001DF0F2 /* CellChatFileRight.m */; };
+		AC6400501E8BB6B3001DF0F2 /* SqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64004F1E8BB6B3001DF0F2 /* SqliteManager.m */; };
+		AC6400561E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400531E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.m */; };
+		AC6400571E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400551E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m */; };
+		AC64006F1E8BB976001DF0F2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC6400591E8BB976001DF0F2 /* Info.plist */; };
+		AC6400701E8BB976001DF0F2 /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64005C1E8BB976001DF0F2 /* MJExtensionConst.m */; };
+		AC6400711E8BB976001DF0F2 /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64005E1E8BB976001DF0F2 /* MJFoundation.m */; };
+		AC6400721E8BB976001DF0F2 /* MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400601E8BB976001DF0F2 /* MJProperty.m */; };
+		AC6400731E8BB976001DF0F2 /* MJPropertyKey.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400621E8BB976001DF0F2 /* MJPropertyKey.m */; };
+		AC6400741E8BB976001DF0F2 /* MJPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400641E8BB976001DF0F2 /* MJPropertyType.m */; };
+		AC6400751E8BB976001DF0F2 /* NSObject+MJClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400661E8BB976001DF0F2 /* NSObject+MJClass.m */; };
+		AC6400761E8BB976001DF0F2 /* NSObject+MJCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6400681E8BB976001DF0F2 /* NSObject+MJCoding.m */; };
+		AC6400771E8BB976001DF0F2 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64006A1E8BB976001DF0F2 /* NSObject+MJKeyValue.m */; };
+		AC6400781E8BB976001DF0F2 /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64006C1E8BB976001DF0F2 /* NSObject+MJProperty.m */; };
+		AC6400791E8BB976001DF0F2 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64006E1E8BB976001DF0F2 /* NSString+MJExtension.m */; };
 		AC83CCC31E82787A001871D8 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC83CCC21E82787A001871D8 /* NSDate+Extension.m */; };
 		AC9246401E6E4E960032FD3D /* YHBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463A1E6E4E960032FD3D /* YHBrowserImageView.m */; };
 		AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463D1E6E4E960032FD3D /* YHPhotoBrowserView.m */; };
@@ -161,6 +175,34 @@
 		AC6400461E8B42C1001DF0F2 /* CellChatFileLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatFileLeft.m; sourceTree = "<group>"; };
 		AC6400481E8B42E3001DF0F2 /* CellChatFileRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatFileRight.h; sourceTree = "<group>"; };
 		AC6400491E8B42E3001DF0F2 /* CellChatFileRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatFileRight.m; sourceTree = "<group>"; };
+		AC64004E1E8BB6B3001DF0F2 /* SqliteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteManager.h; sourceTree = "<group>"; };
+		AC64004F1E8BB6B3001DF0F2 /* SqliteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteManager.m; sourceTree = "<group>"; };
+		AC6400521E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+YHDatabase.h"; sourceTree = "<group>"; };
+		AC6400531E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+YHDatabase.m"; sourceTree = "<group>"; };
+		AC6400541E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YHDBRuntime.h"; sourceTree = "<group>"; };
+		AC6400551E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YHDBRuntime.m"; sourceTree = "<group>"; };
+		AC6400591E8BB976001DF0F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC64005A1E8BB976001DF0F2 /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
+		AC64005B1E8BB976001DF0F2 /* MJExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConst.h; sourceTree = "<group>"; };
+		AC64005C1E8BB976001DF0F2 /* MJExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConst.m; sourceTree = "<group>"; };
+		AC64005D1E8BB976001DF0F2 /* MJFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJFoundation.h; sourceTree = "<group>"; };
+		AC64005E1E8BB976001DF0F2 /* MJFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJFoundation.m; sourceTree = "<group>"; };
+		AC64005F1E8BB976001DF0F2 /* MJProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJProperty.h; sourceTree = "<group>"; };
+		AC6400601E8BB976001DF0F2 /* MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJProperty.m; sourceTree = "<group>"; };
+		AC6400611E8BB976001DF0F2 /* MJPropertyKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPropertyKey.h; sourceTree = "<group>"; };
+		AC6400621E8BB976001DF0F2 /* MJPropertyKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPropertyKey.m; sourceTree = "<group>"; };
+		AC6400631E8BB976001DF0F2 /* MJPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPropertyType.h; sourceTree = "<group>"; };
+		AC6400641E8BB976001DF0F2 /* MJPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPropertyType.m; sourceTree = "<group>"; };
+		AC6400651E8BB976001DF0F2 /* NSObject+MJClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJClass.h"; sourceTree = "<group>"; };
+		AC6400661E8BB976001DF0F2 /* NSObject+MJClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJClass.m"; sourceTree = "<group>"; };
+		AC6400671E8BB976001DF0F2 /* NSObject+MJCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJCoding.h"; sourceTree = "<group>"; };
+		AC6400681E8BB976001DF0F2 /* NSObject+MJCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJCoding.m"; sourceTree = "<group>"; };
+		AC6400691E8BB976001DF0F2 /* NSObject+MJKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJKeyValue.h"; sourceTree = "<group>"; };
+		AC64006A1E8BB976001DF0F2 /* NSObject+MJKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJKeyValue.m"; sourceTree = "<group>"; };
+		AC64006B1E8BB976001DF0F2 /* NSObject+MJProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJProperty.h"; sourceTree = "<group>"; };
+		AC64006C1E8BB976001DF0F2 /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
+		AC64006D1E8BB976001DF0F2 /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
+		AC64006E1E8BB976001DF0F2 /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
 		AC83CCC11E82787A001871D8 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		AC83CCC21E82787A001871D8 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		AC9246391E6E4E960032FD3D /* YHBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBrowserImageView.h; sourceTree = "<group>"; };
@@ -305,6 +347,9 @@
 				AC002DDD1E641B1700EE2851 /* YHSqilteConfig.h */,
 				AC30AA3D1E7A1D5000E0C9A6 /* YHChatManager.h */,
 				AC30AA3E1E7A1D5000E0C9A6 /* YHChatManager.m */,
+				AC64004E1E8BB6B3001DF0F2 /* SqliteManager.h */,
+				AC64004F1E8BB6B3001DF0F2 /* SqliteManager.m */,
+				AC6400511E8BB6E3001DF0F2 /* YHFMDB */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -493,6 +538,46 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AC6400511E8BB6E3001DF0F2 /* YHFMDB */ = {
+			isa = PBXGroup;
+			children = (
+				AC6400521E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.h */,
+				AC6400531E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.m */,
+				AC6400541E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.h */,
+				AC6400551E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m */,
+			);
+			path = YHFMDB;
+			sourceTree = "<group>";
+		};
+		AC6400581E8BB976001DF0F2 /* MJExtension */ = {
+			isa = PBXGroup;
+			children = (
+				AC6400591E8BB976001DF0F2 /* Info.plist */,
+				AC64005A1E8BB976001DF0F2 /* MJExtension.h */,
+				AC64005B1E8BB976001DF0F2 /* MJExtensionConst.h */,
+				AC64005C1E8BB976001DF0F2 /* MJExtensionConst.m */,
+				AC64005D1E8BB976001DF0F2 /* MJFoundation.h */,
+				AC64005E1E8BB976001DF0F2 /* MJFoundation.m */,
+				AC64005F1E8BB976001DF0F2 /* MJProperty.h */,
+				AC6400601E8BB976001DF0F2 /* MJProperty.m */,
+				AC6400611E8BB976001DF0F2 /* MJPropertyKey.h */,
+				AC6400621E8BB976001DF0F2 /* MJPropertyKey.m */,
+				AC6400631E8BB976001DF0F2 /* MJPropertyType.h */,
+				AC6400641E8BB976001DF0F2 /* MJPropertyType.m */,
+				AC6400651E8BB976001DF0F2 /* NSObject+MJClass.h */,
+				AC6400661E8BB976001DF0F2 /* NSObject+MJClass.m */,
+				AC6400671E8BB976001DF0F2 /* NSObject+MJCoding.h */,
+				AC6400681E8BB976001DF0F2 /* NSObject+MJCoding.m */,
+				AC6400691E8BB976001DF0F2 /* NSObject+MJKeyValue.h */,
+				AC64006A1E8BB976001DF0F2 /* NSObject+MJKeyValue.m */,
+				AC64006B1E8BB976001DF0F2 /* NSObject+MJProperty.h */,
+				AC64006C1E8BB976001DF0F2 /* NSObject+MJProperty.m */,
+				AC64006D1E8BB976001DF0F2 /* NSString+MJExtension.h */,
+				AC64006E1E8BB976001DF0F2 /* NSString+MJExtension.m */,
+			);
+			path = MJExtension;
+			sourceTree = "<group>";
+		};
 		AC9246381E6E4E960032FD3D /* YHPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,6 +595,7 @@
 		AC9246461E6E8EFC0032FD3D /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				AC6400581E8BB976001DF0F2 /* MJExtension */,
 				AC9246471E6E8EFC0032FD3D /* VoiceConvert */,
 			);
 			path = Vendors;
@@ -677,6 +763,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC64006F1E8BB976001DF0F2 /* Info.plist in Resources */,
 				AC4446C91E568E5D00685571 /* LaunchScreen.storyboard in Resources */,
 				AC4446C61E568E5D00685571 /* Assets.xcassets in Resources */,
 				AC4446DE1E5699A200685571 /* ExpressionKeyboard.bundle in Resources */,
@@ -739,12 +826,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC61F84D1E5AEE7F00AF48B5 /* YHExpressionHelper.m in Sources */,
+				AC6400731E8BB976001DF0F2 /* MJPropertyKey.m in Sources */,
 				AC9246591E6E8EFC0032FD3D /* VoiceConverter.mm in Sources */,
 				AC002DC51E63D84E00EE2851 /* CellChatVoiceRight.m in Sources */,
 				AC0CD3511E88EF4A00BB876C /* YHChatLabel.m in Sources */,
 				AC61F84C1E5AEE7F00AF48B5 /* YHExpressionAddView.m in Sources */,
 				AC032B5E1E8A35C80045D8D5 /* NSString+Extension.m in Sources */,
 				AC2967D11E5C4340000856F8 /* HHUtils.m in Sources */,
+				AC6400791E8BB976001DF0F2 /* NSString+MJExtension.m in Sources */,
 				AC9246401E6E4E960032FD3D /* YHBrowserImageView.m in Sources */,
 				AC6400471E8B42C1001DF0F2 /* CellChatFileLeft.m in Sources */,
 				AC002DB71E63BBF100EE2851 /* YHUserInfo.m in Sources */,
@@ -754,6 +843,7 @@
 				AC9246421E6E4E960032FD3D /* YHWaitingView.m in Sources */,
 				AC2967C61E5BE0A5000856F8 /* CellChatList.m in Sources */,
 				AC002DB91E63BBF100EE2851 /* YHWorkExperienceModel.m in Sources */,
+				AC6400781E8BB976001DF0F2 /* NSObject+MJProperty.m in Sources */,
 				AC4446BE1E568E5D00685571 /* AppDelegate.m in Sources */,
 				ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */,
 				AC83CCC31E82787A001871D8 /* NSDate+Extension.m in Sources */,
@@ -761,10 +851,12 @@
 				AC92467C1E6FD35F0032FD3D /* UIView+Extension.m in Sources */,
 				AC9246631E6E91640032FD3D /* YHNavigationController.m in Sources */,
 				AC002DB51E63BBF100EE2851 /* YHChatModel.m in Sources */,
+				AC6400711E8BB976001DF0F2 /* MJFoundation.m in Sources */,
 				AC2967C81E5BE0A5000856F8 /* CellChatTextRight.m in Sources */,
 				ACF8DAE41E8A0F9700C6AB62 /* CellDocument.m in Sources */,
 				AC4446BB1E568E5D00685571 /* main.m in Sources */,
 				AC30AA3F1E7A1D5000E0C9A6 /* YHChatManager.m in Sources */,
+				AC6400501E8BB6B3001DF0F2 /* SqliteManager.m in Sources */,
 				AC4446F21E569A5600685571 /* YHChatListVC.m in Sources */,
 				AC9246791E6ED7B20032FD3D /* YHProtocolConfig.m in Sources */,
 				AC002DDE1E641B1700EE2851 /* NetManager.m in Sources */,
@@ -773,13 +865,18 @@
 				AC2A4B2A1E83CD6200B67A9E /* YHChatTextLayout.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
 				AC9246451E6E84940032FD3D /* YHFileTool.m in Sources */,
+				AC6400771E8BB976001DF0F2 /* NSObject+MJKeyValue.m in Sources */,
 				AC002DC21E63D82C00EE2851 /* CellChatVoiceLeft.m in Sources */,
+				AC6400701E8BB976001DF0F2 /* MJExtensionConst.m in Sources */,
 				AC64004A1E8B42E3001DF0F2 /* CellChatFileRight.m in Sources */,
+				AC6400761E8BB976001DF0F2 /* NSObject+MJCoding.m in Sources */,
 				AC9246661E6EBBD80032FD3D /* YHVoiceHUD.m in Sources */,
 				AC61F84F1E5AEE7F00AF48B5 /* YHExpressionKeyboard.m in Sources */,
 				AC9246601E6E913A0032FD3D /* UIImage+Extension.m in Sources */,
+				AC6400721E8BB976001DF0F2 /* MJProperty.m in Sources */,
 				AC4725BF1E67BC3800C34684 /* YHAudioRecorder.m in Sources */,
 				AC002DD71E641ADB00EE2851 /* YHRefreshTableView.m in Sources */,
+				AC6400561E8BB6E3001DF0F2 /* FMDatabase+YHDatabase.m in Sources */,
 				AC002DA21E63AE5600EE2851 /* YHGroupIconView.m in Sources */,
 				ACCCFB9F1E8A4DD4006E1B0E /* YHFileModel.m in Sources */,
 				AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */,
@@ -787,7 +884,9 @@
 				AC9246781E6ED7B20032FD3D /* TestData.m in Sources */,
 				AC9246691E6ED4970032FD3D /* YHUploadManager.m in Sources */,
 				ACF8DAE11E8A0B8400C6AB62 /* YHDocumentVC.m in Sources */,
+				AC6400571E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m in Sources */,
 				ACCCFB9C1E8A484D006E1B0E /* YHWebViewController.m in Sources */,
+				AC6400751E8BB976001DF0F2 /* NSObject+MJClass.m in Sources */,
 				AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */,
 				AC002DC81E64016E00EE2851 /* CellChatBase.m in Sources */,
 				AC2A4B261E837AF400B67A9E /* UIBarButtonItem+Extension.m in Sources */,
@@ -797,6 +896,7 @@
 				AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */,
 				AC30AA421E7A7EF300E0C9A6 /* CellChatTips.m in Sources */,
 				ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */,
+				AC6400741E8BB976001DF0F2 /* MJPropertyType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -101,7 +101,7 @@
 #pragma mark - Setter
 - (void)setModel:(YHFileModel *)model{
     _model = model;
-    self.lbFileName.text = _model.name;
+    self.lbFileName.text = _model.fileName;
     self.lbFileSize.text = _model.fileSizeStr;
     self.btnCheckBox.selected = _model.isSelected;
     NSNumber *num = _model.fileType;

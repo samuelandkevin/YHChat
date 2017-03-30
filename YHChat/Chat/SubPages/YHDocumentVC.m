@@ -15,6 +15,7 @@
 #import "YHFileModel.h"
 #import "YHFileTool.h"
 #import "NSString+Extension.h"
+#import "SqliteManager.h"
 
 @interface YHDocumentVC ()<UITableViewDelegate,UITableViewDataSource,CellDocumentDelegate>
 
@@ -76,26 +77,25 @@
 
 - (void)loadData
 {
-    NSString *mainPath = [YHFileTool fileMainPath];
-    NSDirectoryEnumerator * enumer = [[NSFileManager defaultManager] enumeratorAtPath:mainPath];
-    DDLog(@"文件夹路径：\n%@",mainPath);
-    NSString *name;
-    while (name = [enumer nextObject]) {
-        if ([name isEqualToString:@".DS_Store"]) continue;
-        if (![[name pathExtension] isEqualToString:@"DS_Store"]&&[name length]>0) {
-            YHFileModel *model = [YHFileModel new];
-            model.name = [name originName];
-            model.ext  = [name pathExtension];
-            NSString *filePath = [NSString stringWithFormat:@"%@/%@",mainPath,name];
-            model.filePath = filePath;
-            model.fileSize = [YHFileTool fileSizeWithPath:filePath];
-            [self.dataArray addObject:model];
+    WeakSelf
+    [[SqliteManager sharedInstance] queryOfficeFilesUserInfo:nil fuzzyUserInfo:nil complete:^(BOOL success, id obj) {
+        if (success) {
+            NSArray *ret = obj;
+            for (YHFileModel *model in ret) {
+                NSString *saveFileName = [model.filePathInServer lastPathComponent];
+                model.filePathInLocal = [NSString stringWithFormat:@"%@/%@",OfficeDir,saveFileName];
+            }
+            [weakSelf.dataArray addObjectsFromArray:ret];
+        }else{
+            
         }
-    }
+        [weakSelf.tableView reloadData];
+    }];
+    
     if (!self.dataArray.count) {
         [self.tableView setNoData:YES withText:@"暂无文件"];
     }
-    [self.tableView reloadData];
+    
 }
 
 #pragma mark - Getter
@@ -140,12 +140,12 @@
 - (void)onCheckBoxSelected:(BOOL)selected fileModel:(YHFileModel *)fileModel{
     
     if (selected) {
-        if (![self.selFileArray containsObject:fileModel.filePath] && fileModel) {
-            [self.selFileArray addObject:fileModel.filePath];
+        if (![self.selFileArray containsObject:fileModel.filePathInLocal] && fileModel) {
+            [self.selFileArray addObject:fileModel.filePathInLocal];
         }
     }else{
         if (fileModel) {
-            [self.selFileArray removeObjectIdenticalTo:fileModel.filePath];
+            [self.selFileArray removeObjectIdenticalTo:fileModel.filePathInLocal];
         }
     }
     //设置导航栏右按钮
@@ -189,9 +189,12 @@
     if (indexPath.row < self.dataArray.count) {
         //显示本地文件
         YHFileModel *model = self.dataArray[indexPath.row];
-        NSString *urlStr = model.filePath;
+        NSString *urlStr = model.filePathInLocal;
+        if (!urlStr) {
+            return;
+        }
         YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:urlStr]];
-        vc.title = model.name;
+        vc.title = model.fileName;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

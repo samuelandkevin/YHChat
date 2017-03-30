@@ -14,6 +14,7 @@
 #import "YHDownLoadManager.h"
 #import "NetManager.h"
 #import "HHUtils.h"
+#import "SqliteManager.h"
 
 @interface CellChatFileLeft()
 @property (nonatomic,strong) UIImageView *imgvBubble;
@@ -148,7 +149,7 @@
     NSString *msgContent = self.model.msgContent;
     if (self.model.msgType == 3 && msgContent) {
 
-        _lbFileName.text = self.model.fileModel.name;
+        _lbFileName.text = self.model.fileModel.fileName;
         NSNumber *num = self.model.fileModel.fileType;
         if (num == nil) {
             self.imgvIcon.image = [UIImage imageNamed:@"iconfont-wenjian"];
@@ -167,7 +168,8 @@
     }
     
    
-    _progressView.hidden = self.model.fileModel.status == FileStatus_HasDownLoaded ? YES:NO;
+    _progressView.hidden = (self.model.fileModel.status == FileStatus_HasDownLoaded || self.model.fileModel.status == FileStatus_UnDownLoaded) ? YES:NO;
+    _lbFileSize.text = self.model.fileModel.fileSizeStr;
     if(self.model.fileModel.status == FileStatus_UnDownLoaded){
         self.lbStatus.text = @"未完成";
     }else if(self.model.fileModel.status == FileStatus_isDownLoading){
@@ -189,18 +191,21 @@
     self.model.fileModel.status = FileStatus_isDownLoading;
     
     WeakSelf
-    [[YHDownLoadManager sharedInstance] downOfficeDocWithRequestUrl:self.model.fileModel.filePath rename:self.model.fileModel.name sessionID:self.model.chatId complete:^(BOOL success, id obj) {
+    [[YHDownLoadManager sharedInstance] downOfficeFileWithModel:self.model.fileModel complete:^(BOOL success, id obj) {
         weakSelf.progressView.hidden = YES;
         if (success) {
             DDLog(@"下载文件成功:%@",obj);
+            YHFileModel *retModel = obj;
             weakSelf.model.fileModel.status = FileStatus_HasDownLoaded;
-            weakSelf.model.fileModel.filePath = obj;
+            weakSelf.model.fileModel.filePathInLocal = retModel.filePathInLocal;
+            weakSelf.model.fileModel.fileSize = retModel.fileSize;
             weakSelf.lbStatus.text = @"已下载";
+            weakSelf.lbFileSize.text = retModel.fileSizeStr;
         }else{
             DDLog(@"下载文件失败:%@",obj);
             weakSelf.model.fileModel.status = FileStatus_UnDownLoaded;
             weakSelf.lbStatus.text = @"未完成";
-            
+            weakSelf.lbFileSize.text = @"";
         }
     } progress:^(int64_t bytesWritten, int64_t totalBytesWritten) {
         float progress = bytesWritten/(float)totalBytesWritten;
@@ -208,7 +213,8 @@
             [weakSelf.progressView setProgress:progress animated:YES];
         });
     }];
-  
+
+    
     
 }
 

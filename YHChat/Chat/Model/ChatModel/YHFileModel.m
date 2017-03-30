@@ -8,6 +8,7 @@
 
 #import "YHFileModel.h"
 #import "YHChatHelper.h"
+#import "NSObject+YHDBRuntime.h"
 
 @implementation YHFileModel
 
@@ -24,4 +25,23 @@
     _ext = ext;
     _fileType = [YHChatHelper fileType:_ext];
 }
+
+#pragma mark - YHFMDB
++ (NSString *)yh_primaryKey{
+    return @"filePathInServer";
+}
+
++ (NSDictionary *)yh_replacedKeyFromPropertyName{
+    return @{@"filePathInServer":YHDB_PrimaryKey};
+}
+
++ (NSArray *)yh_propertyDonotSave{
+    return @[@"isSelected"];
+}
+
+#pragma mark - Life Cycle
+- (void)dealloc{
+//    DDLog(@"%s is dealloc",__func__);
+}
+
 @end

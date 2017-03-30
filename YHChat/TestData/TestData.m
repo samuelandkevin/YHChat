@@ -11,6 +11,7 @@
 #import "YHChatListModel.h"
 #import "YHExpressionHelper.h"
 #import "YHFileModel.h"
+#import "YHSqilteConfig.h"
 
 @implementation TestData
 
@@ -178,9 +179,13 @@
         fileName = [fileMsg stringByReplacingOccurrencesOfString:urlStr withString:@""];
         fileName = [fileName substringFromIndex:2];
         fileName = [fileName substringWithRange:NSMakeRange(0, fileName.length-1)];
-        fileModel.filePath = urlStr;
-        fileModel.name = fileName;
-        fileModel.ext  = ext;
+        fileModel.filePathInServer = urlStr;
+        fileModel.fileName = fileName;
+        fileModel.ext   = ext;
+        
+        BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithFormat:@"%@/%@",OfficeDir,[urlStr lastPathComponent]]];
+        fileModel.status = exist ? FileStatus_HasDownLoaded:FileStatus_UnDownLoaded;
+        fileModel.filePathInLocal = exist?[NSString stringWithFormat:@"%@/%@",OfficeDir,[urlStr lastPathComponent]]:nil;
         model.fileModel = fileModel;
     }
     

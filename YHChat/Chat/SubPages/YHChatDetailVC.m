@@ -255,18 +255,24 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
 
 #pragma mark - @protocol CellChatFileLeftDelegate
 - (void)onChatFile:(YHFileModel *)chatFile inLeftCell:(CellChatFileLeft *)leftCell{
-    YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePath]];
-    vc.title = chatFile.name;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (chatFile.filePathInLocal) {
+        YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePathInLocal]];
+        vc.title = chatFile.fileName;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 #pragma mark - @protocol CellChatFileRightDelegate
 - (void)onChatFile:(YHFileModel *)chatFile inRightCell:(CellChatFileRight *)rightCell{
-    YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePath]];
-    vc.title = chatFile.name;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (chatFile.filePathInLocal) {
+        YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePathInLocal]];
+        vc.title = chatFile.fileName;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 #pragma mark - @protocol CellChatBaseDelegate

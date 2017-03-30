@@ -9,6 +9,8 @@
 #import "YHDownLoadManager.h"
 #import "NetManager.h"
 #import "YHSqilteConfig.h"
+#import "SqliteManager.h"
+#import "YHFileTool.h"
 
 #define kDownloadAudioMAXCount 3      //下载音频数量限制
 #define kDownloadOfficeFileMAXCount 3 //下载办公格式文件数量限制
@@ -20,6 +22,7 @@
 @property (nonatomic,copy) void (^progress)(int64_t bytesWritten, int64_t totalBytesWritten);
 @property (nonatomic,assign) BOOL isDownLoading;
 
+
 @end
 
 @implementation YHDownLoadModel
@@ -30,9 +33,16 @@
 @interface YHDownLoadManager()
 @property (nonatomic,strong)NSMutableArray *downLoadAudioQueue;
 @property (nonatomic,strong)NSMutableArray *downLoadOfficeFileQueue;
+@property (nonatomic,strong)dispatch_queue_t barrierOfficeFileQueue;
 @end
 
 @implementation YHDownLoadManager
+
+- (instancetype)init{
+    self =[super init];
+    _barrierOfficeFileQueue = dispatch_queue_create("com.samuelandkevin.downLoadOfficeFile", DISPATCH_QUEUE_SERIAL);
+    return self;
+}
 
 #pragma mark - Lazy Load
 
@@ -84,8 +94,9 @@
 
 
 //下载办公文件（pdf,word,ppt,xls）
-- (void)downOfficeDocWithRequestUrl:(NSString *)requestUrl rename:(NSString *)rename sessionID:(NSString *)sessionID complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress{
-
+- (void)downOfficeFileWithModel:(YHFileModel *)model complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress{
+    
+    NSString *requestUrl = model.filePathInServer;
     if (!requestUrl) {
         complete(NO,@"download url is nil");
         progress(0,0);
@@ -106,15 +117,45 @@
     
     //保存在本地的文件名(唯一名字)
     NSString *saveFileName = [requestUrl lastPathComponent];
-    //
-   
-    [self _downLoadFileWithRequestUrl:requestUrl downLoadQueue:self.downLoadOfficeFileQueue saveInDir:OfficeDir saveFileName:saveFileName maxConcurrentCount:kDownloadOfficeFileMAXCount complete:^(BOOL success, id obj) {
-        if(success){
-            complete(YES,obj);
+
+    WeakSelf
+    [[SqliteManager sharedInstance] queryOneOfficeFileWithName:model.filePathInServer complete:^(BOOL success, id obj) {
+        
+        if (success) {
+            //有缓存
+            YHFileModel *retModel = obj;
+            retModel.filePathInLocal = [NSString stringWithFormat:@"%@/%@",OfficeDir,saveFileName] ;
+            complete(YES,retModel);
+            return;
         }else{
-             complete(NO,obj);
+            //没缓存就下载
+            [weakSelf _downLoadFileWithRequestUrl:requestUrl downLoadQueue:weakSelf.downLoadOfficeFileQueue saveInDir:OfficeDir saveFileName:saveFileName maxConcurrentCount:kDownloadOfficeFileMAXCount complete:^(BOOL success, id obj) {
+                if(success){
+                    //计算文件大小
+                    model.fileSize = [YHFileTool fileSizeWithPath:obj];
+                    
+                    //关联文件到数据库
+                    [[SqliteManager sharedInstance] updateOfficeFile:model complete:^(BOOL success, id obj) {
+                        if (success) {
+                            DDLog(@"下载文件关联到数据库成功:%@",obj);
+                        }else{
+                            DDLog(@"下载文件关联到数据库失败:%@",obj);
+                        }
+                    }];
+                    //回调Model
+                    YHFileModel *retModel = [YHFileModel new];
+                    retModel.filePathInLocal = obj;
+                    retModel.fileSize = model.fileSize;
+                    complete(YES,retModel);
+                }else{
+                    complete(NO,obj);
+                }
+            } progress:progress];
         }
-    } progress:progress];
+    }];
+    
+    
+    
 
 }
 

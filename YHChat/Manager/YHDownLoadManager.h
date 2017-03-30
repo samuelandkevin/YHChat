@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class YHFileModel;
 //#import "YHSqliteManager.h"
 
 @interface YHDownLoadManager : NSObject
@@ -23,6 +23,6 @@
 - (void)downLoadAudioWithRequestUrl:(NSString *)requestUrl complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress;
 
 //下载办公文件（pdf,word,ppt,xls）
-- (void)downOfficeDocWithRequestUrl:(NSString *)requestUrl rename:(NSString *)rename sessionID:(NSString *)sessionID complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress;
+- (void)downOfficeFileWithModel:(YHFileModel *)model complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress;
 
 @end
