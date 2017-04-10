@@ -13,10 +13,11 @@
 #import "YHChatHelper.h"
 #import "YHDownLoadManager.h"
 #import "NetManager.h"
+#import "YHChatButton.h"
 
 @interface CellChatFileRight()
-@property (nonatomic,strong) UIImageView *imgvBubble;
-@property (nonatomic,strong) UIButton *btnTapScope;
+@property (nonatomic,strong) UIImageView  *imgvBubble;
+@property (nonatomic,strong) YHChatButton *btnTapScope;
 @property (nonatomic,strong) UIImageView *imgvIcon;
 @property (nonatomic,strong) UILabel *lbFileName;
 @property (nonatomic,strong) UILabel *lbFileSize;
@@ -42,9 +43,23 @@
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     
-    _btnTapScope = [UIButton new];
+    _btnTapScope = [YHChatButton new];
+    _btnTapScope.isReceiver = YES;
     [_btnTapScope addTarget:self action:@selector(onBtnTapScope:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_btnTapScope];
+    
+    WeakSelf
+    _btnTapScope.retweetFileBlock = ^(){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetFile:inRightCell:)]) {
+            [weakSelf.delegate retweetFile:weakSelf.model.fileModel inRightCell:weakSelf];
+        }
+    };
+    
+    _btnTapScope.withDrawFileBlock = ^(){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(withDrawFile:inRightCell:)]) {
+            [weakSelf.delegate withDrawFile:weakSelf.model.fileModel inRightCell:weakSelf];
+        }
+    };
     
     
     _imgvIcon = [UIImageView new];

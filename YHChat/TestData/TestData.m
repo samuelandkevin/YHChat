@@ -158,7 +158,8 @@
     NSArray *fileMsgArr = @[@"file(http://testapp.gtax.cn/images/2017/01/14/d95f7b8acf034f0bb00d7c19ac00a053.docx)[doc.docx]",
                             @"file(http://testapp.gtax.cn/images/2017/01/22/8074214c25f044c48487efc8d491e467.pptx)[ppt.pptx]",
                             @"file(http://testapp.gtax.cn/images/2017/01/22/e53cbb3f30fc4dc5a2004f05f33abecd.docx)[呼呼呼嘎嘎嘎.docx]",
-                            @"file(http://testapp.gtax.cn/images/2017/01/22/885b4d1dc46d46c09e23f97f8c1a21c6.xlsx)[exel.xlsx]"];
+                            @"file(http://testapp.gtax.cn/images/2017/01/22/885b4d1dc46d46c09e23f97f8c1a21c6.xlsx)[exel.xlsx]",
+                            @"file(http://testapp.gtax.cn/images/2017/03/31/5773839b5ea043aaa4c7c20041ffa394.docx)[hhy.docx]"];
     int filelength = arc4random() % fileMsgArr.count;
     if (model.msgType == 3) {
         NSString *fileStr = fileMsgArr[filelength];

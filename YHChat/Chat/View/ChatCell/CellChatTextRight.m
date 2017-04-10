@@ -53,6 +53,10 @@
     _lbContent.textColor = [UIColor whiteColor];
     _lbContent.numberOfLines = 0;
     _lbContent.font = [UIFont systemFontOfSize:(14+addFontSize)];
+    _lbContent.ignoreCommonProperties = YES;
+    _lbContent.displaysAsynchronously = YES;
+    
+    
     WeakSelf
     _lbContent.retweetBlock = ^(NSString *text){
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetMsg:inRightCell:)]) {

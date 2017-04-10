@@ -15,10 +15,11 @@
 #import "NetManager.h"
 #import "HHUtils.h"
 #import "SqliteManager.h"
+#import "YHChatButton.h"
 
 @interface CellChatFileLeft()
-@property (nonatomic,strong) UIImageView *imgvBubble;
-@property (nonatomic,strong) UIButton *btnTapScope;
+@property (nonatomic,strong) UIImageView  *imgvBubble;
+@property (nonatomic,strong) YHChatButton *btnTapScope;
 @property (nonatomic,strong) UIImageView *imgvIcon;
 @property (nonatomic,strong) UILabel *lbFileName;
 @property (nonatomic,strong) UILabel *lbFileSize;
@@ -43,9 +44,20 @@
     _imgvBubble.image = imgBubble;
     [self.contentView addSubview:_imgvBubble];
     
-    _btnTapScope = [UIButton new];
+    
+    _btnTapScope = [YHChatButton new];
+    _btnTapScope.isReceiver = NO;
     [_btnTapScope addTarget:self action:@selector(onBtnTapScope:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_btnTapScope];
+    
+    WeakSelf
+    _btnTapScope.retweetFileBlock = ^(){
+        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetFile:inLeftCell:)]) {
+            [weakSelf.delegate retweetFile:weakSelf.model.fileModel inLeftCell:weakSelf];
+        }
+    };
+    
+    
     
     _imgvIcon = [UIImageView new];
     [self.contentView addSubview:_imgvIcon];
@@ -230,6 +242,7 @@
     }
     
 }
+
 
 
 

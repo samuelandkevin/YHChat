@@ -172,7 +172,7 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
 
 - (void)retweetMsg:(NSString *)msg inRightCell:(CellChatTextRight *)rightCell{
     DDLog(@"转发右边消息:%@",msg);
-    DDLog(@"所在的行是:%ld",rightCell.indexPath.row);
+    DDLog(@"所在的行是:%ld",(long)rightCell.indexPath.row);
 }
 
 - (void)tapSendMsgFailImg{
@@ -254,6 +254,7 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
 }
 
 #pragma mark - @protocol CellChatFileLeftDelegate
+//点击文件
 - (void)onChatFile:(YHFileModel *)chatFile inLeftCell:(CellChatFileLeft *)leftCell{
     if (chatFile.filePathInLocal) {
         YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePathInLocal]];
@@ -264,7 +265,13 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
     
 }
 
+//转发文件
+- (void)retweetFile:(YHFileModel *)chatFile inLeftCell:(CellChatFileLeft *)leftCell{
+
+}
+
 #pragma mark - @protocol CellChatFileRightDelegate
+//点击文件
 - (void)onChatFile:(YHFileModel *)chatFile inRightCell:(CellChatFileRight *)rightCell{
     if (chatFile.filePathInLocal) {
         YHWebViewController *vc = [[YHWebViewController alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) url:[NSURL fileURLWithPath:chatFile.filePathInLocal]];
@@ -273,6 +280,20 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
         [self.navigationController pushViewController:vc animated:YES];
     }
     
+}
+
+//转发文件
+- (void)retweetFile:(YHFileModel *)chatFile inRightCell:(CellChatFileRight *)rightCell{
+
+}
+
+//撤回文件
+- (void)withDrawFile:(YHFileModel *)chatFile inRightCell:(CellChatFileRight *)rightCell{
+    if (rightCell.indexPath.row < self.dataArray.count) {
+        [self.dataArray removeObjectAtIndex:rightCell.indexPath.row];
+        [self.tableView deleteRowAtIndexPath:rightCell.indexPath withRowAnimation:UITableViewRowAnimationFade];
+    }
+
 }
 
 #pragma mark - @protocol CellChatBaseDelegate
@@ -354,6 +375,7 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
                     CellChatFileRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatFileRight class])];
                     cell.delegate = self;
                     cell.baseDelegate = self;
+                    cell.indexPath = indexPath;
                     cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
@@ -361,6 +383,7 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
                     CellChatFileLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatFileLeft class])];
                     cell.delegate = self;
                     cell.baseDelegate = self;
+                    cell.indexPath = indexPath;
                     cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;

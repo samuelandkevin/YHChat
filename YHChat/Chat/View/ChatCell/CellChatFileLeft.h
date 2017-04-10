@@ -13,6 +13,9 @@
 
 - (void)onChatFile:(YHFileModel *)chatFile inLeftCell:(CellChatFileLeft *)leftCell;
 
+@optional
+- (void)retweetFile:(YHFileModel *)chatFile inLeftCell:(CellChatFileLeft *)leftCell;//转发文件
+
 @end
 
 @interface CellChatFileLeft : CellChatBase
