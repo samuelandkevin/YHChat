@@ -78,6 +78,8 @@
     [tableView registerClass:[CellChatTips class] forCellReuseIdentifier:NSStringFromClass([CellChatTips class])];
     [tableView registerClass:[CellChatFileLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatFileLeft class])];
     [tableView registerClass:[CellChatFileRight class] forCellReuseIdentifier:NSStringFromClass([CellChatFileRight class])];
+    [tableView registerClass:[CellChatGIFLeft class] forCellReuseIdentifier:NSStringFromClass([CellChatGIFLeft class])];
+    [tableView registerClass:[CellChatGIFRight class] forCellReuseIdentifier:NSStringFromClass([CellChatGIFRight class])];
 
 }
 
@@ -194,6 +196,22 @@
                     CellChatFileLeft *cell = (CellChatFileLeft *)sourceCell;
                     [cell setupModel:model];
                 } ];
+            }
+            
+        }else if (model.msgType == YHMessageType_GIF){
+            
+            if (model.direction == 0) {
+                height = [CellChatGIFRight hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatGIFRight *cell = (CellChatGIFRight *)sourceCell;
+                    [cell setupModel:model];
+                }];
+                
+            }else{
+                height = [CellChatGIFLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
+                    CellChatGIFLeft *cell = (CellChatGIFLeft *)sourceCell;
+                    [cell setupModel:model];
+                }];
+                
             }
             
         }else{

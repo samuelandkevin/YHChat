@@ -82,6 +82,8 @@
 		AC92467C1E6FD35F0032FD3D /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92467B1E6FD35F0032FD3D /* UIView+Extension.m */; };
 		ACCCFB9C1E8A484D006E1B0E /* YHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCCFB9B1E8A484D006E1B0E /* YHWebViewController.m */; };
 		ACCCFB9F1E8A4DD4006E1B0E /* YHFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ACCCFB9E1E8A4DD4006E1B0E /* YHFileModel.m */; };
+		ACD188FE1E9CD7A7006F6A42 /* CellChatGIFLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD188FB1E9CD7A7006F6A42 /* CellChatGIFLeft.m */; };
+		ACD188FF1E9CD7A7006F6A42 /* CellChatGIFRight.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD188FD1E9CD7A7006F6A42 /* CellChatGIFRight.m */; };
 		ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF8047C1E5D264800B27336 /* YHChatHelper.m */; };
 		ACF804841E5D3C9700B27336 /* CellChatImageLeft.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804831E5D3C9700B27336 /* CellChatImageLeft.m */; };
 		ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804861E5D3CC500B27336 /* CellChatImageRight.m */; };
@@ -246,6 +248,10 @@
 		ACCCFB9B1E8A484D006E1B0E /* YHWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHWebViewController.m; sourceTree = "<group>"; };
 		ACCCFB9D1E8A4DD4006E1B0E /* YHFileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHFileModel.h; sourceTree = "<group>"; };
 		ACCCFB9E1E8A4DD4006E1B0E /* YHFileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHFileModel.m; sourceTree = "<group>"; };
+		ACD188FA1E9CD7A7006F6A42 /* CellChatGIFLeft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatGIFLeft.h; sourceTree = "<group>"; };
+		ACD188FB1E9CD7A7006F6A42 /* CellChatGIFLeft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatGIFLeft.m; sourceTree = "<group>"; };
+		ACD188FC1E9CD7A7006F6A42 /* CellChatGIFRight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellChatGIFRight.h; sourceTree = "<group>"; };
+		ACD188FD1E9CD7A7006F6A42 /* CellChatGIFRight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellChatGIFRight.m; sourceTree = "<group>"; };
 		ACF804791E5D186200B27336 /* YHChatServiceDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatServiceDefs.h; sourceTree = "<group>"; };
 		ACF8047B1E5D264800B27336 /* YHChatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHChatHelper.h; sourceTree = "<group>"; };
 		ACF8047C1E5D264800B27336 /* YHChatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHChatHelper.m; sourceTree = "<group>"; };
@@ -380,6 +386,10 @@
 				AC6400461E8B42C1001DF0F2 /* CellChatFileLeft.m */,
 				AC6400481E8B42E3001DF0F2 /* CellChatFileRight.h */,
 				AC6400491E8B42E3001DF0F2 /* CellChatFileRight.m */,
+				ACD188FA1E9CD7A7006F6A42 /* CellChatGIFLeft.h */,
+				ACD188FB1E9CD7A7006F6A42 /* CellChatGIFLeft.m */,
+				ACD188FC1E9CD7A7006F6A42 /* CellChatGIFRight.h */,
+				ACD188FD1E9CD7A7006F6A42 /* CellChatGIFRight.m */,
 				AC30AA401E7A7EF300E0C9A6 /* CellChatTips.h */,
 				AC30AA411E7A7EF300E0C9A6 /* CellChatTips.m */,
 			);
@@ -855,6 +865,7 @@
 				AC83CCC31E82787A001871D8 /* NSDate+Extension.m in Sources */,
 				AC002DB61E63BBF100EE2851 /* YHEducationExperienceModel.m in Sources */,
 				AC92467C1E6FD35F0032FD3D /* UIView+Extension.m in Sources */,
+				ACD188FF1E9CD7A7006F6A42 /* CellChatGIFRight.m in Sources */,
 				AC9246631E6E91640032FD3D /* YHNavigationController.m in Sources */,
 				AC002DB51E63BBF100EE2851 /* YHChatModel.m in Sources */,
 				AC6400711E8BB976001DF0F2 /* MJFoundation.m in Sources */,
@@ -867,6 +878,7 @@
 				AC9246791E6ED7B20032FD3D /* YHProtocolConfig.m in Sources */,
 				AC002DDE1E641B1700EE2851 /* NetManager.m in Sources */,
 				AC002DB41E63BBF100EE2851 /* YHChatListModel.m in Sources */,
+				ACD188FE1E9CD7A7006F6A42 /* CellChatGIFLeft.m in Sources */,
 				AC9246561E6E8EFC0032FD3D /* amrFileCodec.mm in Sources */,
 				AC2A4B2A1E83CD6200B67A9E /* YHChatTextLayout.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,

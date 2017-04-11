@@ -89,7 +89,7 @@
     
     
     //消息类型  0是文本 1是图片 2是语音 3是文件 4是gif
-    NSArray *msgTypeArr = @[@(0),@(1),@(2),@(3)];
+    NSArray *msgTypeArr = @[@(0),@(1),@(2),@(3),@(4)];
     int nMsgTypeLength  = arc4random() % msgTypeArr.count;
     model.msgType = nMsgTypeLength;
 

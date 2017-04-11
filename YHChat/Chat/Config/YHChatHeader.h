@@ -20,5 +20,7 @@
 #import "CellChatTips.h"
 #import "CellChatFileLeft.h"
 #import "CellChatFileRight.h"
+#import "CellChatGIFLeft.h"
+#import "CellChatGIFRight.h"
 
 #endif /* YHChatHeader_h */

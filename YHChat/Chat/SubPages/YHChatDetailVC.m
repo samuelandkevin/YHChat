@@ -389,6 +389,18 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
                     return cell;
                 }
                 
+            }else if (model.msgType == YHMessageType_GIF){
+                
+                if (model.direction == 0) {
+                    CellChatGIFRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatGIFRight class])];
+                    [cell setupModel:model];
+                    return cell;
+                }else{
+                    CellChatGIFLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatGIFLeft class])];
+                    [cell setupModel:model];
+                    return cell;
+                }
+                
             }else{
                 if (model.direction == 0) {
                     CellChatTextRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatTextRight class])];
