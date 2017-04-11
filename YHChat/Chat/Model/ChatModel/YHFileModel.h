@@ -27,4 +27,5 @@ typedef NS_ENUM(int,FileStatus){
 @property (nonatomic,assign,readonly) NSNumber *fileType; //文件类型
 @property (nonatomic,assign) BOOL isSelected;
 @property (nonatomic,assign) FileStatus status;
+@property (nonatomic,assign) float downLoadProgress;//下载进度值 (0-1）
 @end

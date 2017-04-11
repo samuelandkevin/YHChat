@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger,YHMessageType){
     YHMessageType_Image,                 // 图片
     YHMessageType_Voice,                 // 短录音
     YHMessageType_Doc,                   // 文档
+    YHMessageType_GIF,                   // 动态图
     YHMessageType_Video,                 // 短视频
     YHMessageType_TextURL,               // 文本＋链接
     YHMessageType_ImageURL,              // 图片＋链接

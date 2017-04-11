@@ -56,7 +56,8 @@
         menu.menuItems = menuItems;
         
         [menu setTargetRect:self.bounds inView:self];
-        //    [menu setTargetRect:self.frame inView:self.superview];
+        DDLog(@"%@",NSStringFromCGRect(self.bounds));
+//            [menu setTargetRect:self.frame inView:self.superview];
         [menu setMenuVisible:YES animated:YES];
         
        

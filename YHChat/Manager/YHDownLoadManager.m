@@ -96,6 +96,7 @@
 //下载办公文件（pdf,word,ppt,xls）
 - (void)downOfficeFileWithModel:(YHFileModel *)model complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress{
     
+
     NSString *requestUrl = model.filePathInServer;
     if (!requestUrl) {
         complete(NO,@"download url is nil");
@@ -167,8 +168,8 @@
 
     
     if (!saveInDir) {
-        complete(NO,@"please choose dir to downLoad file");
         progress(0,0);
+        complete(NO,@"please choose dir to downLoad file");
         return;
     }
     
@@ -228,6 +229,7 @@
 
     } progress:^(NSProgress *downloadProgress) {
         if (model.progress) {
+            DDLog(@"任务：%@,进度：%lld--%lld",[model.filePath lastPathComponent],downloadProgress.completedUnitCount,downloadProgress.totalUnitCount);
              model.progress(downloadProgress.completedUnitCount,downloadProgress.totalUnitCount);
         }
        

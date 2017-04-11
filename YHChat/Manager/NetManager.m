@@ -623,8 +623,8 @@ static NSMutableArray *sg_requestTasks;
     NSFileManager *fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:cacheFilePath]) {
         DDLog(@"打开缓存文件:\n%@",cacheFilePath);
-        complete(YES,cacheFilePath);
         progress([NSProgress new]);
+        complete(YES,cacheFilePath);
         return;
     }
     
