@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "YHChatServiceDefs.h"
-#import "FLAnimatedImage.h"
 
 @interface YHGIFModel : NSObject
 
@@ -19,5 +18,5 @@
 @property (nonatomic,assign) CGFloat width;
 @property (nonatomic,assign) CGFloat height;
 @property (nonatomic,assign) FileStatus status;
-@property (nonatomic,strong) FLAnimatedImage * animatedImage;
+@property (nonatomic,strong) NSData *animatedImageData;
 @end

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 @class YHFileModel;
-@class FLAnimatedImage;
 //#import "YHSqliteManager.h"
 
 @interface YHDownLoadManager : NSObject
@@ -27,5 +26,5 @@
 - (void)downOfficeFileWithModel:(YHFileModel *)model complete:(void (^)(BOOL success,id obj))complete progress:(void(^)(int64_t bytesWritten, int64_t totalBytesWritten))progress;
 
 //下载GIF图
-- (void)downLoadAnimatedImageWithURL:(NSURL *const)url completion:(void (^)(FLAnimatedImage *animatedImage))completion;
+- (void)downLoadAnimatedImageWithURL:(NSURL *const)url completion:(void (^)(NSData *animatedImageData))completion;
 @end

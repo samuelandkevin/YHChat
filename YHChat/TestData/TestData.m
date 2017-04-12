@@ -260,8 +260,7 @@
         
         if (exist) {
             NSData *animatedImageData = [[NSFileManager defaultManager] contentsAtPath:gifModel.filePathInLocal];
-            FLAnimatedImage *animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:animatedImageData];
-            gifModel.animatedImage = animatedImage;
+            gifModel.animatedImageData = animatedImageData;
         }
        
         

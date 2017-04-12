@@ -13,14 +13,11 @@
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
 #import "YHDownLoadManager.h"
-#import "FLAnimatedImageView.h"
-#import "FLAnimatedImage.h"
 
 @interface CellChatGIFLeft()
-@property (nonatomic,strong) FLAnimatedImageView *imgvContent;
+@property (nonatomic,strong) YYAnimatedImageView *imgvContent;
 @property (nonatomic,strong) NSLayoutConstraint *cstWidthConetent;
 @property (nonatomic,strong) NSLayoutConstraint *cstHeightConetent;
-
 @end
 
 @implementation CellChatGIFLeft
@@ -39,9 +36,10 @@
 
 - (void)setupUI{
     
-    _imgvContent = [FLAnimatedImageView new];
+    _imgvContent = [YYAnimatedImageView new];
 //    _imgvContent.isReceiver = NO;
     UIImage *oriImg = [UIImage imageNamed:@"chat_img_defaultPhoto"];
+    _imgvContent.image = oriImg;
     _imgvContent.userInteractionEnabled = YES;
     [_imgvContent addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureOnContent:)]];
     [self.contentView addSubview:_imgvContent];
@@ -107,12 +105,13 @@
         _cstHeightConetent.constant = gifModel.height;
         
         if (gifModel.status == FileStatus_HasDownLoaded) {
-            weakSelf.imgvContent.animatedImage = gifModel.animatedImage;
+            weakSelf.imgvContent.image = [YYImage imageWithData:gifModel.animatedImageData];
+            
         }else{
             NSURL *url = [NSURL URLWithString:self.model.gifModel.filePathInServer];
-            [[YHDownLoadManager sharedInstance] downLoadAnimatedImageWithURL:url completion:^(FLAnimatedImage *animatedImage) {
-                weakSelf.imgvContent.animatedImage = animatedImage;
-                weakSelf.model.gifModel.animatedImage = animatedImage;
+            [[YHDownLoadManager sharedInstance] downLoadAnimatedImageWithURL:url completion:^(NSData *animatedImageData) {
+                weakSelf.imgvContent.image = [YYImage imageWithData:animatedImageData];
+                weakSelf.model.gifModel.animatedImageData = animatedImageData;
             }];
         }
         
