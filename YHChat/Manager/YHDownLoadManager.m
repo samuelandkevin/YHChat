@@ -11,6 +11,7 @@
 #import "YHSqilteConfig.h"
 #import "SqliteManager.h"
 #import "YHFileTool.h"
+#import "FLAnimatedImage.h"
 
 #define kDownloadAudioMAXCount 3      //下载音频数量限制
 #define kDownloadOfficeFileMAXCount 3 //下载办公格式文件数量限制
@@ -159,6 +160,36 @@
     
 
 }
+
+//下载GIF图
+- (void)downLoadAnimatedImageWithURL:(NSURL *const)url completion:(void (^)(FLAnimatedImage *animatedImage))completion
+{
+    NSString *const filename = url.lastPathComponent;
+    NSString *const diskPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:filename];
+    
+    NSData * __block animatedImageData = [[NSFileManager defaultManager] contentsAtPath:diskPath];
+    FLAnimatedImage * __block animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:animatedImageData];
+    
+    if (animatedImage) {
+        if (completion) {
+            completion(animatedImage);
+        }
+    } else {
+        [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            animatedImageData = data;
+            animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:animatedImageData];
+            if (animatedImage) {
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(animatedImage);
+                    });
+                }
+                [data writeToFile:diskPath atomically:YES];
+            }
+        }] resume];
+    }
+}
+
 
 
 

@@ -12,9 +12,14 @@
 #import <Masonry/Masonry.h>
 #import <HYBMasonryAutoCellHeight/UITableViewCell+HYBMasonryAutoCellHeight.h>
 #import "YHChatModel.h"
+#import "YHDownLoadManager.h"
+#import "FLAnimatedImageView.h"
+#import "FLAnimatedImage.h"
 
 @interface CellChatGIFRight()
-@property (nonatomic,strong) YHChatImageView *imgvContent;
+@property (nonatomic,strong) FLAnimatedImageView *imgvContent;
+@property (nonatomic,strong) NSLayoutConstraint *cstWidthConetent;
+@property (nonatomic,strong) NSLayoutConstraint *cstHeightConetent;
 @end
 
 @implementation CellChatGIFRight
@@ -33,25 +38,25 @@
 
 - (void)setupUI{
     
-    _imgvContent = [YHChatImageView new];
-    _imgvContent.isReceiver = YES;
+    _imgvContent = [FLAnimatedImageView new];
+//    _imgvContent.isReceiver = YES;
     UIImage *oriImg = [UIImage imageNamed:@"chat_img_defaultPhoto"];
     _imgvContent.userInteractionEnabled = YES;
     [_imgvContent addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureOnContent:)]];
     [self.contentView addSubview:_imgvContent];
     
     WeakSelf
-    _imgvContent.retweetImageBlock = ^(UIImage *image){
+//    _imgvContent.retweetImageBlock = ^(UIImage *image){
 //        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetImage:inRightCell:)]) {
 //            [weakSelf.delegate retweetImage:image inRightCell:weakSelf];
 //        }
-    };
-    
-    _imgvContent.withDrawImageBlock = ^(UIImage *image){
+//    };
+//    
+//    _imgvContent.withDrawImageBlock = ^(UIImage *image){
 //        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(withDrawImage:inRightCell:)]) {
 //            [weakSelf.delegate withDrawImage:image inRightCell:weakSelf];
 //        }
-    };
+//    };
     [self layoutUI];
 }
 
@@ -68,10 +73,13 @@
         make.left.equalTo(weakSelf.btnCheckBox.mas_right).offset(5);
     }];
     
+    _cstWidthConetent = [NSLayoutConstraint constraintWithItem:_imgvContent attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0];
+    [self.contentView addConstraint:_cstWidthConetent];
+    _cstHeightConetent = [NSLayoutConstraint constraintWithItem:_imgvContent attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0];
+    [self.contentView addConstraint:_cstHeightConetent];
     [_imgvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.lbName.mas_bottom).offset(5);
         make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
-        make.size.mas_equalTo(CGSizeMake(113, 113));
     }];
     
     self.hyb_lastViewInCell = _imgvContent;
@@ -105,25 +113,29 @@
     [self.imgvAvatar sd_setImageWithURL:self.model.speakerAvatar placeholderImage:[UIImage imageNamed:@"common_avatar_80px"]];
     
     //gif图片下载
+    WeakSelf
     if (self.model.msgContent && self.model.msgType == 4) {
-        NSURL *url = [self getImageUrl];
-//        [_imgvContent sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"chat_img_defaultPhoto"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//            
-//            //            [self updateImageCellHeightWith:image maxSize:CGSizeMake(200, 200)];
-//            
-//        }];
+        
+        YHGIFModel *gifModel = self.model.gifModel;
+        _cstWidthConetent.constant  = gifModel.width;
+        _cstHeightConetent.constant = gifModel.height;
+        
+        if (gifModel.status == FileStatus_HasDownLoaded) {
+            weakSelf.imgvContent.animatedImage = gifModel.animatedImage;
+        }else{
+            NSURL *url = [NSURL URLWithString:self.model.gifModel.filePathInServer];
+            [[YHDownLoadManager sharedInstance] downLoadAnimatedImageWithURL:url completion:^(FLAnimatedImage *animatedImage) {
+                weakSelf.imgvContent.animatedImage = animatedImage;
+                weakSelf.model.gifModel.animatedImage = animatedImage;
+            }];
+        }
+        
     }
 }
 
 
 #pragma mark - Private
-//获取消息内容图片
-- (NSURL *)getImageUrl{
-    NSString *picUrlStr = [self.model.msgContent stringByReplacingOccurrencesOfString:@"gif[" withString:@""];
-    picUrlStr = [picUrlStr stringByReplacingOccurrencesOfString:@"]" withString:@""];
-    NSURL *url = [NSURL URLWithString:picUrlStr];
-    return url;
-}
+
 
 #pragma mark - Gesture
 - (void)gestureOnContent:(UIGestureRecognizer *)aGes{

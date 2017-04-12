@@ -115,6 +115,10 @@ typedef NS_ENUM(NSUInteger,YHFileType){
     YHFileType_Txt
 };
 
-
+typedef NS_ENUM(int,FileStatus){
+    FileStatus_UnDownLoaded = 0,
+    FileStatus_isDownLoading,
+    FileStatus_HasDownLoaded
+};
 
 #endif /* YHChatServerDefs_h */

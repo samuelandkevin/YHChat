@@ -12,6 +12,7 @@
 #import "YHExpressionHelper.h"
 #import "YHFileModel.h"
 #import "YHSqilteConfig.h"
+#import "YHGIFModel.h"
 
 @implementation TestData
 
@@ -92,7 +93,7 @@
     NSArray *msgTypeArr = @[@(0),@(1),@(2),@(3),@(4)];
     int nMsgTypeLength  = arc4random() % msgTypeArr.count;
     model.msgType = nMsgTypeLength;
-
+//    model.msgType = 4;
     
     //消息内容为文本
     NSArray *textMsgArr = @[@"http://www.cocoachina.com @郭靖 @samuelandkevin https://github.com/samuelandkevin/YHChat",@"我家这个好忠犬啊～[喵喵]  https://github.com/samuelandkevin/YHChat/blob/master/README.md //@我是呆毛芳子蜀黍w:这是什么鬼？  http://t.cn/Ry4U5fQ //@清新可口喵酱圆脸星人是扭蛋狂魔:窝家这个 超委婉的拒绝了窝 http://t.cn/Ry4ylqt //@GloriAries:我家这位好高冷orz https://github.com/samuelandkevin/YHChat/blob/master/README.md //@-水蛋蛋-:我的是玩咖即视感  http://t.cn/RyUsS8Q ",@"你他妈😂😂😂😂😂😂",@"#为周杰伦正名# [拜拜]看不下去，什么叫我伦给国足添堵？！演唱会去就审批过的，票也早就开售了，何来我伦干扰国足比赛了？[微笑]国足赛场八月才临时改的场地，甩锅给我伦？这锅不接[微笑]抽奖，不用关注，转发就行，9.10号抽一个人送三盒日本带回来的 白色恋人@转发抽奖平台 [拜拜]",@"iPhone 6s官方宣传视频曝光，你们城里人真会玩，如果iphone 6s真的是这样那的确是碉堡了[嘻嘻]http://t.cn/RyU1m9J",@"别以为这是危言耸听，我身边就有一个坦白了自己刚刚经历过吃了毓婷还中奖的妹子[拜拜]这是最后的补救手段，并且不是万能的，事前做好该做的事情吧[拜拜]",@" 苹果小贴士：如果你用苹果的触控板，看到任何你不认识的字，可以轻易的三指点按－就可以看到解说（词典或维基百科）。在这个示范可以看出这个功能还相当智能，我点选的是英文字，但它不止帮我找到了答案，还选择了中文！在 iPhone 上要多指点按并不精确，这也可能就是 Force Touch 的切入点。",@"电子工业实习课上焊了个小电视，据说跟着抖动100下会boom～@哔哩哔哩智能姬 @哔哩哔哩弹幕网 http://t.cn/z8289ns"];
@@ -192,18 +193,79 @@
     }
     
     //消息内容为gif图片
-    NSArray *gifMsgArr = @[@"gif[http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=gif&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3577329746,3059761588&os=2759620526,269865412&simid=4248808378,801907487&pn=6&rn=1&di=158230209612&ln=1950&fr=&fmq=1491897151050_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fwww.365take.com%2Fupload%2Fimg%2F99CI1ocbw4Ww3hfPpivZNpvyLoIHtOcG-y00VX4CEVZFSZW9biQqZFeSOJrB9CT%2FNfWXCgWSnsBhW114zlJjUdp4%2FS2ZsA.jpg&rpstart=0&rpnum=0&adpicid=0]",
-    
-                           @"gif[http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=gif&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=1811128710,3446574107&os=1857804942,2088501333&simid=0,0&pn=10&rn=1&di=6995522712&ln=1950&fr=&fmq=1491897151050_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fwww.3gifs.com%2Fs%2F0%2F1d%2F01dzi.gif&rpstart=0&rpnum=0&adpicid=0]",
-    
-    
-                           @"gif[http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=gif&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2943360144,3793254884&os=3296886025,1678361187&simid=&pn=2&rn=1&di=1&ln=1950&fr=&fmq=1491897151050_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=&istype=0&ist=&jit=&bdtype=-1&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimg.xiazaizhijia.com%2Fuploads%2F2016%2F0712%2F20160712104957592.gif&rpstart=0&rpnum=0&adpicid=0]",
-    
-                           @"gif[http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=gif&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=1554161598,1192300413&os=1470044446,1662255615&simid=&pn=4&rn=1&di=1&ln=1950&fr=&fmq=1491897151050_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=&istype=0&ist=&jit=&bdtype=-1&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201311%2F18%2F20131118201009_nFLNJ.gif&rpstart=0&rpnum=0&adpicid=0]"];
+    NSArray *gifMsgArr = @[@"gif[https://cloud.githubusercontent.com/assets/1567433/10417835/1c97e436-7052-11e5-8fb5-69373072a5a0.gif][400_400]",
+                           @"gif[http://file.digitaling.com/eImg/uimages/20150818/1439870605450533.gif][285_215]",
+                           @"gif[http://file.digitaling.com/eImg/uimages/20150818/1439870634211967.gif][500_313]",
+                           @"gif[http://file.digitaling.com/eImg/uimages/20150818/1439870647789105.gif][370_290]",
+                           @"gif[http://file.digitaling.com/eImg/uimages/20150818/1439870662946951.gif][325_173]",
+                           @"gif[http://file.digitaling.com/eImg/uimages/20150818/1439870587358907.gif][400_158]",
+                           @"gif[http://file.digitaling.com/eImg/uimages/20150818/1439870563878858.gif][500_281]"];
     int giflength = arc4random() % gifMsgArr.count;
     if (model.msgType == 4) {
         NSString *gifUrlStr = gifMsgArr[giflength];
         model.msgContent = gifUrlStr;
+        
+        YHGIFModel *gifModel = [YHGIFModel new];
+        NSString *fileMsg = [gifUrlStr stringByReplacingOccurrencesOfString:@"gif[" withString:@""];
+        NSUInteger urlLocationEnd   = [fileMsg rangeOfString:@"]"].location;
+        NSUInteger urlLength = urlLocationEnd;
+        NSString *urlStr;
+        NSString *ext;
+        if (urlLocationEnd != NSNotFound && urlLength > 0) {
+            urlStr = [fileMsg substringWithRange:NSMakeRange(0, urlLength)];
+            ext = urlStr.pathExtension;
+            
+        }
+        NSString *fileSize;
+        fileSize = [fileMsg stringByReplacingOccurrencesOfString:urlStr withString:@""];
+        fileSize = [fileSize substringFromIndex:2];
+        fileSize = [fileSize substringWithRange:NSMakeRange(0, fileSize.length-1)];
+        NSUInteger loactionSeparator = [fileSize rangeOfString:@"_"].location;
+        if (loactionSeparator != NSNotFound && fileSize) {
+            CGFloat width = [[fileSize substringToIndex:loactionSeparator] floatValue];
+            CGFloat height = [[fileSize substringFromIndex:loactionSeparator+1] floatValue];
+            
+            //图片宽高处理
+            CGFloat maxWidth  = SCREEN_WIDTH - 2*45 - 50;
+            CGFloat maxHeigth = 120;
+            CGFloat compressWidth;
+            CGFloat compressHeight;
+            BOOL widthIsLonger = width > height ? YES: NO;
+            if ((width > maxWidth) || (height > maxHeigth)) {
+                if (widthIsLonger) {
+                    compressWidth = maxWidth*0.9;
+                    if (height>maxHeigth) {
+                        compressHeight = height/width *compressWidth;
+                    }else{
+                        compressHeight = height;
+                    }
+                }else{
+                    compressHeight = maxHeigth;
+                    compressWidth  = width/height * compressHeight;
+                }
+                
+            }
+            
+            gifModel.width  = compressWidth;
+            gifModel.height = compressHeight;
+        }
+        gifModel.filePathInServer = urlStr;
+        
+        NSString *fileName = [urlStr lastPathComponent];
+        gifModel.fileName  = fileName;
+        NSString *filePathInLocal = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:fileName];
+        BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePathInLocal];
+        gifModel.status = exist ? FileStatus_HasDownLoaded:FileStatus_UnDownLoaded;
+        gifModel.filePathInLocal = exist?filePathInLocal:nil;
+        
+        if (exist) {
+            NSData *animatedImageData = [[NSFileManager defaultManager] contentsAtPath:gifModel.filePathInLocal];
+            FLAnimatedImage *animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:animatedImageData];
+            gifModel.animatedImage = animatedImage;
+        }
+       
+        
+        model.gifModel = gifModel;
     }
     
     

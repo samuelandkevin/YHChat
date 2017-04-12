@@ -11,6 +11,7 @@
 #import "YHChatServiceDefs.h"
 #import "YHChatTextLayout.h"
 #import "YHFileModel.h"
+#import "YHGIFModel.h"
 
 #pragma mark - 聊天记录Model
 @interface YHChatModel : NSObject
@@ -45,6 +46,7 @@
 @property (nonatomic,assign) BOOL showCheckBox;//显示勾选框
 @property (nonatomic,strong) YHChatTextLayout *layout;
 @property (nonatomic,strong) YHFileModel *fileModel;
+@property (nonatomic,strong) YHGIFModel  *gifModel;
 @end
 
 #pragma mark - 聊天的音频文件

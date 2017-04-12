@@ -8,12 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "YHChatServiceDefs.h"
 
-typedef NS_ENUM(int,FileStatus){
-    FileStatus_UnDownLoaded = 0,
-    FileStatus_isDownLoading,
-    FileStatus_HasDownLoaded
-};
+
 
 @interface YHFileModel : NSObject
 

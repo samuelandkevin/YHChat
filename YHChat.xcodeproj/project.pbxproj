@@ -42,6 +42,10 @@
 		AC4446F21E569A5600685571 /* YHChatListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4446F11E569A5600685571 /* YHChatListVC.m */; };
 		AC4725BC1E67B8C900C34684 /* YHAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4725BB1E67B8C900C34684 /* YHAudioPlayer.m */; };
 		AC4725BF1E67BC3800C34684 /* YHAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4725BE1E67BC3800C34684 /* YHAudioRecorder.m */; };
+		AC5518031E9DB1FA003CBD1C /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5517FF1E9DB1FA003CBD1C /* FLAnimatedImage.m */; };
+		AC5518041E9DB1FA003CBD1C /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5518011E9DB1FA003CBD1C /* FLAnimatedImageView.m */; };
+		AC5518051E9DB1FA003CBD1C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC5518021E9DB1FA003CBD1C /* Info.plist */; };
+		AC5518081E9DC488003CBD1C /* YHGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5518071E9DC488003CBD1C /* YHGIFModel.m */; };
 		AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8421E5AEE7F00AF48B5 /* YHModel.m */; };
 		AC61F84C1E5AEE7F00AF48B5 /* YHExpressionAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8441E5AEE7F00AF48B5 /* YHExpressionAddView.m */; };
 		AC61F84D1E5AEE7F00AF48B5 /* YHExpressionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8461E5AEE7F00AF48B5 /* YHExpressionHelper.m */; };
@@ -164,6 +168,13 @@
 		AC4725BB1E67B8C900C34684 /* YHAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHAudioPlayer.m; sourceTree = "<group>"; };
 		AC4725BD1E67BC3800C34684 /* YHAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHAudioRecorder.h; sourceTree = "<group>"; };
 		AC4725BE1E67BC3800C34684 /* YHAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHAudioRecorder.m; sourceTree = "<group>"; };
+		AC5517FE1E9DB1FA003CBD1C /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
+		AC5517FF1E9DB1FA003CBD1C /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
+		AC5518001E9DB1FA003CBD1C /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		AC5518011E9DB1FA003CBD1C /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
+		AC5518021E9DB1FA003CBD1C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC5518061E9DC488003CBD1C /* YHGIFModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHGIFModel.h; sourceTree = "<group>"; };
+		AC5518071E9DC488003CBD1C /* YHGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHGIFModel.m; sourceTree = "<group>"; };
 		AC61F8411E5AEE7F00AF48B5 /* YHModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHModel.h; sourceTree = "<group>"; };
 		AC61F8421E5AEE7F00AF48B5 /* YHModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHModel.m; sourceTree = "<group>"; };
 		AC61F8431E5AEE7F00AF48B5 /* YHExpressionAddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHExpressionAddView.h; sourceTree = "<group>"; };
@@ -309,6 +320,8 @@
 				AC002DAA1E63BBF100EE2851 /* YHChatModel.m */,
 				ACCCFB9D1E8A4DD4006E1B0E /* YHFileModel.h */,
 				ACCCFB9E1E8A4DD4006E1B0E /* YHFileModel.m */,
+				AC5518061E9DC488003CBD1C /* YHGIFModel.h */,
+				AC5518071E9DC488003CBD1C /* YHGIFModel.m */,
 			);
 			path = ChatModel;
 			sourceTree = "<group>";
@@ -528,6 +541,18 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		AC5517FD1E9DB1FA003CBD1C /* FLAnimatedImage */ = {
+			isa = PBXGroup;
+			children = (
+				AC5517FE1E9DB1FA003CBD1C /* FLAnimatedImage.h */,
+				AC5517FF1E9DB1FA003CBD1C /* FLAnimatedImage.m */,
+				AC5518001E9DB1FA003CBD1C /* FLAnimatedImageView.h */,
+				AC5518011E9DB1FA003CBD1C /* FLAnimatedImageView.m */,
+				AC5518021E9DB1FA003CBD1C /* Info.plist */,
+			);
+			path = FLAnimatedImage;
+			sourceTree = "<group>";
+		};
 		AC61F83F1E5AEE7F00AF48B5 /* ExpressionKeyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,6 +635,7 @@
 		AC9246461E6E8EFC0032FD3D /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				AC5517FD1E9DB1FA003CBD1C /* FLAnimatedImage */,
 				AC6400581E8BB976001DF0F2 /* MJExtension */,
 				AC9246471E6E8EFC0032FD3D /* VoiceConvert */,
 			);
@@ -781,6 +807,7 @@
 				AC64006F1E8BB976001DF0F2 /* Info.plist in Resources */,
 				AC4446C91E568E5D00685571 /* LaunchScreen.storyboard in Resources */,
 				AC4446C61E568E5D00685571 /* Assets.xcassets in Resources */,
+				AC5518051E9DB1FA003CBD1C /* Info.plist in Resources */,
 				AC4446DE1E5699A200685571 /* ExpressionKeyboard.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -903,6 +930,7 @@
 				AC9246691E6ED4970032FD3D /* YHUploadManager.m in Sources */,
 				ACF8DAE11E8A0B8400C6AB62 /* YHDocumentVC.m in Sources */,
 				AC6400571E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m in Sources */,
+				AC5518041E9DB1FA003CBD1C /* FLAnimatedImageView.m in Sources */,
 				ACCCFB9C1E8A484D006E1B0E /* YHWebViewController.m in Sources */,
 				AC6400751E8BB976001DF0F2 /* NSObject+MJClass.m in Sources */,
 				AC6314FE1E6D7A8E0030BD40 /* YHActionSheet.m in Sources */,
@@ -912,6 +940,8 @@
 				AC2967C71E5BE0A5000856F8 /* CellChatTextLeft.m in Sources */,
 				AC0CD3501E88EF4A00BB876C /* YHChatImageView.m in Sources */,
 				AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */,
+				AC5518081E9DC488003CBD1C /* YHGIFModel.m in Sources */,
+				AC5518031E9DB1FA003CBD1C /* FLAnimatedImage.m in Sources */,
 				AC30AA421E7A7EF300E0C9A6 /* CellChatTips.m in Sources */,
 				ACF8047D1E5D264800B27336 /* YHChatHelper.m in Sources */,
 				AC6400741E8BB976001DF0F2 /* MJPropertyType.m in Sources */,
