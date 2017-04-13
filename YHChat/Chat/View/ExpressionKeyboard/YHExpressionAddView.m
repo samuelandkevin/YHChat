@@ -161,7 +161,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     YHExtraModel *model = [self _modelForIndexPath:indexPath];
     if (model && _delegate && [_delegate respondsToSelector:@selector(extraItemDidTap:)]) {
-        NSLog(@"%@",model.name);
+        DDLog(@"%@",model.name);
         [_delegate extraItemDidTap:model];
     }
 }

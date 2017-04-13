@@ -20,6 +20,14 @@
 			<key>icon_sel</key>
 			<string>chatBar_colorMore_videoSelected</string>
 		</dict>
+		<dict>
+			<key>name</key>
+			<string>拍摄</string>
+			<key>icon_nor</key>
+			<string>chatBar_colorMore_videoCall</string>
+			<key>icon_sel</key>
+			<string>chatBar_colorMore_videoCallSelected</string>
+		</dict>
 	</array>
 </dict>
 </plist>

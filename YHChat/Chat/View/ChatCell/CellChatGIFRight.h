@@ -10,4 +10,6 @@
 
 @interface CellChatGIFRight : CellChatBase
 
+- (void)startAnimating;
+- (void)stopAnimating;
 @end

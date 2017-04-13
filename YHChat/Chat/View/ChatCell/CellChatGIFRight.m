@@ -43,6 +43,7 @@
     _imgvContent.image = oriImg;
     [_imgvContent addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureOnContent:)]];
     [self.contentView addSubview:_imgvContent];
+    _imgvContent.autoPlayAnimatedImage = NO;
     
 //    WeakSelf
 //    _imgvContent.retweetImageBlock = ^(UIImage *image){
@@ -60,17 +61,18 @@
 }
 
 - (void)layoutUI{
-    __weak typeof(self) weakSelf = self;
+
+    WeakSelf
     [self layoutCommonUI];
     
-    
     [self.lbName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
+        make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-10);
     }];
     
     [self.imgvAvatar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.btnCheckBox.mas_right).offset(5);
+        make.right.equalTo(weakSelf.contentView).offset(-5);
     }];
+    
     
     _cstWidthConetent = [NSLayoutConstraint constraintWithItem:_imgvContent attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0];
     [self.contentView addConstraint:_cstWidthConetent];
@@ -78,11 +80,23 @@
     [self.contentView addConstraint:_cstHeightConetent];
     [_imgvContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.lbName.mas_bottom).offset(5);
-        make.left.equalTo(weakSelf.imgvAvatar.mas_right).offset(10);
+        make.right.equalTo(weakSelf.imgvAvatar.mas_left).offset(-5);
+    }];
+    
+    [self.activityV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.imgvContent.mas_centerY);
+        make.right.equalTo(weakSelf.imgvContent.mas_left).offset(-5);
+        make.width.height.mas_equalTo(20);
+    }];
+    
+    [self.imgvSendMsgFail mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.imgvContent.mas_centerY);
+        make.right.equalTo(weakSelf.imgvContent.mas_left).offset(-5);
+        make.width.height.mas_equalTo(20);
     }];
     
     self.hyb_lastViewInCell = _imgvContent;
-    self.hyb_bottomOffsetToCell = 10;
+    self.hyb_bottomOffsetToCell = 5;
 }
 
 #pragma mark - Super
@@ -118,7 +132,6 @@
         YHGIFModel *gifModel = self.model.gifModel;
         _cstWidthConetent.constant  = gifModel.width;
         _cstHeightConetent.constant = gifModel.height;
-        
         if (gifModel.status == FileStatus_HasDownLoaded) {
             weakSelf.imgvContent.image = [YYImage imageWithData:gifModel.animatedImageData];
         }else{
@@ -132,6 +145,15 @@
     }
 }
 
+
+#pragma mark - Public
+- (void)startAnimating{
+    [self.imgvContent startAnimating];
+}
+
+- (void)stopAnimating{
+    [self.imgvContent stopAnimating];
+}
 
 #pragma mark - Private
 

@@ -43,7 +43,9 @@
     _imgvContent.userInteractionEnabled = YES;
     [_imgvContent addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureOnContent:)]];
     [self.contentView addSubview:_imgvContent];
-    WeakSelf
+    _imgvContent.autoPlayAnimatedImage = NO;
+    
+//    WeakSelf
 //    _imgvContent.retweetImageBlock = ^(UIImage *image){
 //        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(retweetImage:inLeftCell:)]) {
 //            [weakSelf.delegate retweetImage:image inLeftCell:weakSelf];
@@ -103,10 +105,8 @@
         YHGIFModel *gifModel = self.model.gifModel;
         _cstWidthConetent.constant  = gifModel.width;
         _cstHeightConetent.constant = gifModel.height;
-        
         if (gifModel.status == FileStatus_HasDownLoaded) {
             weakSelf.imgvContent.image = [YYImage imageWithData:gifModel.animatedImageData];
-            
         }else{
             NSURL *url = [NSURL URLWithString:self.model.gifModel.filePathInServer];
             [[YHDownLoadManager sharedInstance] downLoadAnimatedImageWithURL:url completion:^(NSData *animatedImageData) {
@@ -119,6 +119,14 @@
     
 }
 
+#pragma mark - Public
+- (void)startAnimating{
+    [self.imgvContent startAnimating];
+}
+
+- (void)stopAnimating{
+    [self.imgvContent stopAnimating];
+}
 
 #pragma mark - Private
 

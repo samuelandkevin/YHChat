@@ -22,4 +22,6 @@
 // 文件大小
 + (NSString *)filesize:(NSString *)path;
 + (CGFloat)fileSizeWithPath:(NSString *)path;
++ (BOOL)fileExistsAtPath:(NSString *)path;
++ (BOOL)removeFileAtPath:(NSString *)path;
 @end

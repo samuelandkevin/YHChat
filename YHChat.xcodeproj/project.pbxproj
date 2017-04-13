@@ -44,6 +44,7 @@
 		AC4725BF1E67BC3800C34684 /* YHAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4725BE1E67BC3800C34684 /* YHAudioRecorder.m */; };
 		AC5518081E9DC488003CBD1C /* YHGIFModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5518071E9DC488003CBD1C /* YHGIFModel.m */; };
 		AC55180B1E9E11C6003CBD1C /* YHVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC55180A1E9E11C6003CBD1C /* YHVideoManager.m */; };
+		AC5D7C221E9F4E9500840E90 /* YHShootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5D7C211E9F4E9500840E90 /* YHShootVC.m */; };
 		AC61F84B1E5AEE7F00AF48B5 /* YHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8421E5AEE7F00AF48B5 /* YHModel.m */; };
 		AC61F84C1E5AEE7F00AF48B5 /* YHExpressionAddView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8441E5AEE7F00AF48B5 /* YHExpressionAddView.m */; };
 		AC61F84D1E5AEE7F00AF48B5 /* YHExpressionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC61F8461E5AEE7F00AF48B5 /* YHExpressionHelper.m */; };
@@ -170,6 +171,8 @@
 		AC5518071E9DC488003CBD1C /* YHGIFModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHGIFModel.m; sourceTree = "<group>"; };
 		AC5518091E9E11C6003CBD1C /* YHVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHVideoManager.h; sourceTree = "<group>"; };
 		AC55180A1E9E11C6003CBD1C /* YHVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHVideoManager.m; sourceTree = "<group>"; };
+		AC5D7C201E9F4E9500840E90 /* YHShootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHShootVC.h; sourceTree = "<group>"; };
+		AC5D7C211E9F4E9500840E90 /* YHShootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHShootVC.m; sourceTree = "<group>"; };
 		AC61F8411E5AEE7F00AF48B5 /* YHModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHModel.h; sourceTree = "<group>"; };
 		AC61F8421E5AEE7F00AF48B5 /* YHModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHModel.m; sourceTree = "<group>"; };
 		AC61F8431E5AEE7F00AF48B5 /* YHExpressionAddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHExpressionAddView.h; sourceTree = "<group>"; };
@@ -493,6 +496,8 @@
 				AC4446DB1E56992C00685571 /* YHChatDetailVC.m */,
 				ACF8DADF1E8A0B8400C6AB62 /* YHDocumentVC.h */,
 				ACF8DAE01E8A0B8400C6AB62 /* YHDocumentVC.m */,
+				AC5D7C201E9F4E9500840E90 /* YHShootVC.h */,
+				AC5D7C211E9F4E9500840E90 /* YHShootVC.m */,
 			);
 			path = SubPages;
 			sourceTree = "<group>";
@@ -913,6 +918,7 @@
 				AC9246781E6ED7B20032FD3D /* TestData.m in Sources */,
 				AC9246691E6ED4970032FD3D /* YHUploadManager.m in Sources */,
 				ACF8DAE11E8A0B8400C6AB62 /* YHDocumentVC.m in Sources */,
+				AC5D7C221E9F4E9500840E90 /* YHShootVC.m in Sources */,
 				AC6400571E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m in Sources */,
 				ACCCFB9C1E8A484D006E1B0E /* YHWebViewController.m in Sources */,
 				AC6400751E8BB976001DF0F2 /* NSObject+MJClass.m in Sources */,

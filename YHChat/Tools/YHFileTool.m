@@ -149,4 +149,15 @@
     return [outputFileAttributes fileSize]/1024.0;
 }
 
++ (BOOL)fileExistsAtPath:(NSString *)path
+{
+    return [[NSFileManager defaultManager] fileExistsAtPath:path];
+}
+
+
++ (BOOL)removeFileAtPath:(NSString *)path
+{
+    return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
+
 @end

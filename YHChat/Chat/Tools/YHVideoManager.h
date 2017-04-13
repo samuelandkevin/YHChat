@@ -17,4 +17,6 @@ typedef void(^RecordingFinished)(NSString *path);
 - (void)setVideoPreviewLayer:(UIView *)videoLayerView;
 - (BOOL)canRecordViedo;
 - (void)stopRecordingVideo:(RecordingFinished)finished;
+
+- (void)exit;
 @end

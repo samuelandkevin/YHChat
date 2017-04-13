@@ -26,6 +26,7 @@
 #import "YHDocumentVC.h"
 #import "YHNavigationController.h"
 #import "YHWebViewController.h"
+#import "YHShootVC.h"
 
 @interface YHChatDetailVC ()<UITableViewDelegate,UITableViewDataSource,YHExpressionKeyboardDelegate,CellChatTextLeftDelegate,CellChatTextRightDelegate,CellChatVoiceLeftDelegate,CellChatVoiceRightDelegate,CellChatImageLeftDelegate,CellChatImageRightDelegate,CellChatBaseDelegate,
 CellChatFileLeftDelegate,CellChatFileRightDelegate>{
@@ -40,6 +41,7 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
 @property (nonatomic,strong) YHChatHelper *chatHelper;
 
 @property (nonatomic,assign) BOOL showCheckBox;
+
 @end
 
 @implementation YHChatDetailVC
@@ -47,7 +49,7 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+   
     self.navigationController.navigationBar.translucent = NO;
     
     //设置导航栏
@@ -446,6 +448,34 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
     
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+
+}
+
+
+// 松手时已经静止,只会调用scrollViewDidEndDragging
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (decelerate == NO) { // scrollView已经完全静止
+        [self _handleAnimatedImageView];
+    }
+}
+
+// 松手时还在运动, 先调用scrollViewDidEndDragging,在调用scrollViewDidEndDecelerating
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    // scrollView已经完全静止
+    [self _handleAnimatedImageView];
+}
+
+- (void)_handleAnimatedImageView{
+    for (UITableViewCell *visiableCell in self.tableView.visibleCells) {
+        if ([visiableCell isKindOfClass:[CellChatGIFLeft class]]) {
+             [(CellChatGIFLeft *)visiableCell startAnimating];
+        }else if ([visiableCell isKindOfClass:[CellChatGIFRight class]]){
+             [(CellChatGIFRight *)visiableCell startAnimating];
+        }
+    }
+}
+
 #pragma mark - Private
 - (NSString *)currentRecordFileName
 {
@@ -538,6 +568,10 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
             DDLog(@"准备发送文件。");
         }];
         [self.navigationController presentViewController:nav animated:YES completion:NULL];
+    }else if([itemName isEqualToString:@"拍摄"]){
+         DDLog(@"拍摄");
+        YHShootVC *vc = [[YHShootVC alloc] init];
+        [self.navigationController presentViewController:vc animated:YES completion:NULL];
     }
 }
 

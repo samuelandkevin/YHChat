@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 
-#define kVideoType @".mp4"        // video类型
+#define kVideoType @".mp4"            // video类型
 #define kChatVideoPath @"Chat/Video"  // video子路径
 
 @interface YHVideoManager()<AVCaptureFileOutputRecordingDelegate>
@@ -66,7 +66,7 @@
     preLayer.frame = videoLayerView.bounds;
     
     videoLayerView.layer.masksToBounds = YES;
-    [videoLayerView layoutIfNeeded];
+//    [videoLayerView layoutIfNeeded];
     [videoLayerView.layer addSublayer:preLayer];
     _preLayer = preLayer;
     [_session startRunning];
@@ -99,6 +99,12 @@
     if (isRemoveSucceed) {
         DDLog(@"remove succeed!");
     }
+}
+
+
+- (void)exit
+{
+    [_session stopRunning];
 }
 
 
@@ -196,6 +202,54 @@
 }
 
 
+// file size
+- (CGFloat)getFileSize:(NSString *)path
+{
+    NSDictionary *outputFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    CGFloat fileSize = [outputFileAttributes fileSize]/1024.0/1024.0;
+    DDLog(@"file size : %f",fileSize);
+    return fileSize;
+}
+
+
+// compress video
+- (NSString *)compressVideo:(NSString *)path finished:(RecordingFinished)finish
+{
+    NSURL *url = [NSURL fileURLWithPath:path];
+    // 获取文件资源
+    AVURLAsset *avAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
+    // 导出资源属性
+    NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
+    // 是否包含中分辨率，如果是低分辨率AVAssetExportPresetLowQuality则不清晰
+    if ([presets containsObject:AVAssetExportPresetMediumQuality]) {
+        // 重定义资源属性
+        
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
+        // 压缩后的文件路径
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-ddHH:mm:ss"];
+        NSString *videoName = [formatter stringFromDate:[NSDate date]];
+        NSString *outPutPath = [self videoPathWithFileName:videoName];
+        exportSession.outputURL = [NSURL fileURLWithPath:outPutPath];
+        exportSession.shouldOptimizeForNetworkUse = YES;// 是否对网络进行优化
+        exportSession.outputFileType = AVFileTypeMPEG4; // 转成MP4
+        // 导出
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self getFileSize:outPutPath];
+                    // 这里完成了压缩
+                    if (finish) finish(outPutPath);
+                    
+                });
+            }
+        }];
+        return outPutPath;
+    }
+    return nil;
+}
+
+
 #pragma mark - Getter
 
 - (AVCaptureSession *)session
@@ -213,5 +267,35 @@
     }
     return _captureMovieOutput;
 }
+
+#pragma mark - AVCaptureFileOutputRecordingDelegate
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
+{
+    
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
+{
+    if ([self getFileSize:[outputFileURL path]] == 0.0) {
+        return;
+    }
+    // 转换
+    NSURL *mp4Url = [self convertMp4:outputFileURL];
+    [self getFileSize:[mp4Url path]];
+    [self compressVideo:[mp4Url path] finished:^(NSString *path) {
+        if (path) {
+            _finished(path);
+        }
+        // 删除原录制的文件
+        if ([[NSFileManager defaultManager] fileExistsAtPath:outputFileURL.path]) {
+            [[NSFileManager defaultManager] removeItemAtPath:outputFileURL.path error:nil];
+        }
+    }];
+    // 直接转大小不会改变
+    //    [self getFileSize:filePath];
+    //    _finished([mp4Url path]);
+}
+
 
 @end
