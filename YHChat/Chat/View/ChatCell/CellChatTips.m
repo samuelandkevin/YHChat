@@ -66,10 +66,10 @@
     }];
     
     [_viewTimeBG mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.lbTime.mas_left).offset(-10);
-        make.top.equalTo(weakSelf.lbTime.mas_top).offset(-10);
-        make.right.equalTo(weakSelf.lbTime.mas_right).offset(10);
-        make.bottom.equalTo(weakSelf.lbTime.mas_bottom).offset(10);
+        make.left.equalTo(weakSelf.lbTime.mas_left).offset(-5);
+        make.top.equalTo(weakSelf.lbTime.mas_top).offset(-5);
+        make.right.equalTo(weakSelf.lbTime.mas_right).offset(5);
+        make.bottom.equalTo(weakSelf.lbTime.mas_bottom).offset(5);
         make.centerX.equalTo(weakSelf.contentView.mas_centerX);
         make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
     }];

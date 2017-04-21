@@ -8,6 +8,7 @@
 
 #import "YHShootVC.h"
 #import "YHVideoManager.h"
+#import "YHShootBtn.h"
 
 @interface YHShootVC ()
 
@@ -29,7 +30,7 @@
     effectView.frame = self.view.frame;
     [self.view addSubview:effectView];
     
-
+    //视频层
     [[YHVideoManager shareInstanced] setVideoPreviewLayer:self.view];
     
     //返回按钮
@@ -39,12 +40,14 @@
     [self.view addSubview:btnBack];
     
     
-    //白底圆
+    YHShootBtn *shootV = [[YHShootBtn alloc] init];
+    [self.view addSubview:shootV];
     
-    
-    //
-    
-    
+}
+
+#pragma mark - Action
+- (void)dealloc{
+    DDLog(@"%s is dealloc",__func__);
 }
 
 - (void)didReceiveMemoryWarning {

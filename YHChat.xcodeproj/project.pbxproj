@@ -67,6 +67,7 @@
 		AC6400771E8BB976001DF0F2 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64006A1E8BB976001DF0F2 /* NSObject+MJKeyValue.m */; };
 		AC6400781E8BB976001DF0F2 /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64006C1E8BB976001DF0F2 /* NSObject+MJProperty.m */; };
 		AC6400791E8BB976001DF0F2 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC64006E1E8BB976001DF0F2 /* NSString+MJExtension.m */; };
+		AC8289391EA60CC200332013 /* YHShootBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8289381EA60CC200332013 /* YHShootBtn.m */; };
 		AC83CCC31E82787A001871D8 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AC83CCC21E82787A001871D8 /* NSDate+Extension.m */; };
 		AC9246401E6E4E960032FD3D /* YHBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463A1E6E4E960032FD3D /* YHBrowserImageView.m */; };
 		AC9246411E6E4E960032FD3D /* YHPhotoBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC92463D1E6E4E960032FD3D /* YHPhotoBrowserView.m */; };
@@ -92,6 +93,7 @@
 		ACF804871E5D3CC500B27336 /* CellChatImageRight.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF804861E5D3CC500B27336 /* CellChatImageRight.m */; };
 		ACF8DAE11E8A0B8400C6AB62 /* YHDocumentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF8DAE01E8A0B8400C6AB62 /* YHDocumentVC.m */; };
 		ACF8DAE41E8A0F9700C6AB62 /* CellDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF8DAE31E8A0F9700C6AB62 /* CellDocument.m */; };
+		ACF95B3E1EA0708C00118BD3 /* UIView+DRCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF95B3D1EA0708C00118BD3 /* UIView+DRCorner.m */; };
 		BCF3E9AD1E59E3A400FA30A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF3E9AC1E59E3A400FA30A2 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -217,6 +219,8 @@
 		AC64006C1E8BB976001DF0F2 /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
 		AC64006D1E8BB976001DF0F2 /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		AC64006E1E8BB976001DF0F2 /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		AC8289371EA60CC200332013 /* YHShootBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHShootBtn.h; sourceTree = "<group>"; };
+		AC8289381EA60CC200332013 /* YHShootBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHShootBtn.m; sourceTree = "<group>"; };
 		AC83CCC11E82787A001871D8 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		AC83CCC21E82787A001871D8 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		AC9246391E6E4E960032FD3D /* YHBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBrowserImageView.h; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 		ACF8DAE01E8A0B8400C6AB62 /* YHDocumentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHDocumentVC.m; sourceTree = "<group>"; };
 		ACF8DAE21E8A0F9700C6AB62 /* CellDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDocument.h; sourceTree = "<group>"; };
 		ACF8DAE31E8A0F9700C6AB62 /* CellDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellDocument.m; sourceTree = "<group>"; };
+		ACF95B3C1EA0708C00118BD3 /* UIView+DRCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DRCorner.h"; sourceTree = "<group>"; };
+		ACF95B3D1EA0708C00118BD3 /* UIView+DRCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DRCorner.m"; sourceTree = "<group>"; };
 		BCF3E9AC1E59E3A400FA30A2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -527,6 +533,8 @@
 				AC0CD34F1E88EF4A00BB876C /* YHChatLabel.m */,
 				ACF8DAE21E8A0F9700C6AB62 /* CellDocument.h */,
 				ACF8DAE31E8A0F9700C6AB62 /* CellDocument.m */,
+				AC8289371EA60CC200332013 /* YHShootBtn.h */,
+				AC8289381EA60CC200332013 /* YHShootBtn.m */,
 				AC2967BF1E5BE0A5000856F8 /* ChatCell */,
 				AC61F83F1E5AEE7F00AF48B5 /* ExpressionKeyboard */,
 			);
@@ -681,6 +689,8 @@
 		AC92465A1E6E913A0032FD3D /* Catagory */ = {
 			isa = PBXGroup;
 			children = (
+				ACF95B3C1EA0708C00118BD3 /* UIView+DRCorner.h */,
+				ACF95B3D1EA0708C00118BD3 /* UIView+DRCorner.m */,
 				AC92467A1E6FD35F0032FD3D /* UIView+Extension.h */,
 				AC92467B1E6FD35F0032FD3D /* UIView+Extension.m */,
 				AC83CCC11E82787A001871D8 /* NSDate+Extension.h */,
@@ -896,6 +906,7 @@
 				AC002DB41E63BBF100EE2851 /* YHChatListModel.m in Sources */,
 				ACD188FE1E9CD7A7006F6A42 /* CellChatGIFLeft.m in Sources */,
 				AC9246561E6E8EFC0032FD3D /* amrFileCodec.mm in Sources */,
+				AC8289391EA60CC200332013 /* YHShootBtn.m in Sources */,
 				AC2A4B2A1E83CD6200B67A9E /* YHChatTextLayout.m in Sources */,
 				AC61F84E1E5AEE7F00AF48B5 /* YHExpressionInputView.m in Sources */,
 				AC9246451E6E84940032FD3D /* YHFileTool.m in Sources */,
@@ -919,6 +930,7 @@
 				AC9246691E6ED4970032FD3D /* YHUploadManager.m in Sources */,
 				ACF8DAE11E8A0B8400C6AB62 /* YHDocumentVC.m in Sources */,
 				AC5D7C221E9F4E9500840E90 /* YHShootVC.m in Sources */,
+				ACF95B3E1EA0708C00118BD3 /* UIView+DRCorner.m in Sources */,
 				AC6400571E8BB6E3001DF0F2 /* NSObject+YHDBRuntime.m in Sources */,
 				ACCCFB9C1E8A484D006E1B0E /* YHWebViewController.m in Sources */,
 				AC6400751E8BB976001DF0F2 /* NSObject+MJClass.m in Sources */,

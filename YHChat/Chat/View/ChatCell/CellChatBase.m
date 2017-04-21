@@ -8,8 +8,11 @@
 
 #import "CellChatBase.h"
 #import <Masonry/Masonry.h>
+#import "UIView+DRCorner.h"
+
 @interface CellChatBase()
 @property (nonatomic,assign) BOOL checkBoxisActivity;
+@property (nonatomic,assign) BOOL cornered;
 @end
 
 const float kAvatarWidth = 44.0f;//头像宽/高
@@ -28,6 +31,7 @@ const float kCheckBoxWidth = 30;//勾选框宽高
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = RGBCOLOR(239, 236, 236);
+    
     
     _viewTimeBG = [UIView new];
     _viewTimeBG.backgroundColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1.0];
@@ -82,10 +86,10 @@ const float kCheckBoxWidth = 30;//勾选框宽高
     }];
     
     [self.viewTimeBG mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.lbTime.mas_left).offset(-10);
-        make.top.equalTo(weakSelf.lbTime.mas_top).offset(-10);
-        make.right.equalTo(weakSelf.lbTime.mas_right).offset(10);
-        make.bottom.equalTo(weakSelf.lbTime.mas_bottom).offset(10);
+        make.left.equalTo(weakSelf.lbTime.mas_left).offset(-5);
+        make.top.equalTo(weakSelf.lbTime.mas_top).offset(-5);
+        make.right.equalTo(weakSelf.lbTime.mas_right).offset(5);
+        make.bottom.equalTo(weakSelf.lbTime.mas_bottom).offset(5);
         make.centerX.equalTo(weakSelf.contentView.mas_centerX);
         make.top.equalTo(weakSelf.contentView.mas_top).offset(5);
     }];
@@ -125,7 +129,9 @@ const float kCheckBoxWidth = 30;//勾选框宽高
 - (void)setupModel:(YHChatModel *)model{
     self.model = model;
    
-   
+    
+    
+    [_viewTimeBG dr_cornerWithRadius:10 backgroundColor: RGBCOLOR(239, 236, 236)];
     if (self.showCheckBox) {
         _checkBoxisActivity = YES;
         if (_checkBoxisActivity) {
