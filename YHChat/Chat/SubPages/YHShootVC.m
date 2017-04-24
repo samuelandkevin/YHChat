@@ -11,7 +11,7 @@
 #import "YHShootBtn.h"
 
 @interface YHShootVC ()
-
+@property (nonatomic,strong)YHShootBtn *viewShoot;
 @end
 
 @implementation YHShootVC
@@ -24,12 +24,7 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    //毛玻璃效果
-    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    effectView.frame = self.view.frame;
-    [self.view addSubview:effectView];
-    
+
     //视频层
     [[YHVideoManager shareInstanced] setVideoPreviewLayer:self.view];
     
@@ -40,8 +35,9 @@
     [self.view addSubview:btnBack];
     
     
-    YHShootBtn *shootV = [[YHShootBtn alloc] init];
-    [self.view addSubview:shootV];
+    _viewShoot  = [[YHShootBtn alloc] init];
+    _viewShoot.superView  = self.view;
+    [self.view addSubview:_viewShoot];
     
 }
 
@@ -59,6 +55,7 @@
 #pragma mark -  Action
 - (void)onBack:(id)sender{
     [[YHVideoManager shareInstanced] exit];
+    [_viewShoot cancelShooting];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 /*

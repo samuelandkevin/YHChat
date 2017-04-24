@@ -7,7 +7,8 @@
 //
 
 #import "YHShootBtn.h"
-
+#import "YHVideoManager.h"
+#import "YHAVPlayer.h"
 
 @interface YHShootBtn(){
     CGSize  _sizeBtnShoot; //拍照按钮的size
@@ -20,6 +21,9 @@
     CGFloat _lineWidthProgress;
     NSTimeInterval _maxTimeLength;
     float  _costTime;//耗时
+    NSDate *_startDate;
+    NSDate *_endDate;
+    
 }
 
 @property (nonatomic,strong) UIButton *btnShoot; //拍照
@@ -35,7 +39,10 @@
 @property (nonatomic,strong) UIBezierPath *scaleOutsidePath;//缩放状态下外圆path
 @property (nonatomic,strong) UIBezierPath *progressPath;//进度条Path
 @property (nonatomic,strong) NSTimer *timer;
-
+@property (nonatomic,copy)   NSString *videoName;
+@property (nonatomic,strong) YHAVPlayer *player;
+@property (nonatomic,copy)   void(^chooseBlock)(NSString *);
+@property (nonatomic,copy)   void(^stopBlock)(NSString *);
 @end
 
 @implementation YHShootBtn
@@ -82,9 +89,12 @@
     //取消
     _btnCancel = [[UIButton alloc] init];
     _btnCancel.hidden = YES;
+    [_btnCancel setTitle:@"取消" forState:UIControlStateNormal];
+    [_btnCancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _btnCancel.backgroundColor = [UIColor yellowColor];
     _btnCancel.frame  = CGRectMake(0, 0, _sizeBtnShoot.width, _sizeBtnShoot.height);
-    _btnCancel.center = self.center;
+    [_btnCancel addTarget:self action:@selector(onCancel:) forControlEvents:UIControlEventTouchUpInside];
+    _btnCancel.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     [self addSubview:_btnCancel];
     
     //选择
@@ -92,7 +102,10 @@
     _btnChoose.hidden = YES;
     _btnChoose.backgroundColor = [UIColor greenColor];
     _btnChoose.frame  = CGRectMake(0, 0, _sizeBtnShoot.width, _sizeBtnShoot.height);
-    _btnChoose.center = self.center;
+    [_btnChoose setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+     [_btnChoose setTitle:@"选择" forState:UIControlStateNormal];
+    _btnChoose.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    [_btnChoose addTarget:self action:@selector(onChoose:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_btnChoose];
     
     //外层圆
@@ -189,6 +202,22 @@
     return _progressPath;
 }
 
+#pragma mark - Public
+//选择视频
+- (void)chooseVideoHandler:(void(^)(NSString *path))complete{
+    _chooseBlock = complete;
+}
+
+//停止拍摄
+- (void)stopShootingHandler:(void(^)(NSString *path))complete{
+    _stopBlock = complete;
+}
+
+//取消拍摄
+- (void)cancelShooting{
+    [self _cancelShooting];
+}
+
 #pragma mark - Life
 - (void)dealloc{
     [_timer invalidate];
@@ -207,11 +236,47 @@
     
     if (aGesture.state == UIGestureRecognizerStateBegan) {
         [self setScaleAnimation];
+        [self startShooting];
     }
     else if (aGesture.state == UIGestureRecognizerStateEnded){
         [self setNormalAnimation];
+        [self stopShooting];
     }
 
+}
+
+//开始拍摄
+- (void)startShooting{
+     _startDate = [NSDate date];
+    DDLog(@"%@",_startDate);
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"YYYYMMddHHMMss";
+    _videoName = [formatter stringFromDate:_startDate];
+    [[YHVideoManager shareInstanced] startRecordingVideoWithFileName:_videoName];
+    
+}
+
+//取消拍摄
+- (void)_cancelShooting{
+    [[YHVideoManager shareInstanced] cancelRecordingVideoWithFileName:_videoName];
+    [self.player removeFromSuperview];
+    self.player = nil;
+}
+
+//停止拍摄
+- (void)stopShooting{
+    WeakSelf
+    [[YHVideoManager shareInstanced] stopRecordingVideo:^(NSString *path) {
+        if (weakSelf.stopBlock) {
+            weakSelf.stopBlock(path);
+        }
+        
+        weakSelf.player = [[YHAVPlayer alloc] initWithPlayerURL:[NSURL fileURLWithPath:path]];
+        weakSelf.player.playerLayer.frame = weakSelf.superView.frame;
+        [weakSelf.superView insertSubview:weakSelf.player atIndex:1];
+
+    }];
+   
 }
 
 //设置还原动画
@@ -242,13 +307,18 @@
     [_progressLayer removeFromSuperlayer];
     _progressLayer = nil;
     
-    //取消和选择按钮弹出
+    //取消和选择按钮弹出,拍摄按钮隐藏
     self.btnCancel.hidden = NO;
     self.btnChoose.hidden = NO;
     WeakSelf
     [UIView animateWithDuration:0.25 animations:^{
-        weakSelf.btnCancel.center = CGPointMake(_sizeBtnShoot.width+10, weakSelf.center.y);
-        weakSelf.btnChoose.center = CGPointMake(weakSelf.frame.size.width-(_sizeBtnShoot.width+10), weakSelf.center.y);
+        weakSelf.btnCancel.center = CGPointMake(_sizeBtnShoot.width+10, weakSelf.bounds.size.height/2);
+        weakSelf.btnChoose.center = CGPointMake(weakSelf.frame.size.width-(_sizeBtnShoot.width+10), weakSelf.bounds.size.height/2);
+       
+    } completion:^(BOOL finished) {
+        weakSelf.innerLayer.hidden   = YES;
+        weakSelf.outsideLayer.hidden = YES;
+        weakSelf.btnShoot.hidden     = YES;
     }];
     
 }
@@ -276,16 +346,32 @@
     //更新进度条
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
-//    //取消和选择按钮隐藏
-//    WeakSelf
-//    [UIView animateWithDuration:0.25 animations:^{
-//        weakSelf.btnCancel.center = weakSelf.center;
-//        weakSelf.btnChoose.center = weakSelf.center;
-//    }completion:^(BOOL finished) {
-//        weakSelf.btnCancel.hidden = YES;
-//        weakSelf.btnChoose.hidden = YES;
-//    }];
 
+}
+
+//取消
+- (void)onCancel:(UIButton *)sender{
+    //取消和选择按钮隐藏，显示拍照按钮
+    WeakSelf
+    [UIView animateWithDuration:0.25 animations:^{
+        weakSelf.btnCancel.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        weakSelf.btnChoose.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    }completion:^(BOOL finished) {
+        weakSelf.btnCancel.hidden = YES;
+        weakSelf.btnChoose.hidden = YES;
+        
+        weakSelf.innerLayer.hidden   = NO;
+        weakSelf.outsideLayer.hidden = NO;
+        weakSelf.btnShoot.hidden     = NO;
+        
+    }];
+    
+    [self _cancelShooting];
+}
+
+//选择
+- (void)onChoose:(UIButton *)sender{
+    
 }
 
 #pragma mark - NSTimer

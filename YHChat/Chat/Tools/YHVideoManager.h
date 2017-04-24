@@ -10,13 +10,18 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^RecordingFinished)(NSString *path);
+
 @interface YHVideoManager : NSObject
 
 + (instancetype)shareInstanced;
 
 - (void)setVideoPreviewLayer:(UIView *)videoLayerView;
 - (BOOL)canRecordViedo;
+- (void)startRecordingVideoWithFileName:(NSString *)videoName;
+- (void)cancelRecordingVideoWithFileName:(NSString *)videoName;
 - (void)stopRecordingVideo:(RecordingFinished)finished;
 
 - (void)exit;
+
+
 @end

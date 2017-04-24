@@ -83,6 +83,21 @@
     }
 }
 
+// begin recording
+- (void)startRecordingVideoWithFileName:(NSString *)videoName
+{
+    AVCaptureConnection *connection = [self.captureMovieOutput connectionWithMediaType:AVMediaTypeVideo];
+    // 预览图层和视频方向保持一致
+    connection.videoOrientation = [_preLayer connection].videoOrientation;
+    if (!connection) {
+        DDLog(@"capture connection wrong!");
+        return;
+    }
+    NSString *videoPath = [self videoPathWithFileName:videoName];
+    NSURL *urlPath = [NSURL fileURLWithPath:videoPath];
+    [_captureMovieOutput startRecordingToOutputFileURL:urlPath recordingDelegate:self];
+}
+
 - (void)stopRecordingVideo:(RecordingFinished)finished
 {
     _finished = finished;
@@ -224,7 +239,7 @@
     if ([presets containsObject:AVAssetExportPresetMediumQuality]) {
         // 重定义资源属性
         
-        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetHighestQuality];
         // 压缩后的文件路径
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-ddHH:mm:ss"];
