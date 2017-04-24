@@ -4,16 +4,14 @@
 老司机带你入门即时通讯，首先是带来一些福利。仿微信聊天界面YHChat</br>
 
 ### (1)静态效果:</br>
-<img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic1@2x.png?raw=true" width = "320" height = "568" alt="pic1"
-align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic2@2x.png?raw=true" width = "320" height = "568" alt="pic2"
-align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic3@2x.png?raw=true" width = "320" height = "568" alt="pic3" 
-align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic4@2x.png?raw=true" width = "320" height = "568" alt="pic4"
-align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic5@2x.png?raw=true" width = "320" height = "568" alt="pic5" 
-align=center /> <img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/pic6@2x.png?raw=true" width = "320" height = "568" alt="pic5" 
-align=center /></br>
+<img src="http://img.blog.csdn.net/20170327173831808?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic1"
+align=center /> <img src="http://img.blog.csdn.net/20170327173858856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic2"
+align=center /> <img src="http://img.blog.csdn.net/20170327173927146?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic3" 
+align=center /> <img src="http://img.blog.csdn.net/20170327174025600?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic4"
+align=center /> </br>
 </br>
 ### (2)动态效果:</br>
-<img src="https://github.com/samuelandkevin/YHChat/blob/master/pics/YHChat.gif?raw=true" width = "300" height = "568" alt="gif1" 
+<img src="http://img.blog.csdn.net/20170328093431152?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "300" height = "568" alt="gif1" 
 align=center /></br>
 #### 本项目中利用到的第三方框架：</br>
 - 项目富文本处理：YYKit</br>
