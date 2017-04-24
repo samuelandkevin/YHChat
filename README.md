@@ -6,7 +6,7 @@
 ### (1)静态效果:</br>
 <img src="http://img.blog.csdn.net/20170327173831808?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic1"
 align=center /> <img src="http://img.blog.csdn.net/20170327173858856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic2"
-align=center /> <img src="http://upload-images.jianshu.io/upload_images/806848-cc4941eaa2d05b52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "320" height = "568" alt="pic3" 
+align=center /> <img src="http://upload-images.jianshu.io/upload_images/806848-04df49e2bf93edf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" width = "320" height = "568" alt="pic3" 
 align=center /> <img src="http://img.blog.csdn.net/20170327174025600?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FtdWVsYW5ka2V2aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width = "320" height = "568" alt="pic4"
 align=center /> </br>
 </br>
