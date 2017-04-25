@@ -7,11 +7,12 @@
 //  拍摄
 
 #import "YHShootVC.h"
-#import "YHVideoManager.h"
-#import "YHShootBtn.h"
+#import "YHShootView.h"
 
 @interface YHShootVC ()
-@property (nonatomic,strong)YHShootBtn *viewShoot;
+
+@property (nonatomic,strong)YHShootView *shootView;
+
 @end
 
 @implementation YHShootVC
@@ -19,31 +20,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //导航栏
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.hidden = YES;
-    
     self.view.backgroundColor = [UIColor blackColor];
     
+    //拍摄View
+    WeakSelf
+    _shootView = [[YHShootView alloc] initWithFrame:self.view.bounds];
+    [_shootView onBackHandler:^{
+        [weakSelf dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    [_shootView chooseHandler:^(ShootType type, id obj) {
+        DDLog(@"选择的类型是%d,回调对象:%@",type,obj);
+    }];
+    [self.view addSubview:_shootView];
 
-    //视频层
-    [[YHVideoManager shareInstanced] setVideoPreviewLayer:self.view];
-    
-    //返回按钮
-    UIButton *btnBack = [[UIButton alloc] initWithFrame:CGRectMake(5, 30, 40, 40)];
-    [btnBack setImage:[UIImage imageNamed:@"common_leftArrow"] forState:UIControlStateNormal];
-    [btnBack addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnBack];
-    
-    
-    _viewShoot  = [[YHShootBtn alloc] init];
-    _viewShoot.superView  = self.view;
-    [self.view addSubview:_viewShoot];
-    
 }
 
-#pragma mark - Action
+#pragma mark - Life
 - (void)dealloc{
     DDLog(@"%s is dealloc",__func__);
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarHidden = YES;
+}
+
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,10 +65,9 @@
 
 #pragma mark -  Action
 - (void)onBack:(id)sender{
-    [[YHVideoManager shareInstanced] exit];
-    [_viewShoot cancelShooting];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
 /*
 #pragma mark - Navigation
 

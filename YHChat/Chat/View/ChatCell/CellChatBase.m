@@ -131,7 +131,7 @@ const float kCheckBoxWidth = 30;//勾选框宽高
    
     
     
-    [_viewTimeBG dr_cornerWithRadius:10 backgroundColor: RGBCOLOR(239, 236, 236)];
+//    [_viewTimeBG dr_cornerWithRadius:10 backgroundColor: RGBCOLOR(239, 236, 236)];
     if (self.showCheckBox) {
         _checkBoxisActivity = YES;
         if (_checkBoxisActivity) {
