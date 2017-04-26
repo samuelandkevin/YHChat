@@ -185,17 +185,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 
 - (void)exit
 {
+    [_session removeInput:_inputAudio];
+    [_session removeInput:_inputVideo];
+    [_session removeOutput:_captureMovieOutput];
+    [_session removeOutput:_captureStillImageOutput];
     [_session stopRunning];
 }
 
-- (void)resetCameraDevicePosition{
-    AVCaptureDevice *currentDevice = [_inputVideo device];
-    AVCaptureDevicePosition currentPosition = [currentDevice position];
-    if (currentPosition == AVCaptureDevicePositionBack) {
-        return;
-    }
-    [self _changeCameraDeviceToPosition:AVCaptureDevicePositionBack];
-}
 
 //切换摄像头方向
 - (void)changeCameraDevicePosition{
@@ -225,7 +221,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     
     //移除原有输入对象
     [self.session removeInput:_inputVideo];
-    
+ 
     //添加新的输入对象
     if ([self.session canAddInput:toChangeDeviceInput]) {
         [self.session addInput:toChangeDeviceInput];
@@ -238,33 +234,13 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     [self setFlashModeButtonStatus];
 }
 
-- (void)_changeCameraDeviceToPosition:(AVCaptureDevicePosition)position{
-    AVCaptureDevice *currentDevice = [_inputVideo device];
-    [self removeNotificationFromCaptureDevice:currentDevice];
-    AVCaptureDevice *toChangeDevice = [self getCameraDeviceWithPosition:position];
-    [self addNotificationToCaptureDevice:toChangeDevice];
-    //获得要调整的设备输入对象
-    AVCaptureDeviceInput *toChangeDeviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:toChangeDevice error:nil];
+//设置焦点
+- (void)setFoucsWithPoint:(CGPoint)point{
     
-    //改变会话的配置前一定要先开启配置，配置完成后提交配置改变
-    [self.session beginConfiguration]
-    ;
-    //移除原有输入对象
-    [self.session removeInput:_inputVideo];
-    
-    //添加新的输入对象
-    if ([self.session canAddInput:toChangeDeviceInput]) {
-        [self.session addInput:toChangeDeviceInput];
-        _inputVideo = toChangeDeviceInput;
-    }
-    
-    
-    //提交会话配置
-    [self.session commitConfiguration];
-    
-    [self setFlashModeButtonStatus];
+    //将UI坐标转化为摄像头坐标
+    CGPoint cameraPoint = [self.preLayer captureDevicePointOfInterestForPoint:point];
+    [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
 }
-
 
 #pragma mark - Private Method 录制视频
 
@@ -502,23 +478,7 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
     }];
 }
 
-/**
- *  添加点按手势，点按时聚焦
- */
--(void)addGenstureRecognizer{
-    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapScreen:)];
-//    [self.viewContainer addGestureRecognizer:tapGesture];
-}
 
-- (void)tapScreen:(UITapGestureRecognizer *)tapGesture{
-     CGPoint point = CGPointZero;
-//    CGPoint point  = [tapGesture locationInView:self.viewContainer];
-    //将UI坐标转化为摄像头坐标
-    CGPoint cameraPoint = CGPointZero;
-//    CGPoint cameraPoint= [self.captureVideoPreviewLayer captureDevicePointOfInterestForPoint:point];
-    [self setFocusCursorWithPoint:point];
-    [self focusWithMode:AVCaptureFocusModeAutoFocus exposureMode:AVCaptureExposureModeAutoExpose atPoint:cameraPoint];
-}
 
 /**
  *  设置闪光灯按钮状态
@@ -551,23 +511,6 @@ typedef void(^PropertyChangeBlock)(AVCaptureDevice *captureDevice);
 //        self.flashOnButton.hidden=YES;
 //        self.flashOffButton.hidden=YES;
     }
-}
-
-/**
- *  设置聚焦光标位置
- *
- *  @param point 光标位置
- */
--(void)setFocusCursorWithPoint:(CGPoint)point{
-//    self.focusCursor.center=point;
-//    self.focusCursor.transform=CGAffineTransformMakeScale(1.5, 1.5);
-//    self.focusCursor.alpha=1.0;
-    [UIView animateWithDuration:1.0 animations:^{
-//        self.focusCursor.transform=CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-//        self.focusCursor.alpha=0;
-        
-    }];
 }
 
 

@@ -13,6 +13,7 @@
 @property (nonatomic,strong) YHShootBotView *viewBot;//底部view
 @property (nonatomic,copy) void(^onBackBlock)();
 @property (nonatomic,copy) void(^chooseBlock)(ShootType type,id obj);
+@property (nonatomic,strong) UIImageView *imgvFocusCursor;//聚焦光标
 @end
 
 @implementation YHShootView
@@ -57,6 +58,8 @@
         }];
         [self addSubview:_viewBot];
         
+        UITapGestureRecognizer *tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gestureOnScreen:)];
+        [self addGestureRecognizer:tapGesture];
     }
     return self;
 }
@@ -77,6 +80,24 @@
     [[YHVideoHelper shareInstanced] changeCameraDevicePosition];
 }
 
+#pragma mark - Gesture
+//点击屏幕
+- (void)gestureOnScreen:(UIGestureRecognizer *)aGes{
+    CGPoint point = [aGes locationInView:self.superview];
+    [[YHVideoHelper shareInstanced] setFoucsWithPoint:point];
+}
+
+//设置聚焦光标位置
+-(void)_setFocusCursorWithPoint:(CGPoint)point{
+    self.imgvFocusCursor.center = point;
+    self.imgvFocusCursor.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    self.imgvFocusCursor.alpha = 1.0;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.imgvFocusCursor.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        self.imgvFocusCursor.alpha = 0;
+    }];
+}
 
 #pragma mark - Public Method
 - (void)onBackHandler:(void (^)())handler{

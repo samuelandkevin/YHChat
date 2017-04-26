@@ -26,5 +26,5 @@ typedef void(^PhotoFinished)(BOOL success,id obj);
 - (void)exit;//退出
 
 - (void)changeCameraDevicePosition;//切换摄像头方向
-
+- (void)setFoucsWithPoint:(CGPoint)point;//设置焦点
 @end
