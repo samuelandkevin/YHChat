@@ -220,6 +220,7 @@
                     CellChatTextRight *cell = (CellChatTextRight *)sourceCell;
                     [cell setupModel:model];
                 }];
+                
 
             }else{
                 height = [CellChatTextLeft hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {

@@ -54,8 +54,9 @@
     _lbContent.textAlignment = NSTextAlignmentLeft;
     _lbContent.numberOfLines = 0;
     _lbContent.font = [UIFont systemFontOfSize:(14+addFontSize)];
-//    _lbContent.ignoreCommonProperties = YES;
-//    _lbContent.displaysAsynchronously = YES;
+    _lbContent.ignoreCommonProperties = YES;
+    _lbContent.displaysAsynchronously = YES;
+
     
     WeakSelf
     _lbContent.retweetBlock = ^(NSString *text){
@@ -81,8 +82,7 @@
         }
         
     };
-    
-    
+
     [self layoutUI];
 }
 
@@ -131,6 +131,7 @@
     [super setupModel:model];
     
 //    _lbContent.attributedText = self.model.msgContent;
+    _lbContent.str        = model.msgContent;
     _lbContent.textLayout = model.layout.textLayout;
     self.lbName.text    = self.model.speakerName;
     self.lbTime.text    = self.model.createTime;

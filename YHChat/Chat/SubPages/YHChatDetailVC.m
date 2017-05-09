@@ -395,10 +395,14 @@ CellChatFileLeftDelegate,CellChatFileRightDelegate>{
                 
                 if (model.direction == 0) {
                     CellChatGIFRight *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatGIFRight class])];
+                    cell.baseDelegate = self;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                 }else{
                     CellChatGIFLeft *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatGIFLeft class])];
+                    cell.baseDelegate = self;
+                    cell.showCheckBox = _showCheckBox;
                     [cell setupModel:model];
                     return cell;
                 }

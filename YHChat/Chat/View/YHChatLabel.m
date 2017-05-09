@@ -34,6 +34,8 @@
     [self addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuDidHide) name:UIMenuControllerDidHideMenuNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuWillShow) name:UIMenuControllerWillShowMenuNotification object:nil];
 }
 
 
@@ -55,11 +57,14 @@
         }
         menu.menuItems = menuItems;
         
+        if (_showMenuItemBlock) {
+            _showMenuItemBlock();
+        }
         [menu setTargetRect:self.bounds inView:self];
         DDLog(@"%@",NSStringFromCGRect(self.bounds));
 //            [menu setTargetRect:self.frame inView:self.superview];
         [menu setMenuVisible:YES animated:YES];
-        
+
        
         self.backgroundColor = _isReceiver?kGrayColor: RGBCOLOR(230, 230, 230);
        
@@ -75,6 +80,10 @@
     [self finishChoosing];
 }
 
+- (void)menuWillShow{
+    DDLog(@"menuwillshow");
+}
+
 
 #pragma mark - UIMenuController相关
 
@@ -86,7 +95,7 @@
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (
-        ((action == @selector(customCopy:) || (action == @selector(retweet:)) || (action == @selector(withdraw:))) && self.text)
+        ((action == @selector(customCopy:) || (action == @selector(retweet:)) || (action == @selector(withdraw:))) && self.str )
         )
         return YES;
     
@@ -107,7 +116,7 @@
 - (void)customCopy:(UIMenuController *)menu
 {
     // 将label的文字存储到粘贴板
-    [UIPasteboard generalPasteboard].string = self.text;
+    [UIPasteboard generalPasteboard].string = self.str;
     [self finishChoosing];
 }
 
@@ -133,7 +142,7 @@
 - (void)paste:(UIMenuController *)menu
 {
     // 将粘贴板的文字赋值给label
-    self.text = [UIPasteboard generalPasteboard].string;
+    self.str = [UIPasteboard generalPasteboard].string;
     [self finishChoosing];
 }
 
