@@ -65,11 +65,11 @@
     
     //发言者头像
     NSArray *avtarArray = @[
-                            @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
-                            @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
-                            @"https://testapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
-                            @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
-                            @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
+                            @"http://csapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
+                            @"https://csapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
+                            @"https://csapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
+                            @"http://csapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
+                            @"https://csapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
     int avtarIndex = arc4random() % avtarArray.count;
     if ([model.speakerId isEqualToString:MYUID]) {
         model.speakerAvatar = MYAVTARURL;
@@ -117,23 +117,23 @@
     model.msgContent = qStr;
 
     //消息内容为图片
-    NSArray *imgMsgArr = @[@"img[https://testapp.gtax.cn/images/2016/08/25/2241c4b32b8445da87532d6044888f3d.jpg!t300x300.jpg]",
+    NSArray *imgMsgArr = @[@"img[https://csapp.gtax.cn/images/2016/08/25/2241c4b32b8445da87532d6044888f3d.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/0abd8670e96e4357961fab47ba3a1652.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/0abd8670e96e4357961fab47ba3a1652.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/5cd8aa1f1b1f4b2db25c51410f473e60.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/5cd8aa1f1b1f4b2db25c51410f473e60.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/5e8b978854ef4a028d284f6ddc7512e0.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/5e8b978854ef4a028d284f6ddc7512e0.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/03c58da45900428796fafcb3d77b6fad.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/03c58da45900428796fafcb3d77b6fad.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/dbee521788da494683ef336432028d48.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/dbee521788da494683ef336432028d48.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/4cd95742b6744114ac8fa41a72f83257.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/4cd95742b6744114ac8fa41a72f83257.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/4d49888355a941cab921c9f1ad118721.jpg!t300x300.jpg]",
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/4d49888355a941cab921c9f1ad118721.jpg!t300x300.jpg]",
                            
-                           @"img[https://testapp.gtax.cn/images/2016/08/25/ea6a22e8b4794b9ba63fd6ee587be4d1.jpg!t300x300.jpg]"];
+                           @"img[https://csapp.gtax.cn/images/2016/08/25/ea6a22e8b4794b9ba63fd6ee587be4d1.jpg!t300x300.jpg]"];
     int imglength = arc4random() % imgMsgArr.count;
     if (model.msgType == 1) {
         NSString *imgUrlStr = imgMsgArr[imglength];
@@ -157,11 +157,11 @@
     
     
     //消息内容为文件
-    NSArray *fileMsgArr = @[@"file(http://testapp.gtax.cn/images/2017/01/14/d95f7b8acf034f0bb00d7c19ac00a053.docx)[doc.docx]",
-                            @"file(http://testapp.gtax.cn/images/2017/01/22/8074214c25f044c48487efc8d491e467.pptx)[ppt.pptx]",
-                            @"file(http://testapp.gtax.cn/images/2017/01/22/e53cbb3f30fc4dc5a2004f05f33abecd.docx)[呼呼呼嘎嘎嘎.docx]",
-                            @"file(http://testapp.gtax.cn/images/2017/01/22/885b4d1dc46d46c09e23f97f8c1a21c6.xlsx)[exel.xlsx]",
-                            @"file(http://testapp.gtax.cn/images/2017/03/31/5773839b5ea043aaa4c7c20041ffa394.docx)[hhy.docx]"];
+    NSArray *fileMsgArr = @[@"file(http://csapp.gtax.cn/images/2017/01/14/d95f7b8acf034f0bb00d7c19ac00a053.docx)[doc.docx]",
+                            @"file(http://csapp.gtax.cn/images/2017/01/22/8074214c25f044c48487efc8d491e467.pptx)[ppt.pptx]",
+                            @"file(http://csapp.gtax.cn/images/2017/01/22/e53cbb3f30fc4dc5a2004f05f33abecd.docx)[呼呼呼嘎嘎嘎.docx]",
+                            @"file(http://csapp.gtax.cn/images/2017/01/22/885b4d1dc46d46c09e23f97f8c1a21c6.xlsx)[exel.xlsx]",
+                            @"file(http://csapp.gtax.cn/images/2017/03/31/5773839b5ea043aaa4c7c20041ffa394.docx)[hhy.docx]"];
     int filelength = arc4random() % fileMsgArr.count;
     if (model.msgType == 3) {
         NSString *fileStr = fileMsgArr[filelength];
@@ -338,11 +338,11 @@
     
     //群成员头像
     NSArray *avtarArray = @[
-                            @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
-                            @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
-                            @"https://testapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
-                            @"http://testapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
-                            @"https://testapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
+                            @"http://csapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
+                            @"https://csapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg",
+                            @"https://csapp.gtax.cn/images/2016/09/14/c6ab40b1bc0e4bf19e54107ee2299523.jpg!m90x90.jpg",
+                            @"http://csapp.gtax.cn/images/2016/11/14/8d4ee23d9f5243f98c79b9ce0c699bd9.png!m90x90.png",
+                            @"https://csapp.gtax.cn/images/2016/09/14/8cfa9bd12e6844eea0a2e940257e1186.jpg!m90x90.jpg"];
     
     //群名字
     if (model.isGroupChat) {
