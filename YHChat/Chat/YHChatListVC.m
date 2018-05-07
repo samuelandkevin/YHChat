@@ -13,7 +13,7 @@
 #import "UIImage+Extension.h"
 #import "TestData.h"
 
-@interface YHChatListVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface YHChatListVC ()<UITableViewDelegate,UITableViewDataSource,CellChatListDelegate>
 @property (nonatomic,strong) YHRefreshTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @end
@@ -58,6 +58,19 @@
     [self.tableView registerClass:[CellChatList class] forCellReuseIdentifier:NSStringFromClass([CellChatList class])];
 }
 
+#pragma mark - @protocol CellChatListDelegate
+//3DTouch
+- (void)touchOnCell:(CellChatList *)cell{
+    [YHChatTouch registerForPreviewInVC:self sourceView:cell model:cell.model];
+}
+
+- (void)onAvatarInCell:(CellChatList *)cell{
+    YHChatDetailVC *vc = [[YHChatDetailVC alloc] init];
+    vc.model = cell.model;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -70,7 +83,8 @@
 
     CellChatList *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CellChatList class])];
     if (indexPath.row < self.dataArray.count) {
-        cell.model = self.dataArray[indexPath.row];
+        cell.model         = self.dataArray[indexPath.row];
+        cell.touchDelegate = self;
     }
     return cell;
 }

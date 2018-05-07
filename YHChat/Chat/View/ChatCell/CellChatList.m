@@ -91,6 +91,9 @@
     _viewBotLine.backgroundColor = RGBCOLOR(222, 222, 222);
     [self.contentView addSubview:_viewBotLine];
     
+    UILongPressGestureRecognizer *longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self  action:@selector(onLongGes:)];
+    [self.contentView addGestureRecognizer:longGes];
+    
     [self layoutUI];
 }
 
@@ -139,9 +142,20 @@
 }
 
 #pragma mark - Gesture
+//长按手势触发3DTouch功能，信息回调给controller
+- (void)onLongGes:(UIGestureRecognizer *)ges{
+    if (ges.state == UIGestureRecognizerStateBegan) {
+        if(_touchDelegate && [_touchDelegate respondsToSelector:@selector(touchOnCell:)]){
+            [_touchDelegate touchOnCell:self];
+        }
+    }
+}
+
 - (void)onAvatarGesture:(UIGestureRecognizer *)aRec{
     if (aRec.state == UIGestureRecognizerStateEnded) {
-      
+        if(_touchDelegate && [_touchDelegate respondsToSelector:@selector(onAvatarInCell:)]){
+            [_touchDelegate onAvatarInCell:self];
+        }
     }
 }
 

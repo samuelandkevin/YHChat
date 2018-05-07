@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class YHChatListModel;
+@class CellChatList;
+
+@protocol CellChatListDelegate<NSObject>
+- (void)touchOnCell:(CellChatList *)cell;
+- (void)onAvatarInCell:(CellChatList *)cell;
+@end
+
 @interface CellChatList : UITableViewCell
 
 @property (nonatomic,strong) YHChatListModel *model;
+@property (nonatomic,weak) id <CellChatListDelegate> touchDelegate;
 @end
